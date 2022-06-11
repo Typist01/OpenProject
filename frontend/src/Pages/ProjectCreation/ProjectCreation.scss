@@ -29,17 +29,18 @@ body {
     font-size: 30px;
     margin-left: 10px;
   }
+
   
-  .container {
-    display: flex;
+  .tasks-container {
     align-items: center;
     justify-content: center;
   }
   
   .task-container {
+    margin:auto;
     background-color: #0d99ff;
     border-radius: 8px;
-    width: 80%;
+    width: 800px;
     height: 65px;
     display: flex;
     align-items: center;
@@ -51,11 +52,11 @@ body {
   }
   
   .task-container label {
-    font-size: 30px;
-    margin-right: 10px;
+    font-size: 22px;
+    margin-right: 8rem;
   }
   .task-container input {
-    font-size: 30px;
+    font-size: 22px;
     margin-left: 10px;
     border-radius: 8px;
     width: 60%;
@@ -67,7 +68,53 @@ body {
     -webkit-box-shadow: 0 0 3px #ccc;
     box-shadow: 0 0 50px #ccc;
   }
-  
-  button {
+
+  input:focus{
+    border:none;
+    outline:none;
   }
-  
+
+
+  #title {
+    border: none;
+    outline:none;
+    text-align: center;
+    min-width:100px;
+    max-width: 250px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+}
+.task-content {
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+}
+
+.flex-container{
+    display:flex;
+    align-items: center;
+    align-text:center;
+}
+
+.buttons{
+    width:600px;
+    height: 200px;
+    margin-left: 300px;
+}
+button{
+    width:150px;
+    height:50px;
+    background-color: black;
+    color:white;
+    border-radius: 8px;
+    cursor:pointer;
+    margin:5px;
+}
+
+#new-task-button{
+    margin-left: 50px;
+}

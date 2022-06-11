@@ -1,27 +1,26 @@
 import React, {useState, useEffect} from "react"
 import "./ProjectCreation.scss"
+// import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 
-export const Task = ({ key }: { key: number; }) =>{
-    // const [taskInput, setTaskInput] = useState("")
+export const Task = ({ key, secondKey }: { key: number, secondKey:number }) => {
+    const [taskInput, setTaskInput] = useState("")
 
-    // function handleTaskInput(e: React.SyntheticEvent<EventTarget>) {
-    //     // const val = e.target.value();
+    function handleTaskInput(e: React.FormEvent<HTMLInputElement>) {
+        const val = e.currentTarget.value;
+        const name = e.currentTarget.getAttribute("name");
+        setTaskInput(val);
+        console.log(val, name)
+    }
 
-
-
-    // }
-
-    return(
-
-            <div key={key} className="task-container">
+    return (
+        <div key={key} className="task-container">
             <label key={key} className="task">
-              Task
+                Task {secondKey + 1}
             </label>
-            <input key={key} className="task-input" type="text" />
-          </div>
+            <input key={key} className="task-input" type="text" value={taskInput} name={secondKey.toString()} onChange={handleTaskInput} />
+            </div>
 
     )
-
 } 
 
 
@@ -35,17 +34,19 @@ export const Task = ({ key }: { key: number; }) =>{
             <React.Fragment>
               <div className=" form">
                 <div className="header">
-                  <label className="label">Project Name</label>
-                  <input className="input" type="text" />
+                <div>
+                <span id="title" contentEditable="true">Untitled Project</span>
+            </div>
+                  {/* <label className="label">Project Name</label>
+                  <input className="input" type="text" /> */}
                 </div>
-                <div className="container">
-                  <div>
+                <div className="tasks-container">
                     {taskArray.map((_, i) => (
-                      <Task key={i} />
+                      <Task key={i} secondKey={i} />
                     ))}
-                  </div>
                 </div>
-        
+                <div flex-container>
+                <div className="buttons flex-container">
                 <button
                   className="button"
                   onClick={() => setTaskArray([...taskArray, ""])}
@@ -53,6 +54,12 @@ export const Task = ({ key }: { key: number; }) =>{
                   Add New Task
                 </button>
                 <button className="button">Save</button>
+
+                </div>
+
+                </div>
+
+
               </div>
             </React.Fragment>
           );
