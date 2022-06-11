@@ -1,21 +1,23 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.scss';
-import App from "./Pages/Home/Home";
+import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
+// import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
 import reportWebVitals from './reportWebVitals';
 
-render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
-          {/* <Route index element={<Home />} /> */}
+        <Route path="/">
+          <Route index element={<h1>hi from app</h1>} />
+            <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
         </Route>
       </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root') as HTMLElement
-);
+      </BrowserRouter>
+    </React.StrictMode>
+    );
 
 reportWebVitals();
