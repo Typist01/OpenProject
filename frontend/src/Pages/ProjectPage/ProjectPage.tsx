@@ -6,7 +6,13 @@ const ProjectPage = () => {
         return (
             <div className="task-box">
                 <h1>Task</h1>
+                <p className="task-description">Lorem ipsum dolor sit amet. Id dolor rerum ea internos tempora aut itaque nostrum ut iure aspernatur et fugit consectetur aspernatur.
+                </p>
+                <div>
+                    <button className="start-button">Button</button>
+                </div>
             </div>
+
         )
     }
 
@@ -18,11 +24,6 @@ const ProjectPage = () => {
                 <textarea id="aim-box" />
                 <TaskBox />
             </div>
-
-
-
-
-
         </React.Fragment>
 
     )

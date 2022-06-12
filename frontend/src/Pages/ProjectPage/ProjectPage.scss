@@ -22,13 +22,18 @@ html, body {
 
 .section{
     text-align: center;
+    align-items: center;
+    align-content: center;
 }
 
 #aim-box{
-    min-width:600px;
+    margin:0;
+    padding: 0;
+    width:600px;
     height:250px;
     resize: none;
     margin-top: 20px;
+    border-radius: 2px;
 }
 
 .shadow {
@@ -49,10 +54,44 @@ html, body {
     box-shadow: 0 0 25px #ccc;
 }
 
-.task-box{
-    min-width:600px;
-    height:50px;
-    resize: none;
-    margin-top: 20px;
-    background-color: white;
+
+.container{
+    display:flex;
+    align-items: center;
 }
+.task-box{
+    padding:0;
+    display:flex;
+    width:601.9px;
+    height:120px;
+    resize: none;
+    background-color: white;
+    color:black;
+    border-radius: 2px;
+    margin:auto;
+    text-align: left;
+    margin-top: 20px;
+
+}
+
+.task-box h1{
+    margin-top: 0;
+    margin-left:20px;
+    line-height: 120px;
+}
+
+.task-box p{
+    width:350px;
+    margin: 0;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.start-button{
+    line-height: 120px;
+    width:100px;
+    height:50px;
+    border-radius: 4px;
+
+}
+
