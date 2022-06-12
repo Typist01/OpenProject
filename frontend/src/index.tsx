@@ -5,6 +5,7 @@ import './index.scss';
 import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
 import Searchbar from './Pages/Searchbar/Searchbar';
 import reportWebVitals from './reportWebVitals';
+import ProjectPage from "./Pages/ProjectPage/ProjectPage"
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -15,6 +16,8 @@ root.render(
           <Route index element={<h1>hi from app</h1>} />
           <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
           <Route path="test" element={<Searchbar />} caseSensitive={false} />
+          <Route path="project" element={<ProjectPage />} caseSensitive={false} />
+
         </Route>
       </Routes>
       </BrowserRouter>
