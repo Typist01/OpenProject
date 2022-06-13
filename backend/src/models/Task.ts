@@ -2,6 +2,7 @@ import { Model, Optional, NonAttribute } from "sequelize";
 
 type TaskAttributes = {
   id: string;
+  title: string;
   description: string;
   contributors: Array<string>;
   prerequisites: Array<string>;
@@ -12,6 +13,7 @@ type TaskCreationAttributes = Optional<TaskAttributes, "prerequisites">;
 
 class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   declare id: string;
+  declare title: string;
   declare description: string;
   declare contributors: Array<string>;
   declare prerequisites: Array<string>;
@@ -26,6 +28,9 @@ class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   }
   get Id(): NonAttribute<string> {
     return this.id;
+  }
+  get Title(): NonAttribute<string> {
+    return this.title;
   }
   get Contributors(): Array<string> {
     return this.contributors;

@@ -18,9 +18,7 @@ root.render(
           <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
           <Route path="test" element={<Searchbar />} caseSensitive={false} />
           <Route path="project" element={<ProjectPage />} caseSensitive={false} />
-          <Route path="project/task" element={<TaskPage />} caseSensitive={false} />
-
-
+          <Route path="project/task/:id" element={<TaskPage />} caseSensitive={false} />
         </Route>
       </Routes>
     </BrowserRouter>

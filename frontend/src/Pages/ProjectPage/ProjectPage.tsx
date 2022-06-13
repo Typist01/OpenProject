@@ -10,7 +10,7 @@ const ProjectPage = () => {
                 <p className="task-description">Lorem ipsum dolor sit amet. Id dolor rerum ea internos tempora aut itaque nostrum ut iure aspernatur et fugit consectetur aspernatur.
                 </p>
                 <div className="button-container">
-                    <button className=" start-button ">Start</button>
+                    <button className=" start-button ">Show Details</button>
                 </div>
             </div>
         )
@@ -27,7 +27,7 @@ const ProjectPage = () => {
                     <div className="user-message">
                         <p className="">{message}</p>
                         <div className="message-options">
-                            <span className="reply-opt"><strong>reply</strong></span>
+                            <span className="reply-opti"><strong>reply</strong></span>
                         </div>
                     </div>
 

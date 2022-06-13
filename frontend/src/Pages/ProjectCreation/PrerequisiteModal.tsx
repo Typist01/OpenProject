@@ -22,7 +22,7 @@ const Prerequisite = ({ key, secondKey }: { key: number, secondKey: number }) =>
     </React.Fragment >
 
 );
-
+// salam
 const PrerequisiteModal = ({
     closeFunction,
     taskInput: task,
@@ -31,14 +31,14 @@ const PrerequisiteModal = ({
     taskInput: string;
 }) => {
     const [prerequisites, setPrerequisites] = useState([""]);
-    const [selectedFile, setSelectedFile] = useState<string | undefined>(undefined);
+    // const [selectedFile, setSelectedFile] = useState<string | undefined>(undefined);
 
     const addPrerequisite = () => setPrerequisites(prevValue => [...prevValue, ""]);
-    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let v: string = "";
-        e.target.files!.item(0)?.text().then(x => v = x);
-        setSelectedFile(v);
-    }
+    // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     let v: string = "";
+    //     e.target.files!.item(0)?.text().then(x => v = x);
+    //     setSelectedFile(v);
+    // }
 
     return (
         <div
@@ -65,14 +65,14 @@ const PrerequisiteModal = ({
                     >
                         Add More
                     </button>
-                    <input
-                        type="file"
-                        value={selectedFile}
-                        onChange={handleOnChange}
+                    <button
+                        // type="text"
+                        // value={selectedFile}
+                        // onChange={handleOnChange}
                         className="pr-button"
                     >
                         Attach File
-                    </input>
+                    </button>
                 </div>
 
                 <div className="section">
