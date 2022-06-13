@@ -89,7 +89,7 @@ body {
   text-align: center;
 }
 
-input:focus {
+.task-container input:focus {
   height: 26px;
   border: none;
   outline: none;
@@ -132,10 +132,12 @@ input:focus {
   text-align: center;
 }
 
+
 .buttons {
+  position: relative;
   width: 600px;
   height: 200px;
-  margin-left: 30%;
+  bottom: 30px;
 }
 
 button {
