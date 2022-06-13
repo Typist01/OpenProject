@@ -12,7 +12,6 @@ const Requisite = ({ key, i }: { key: number, i: number }) => {
         </div>
     )
 }
-// changed for git 
 const FileExplorer = () => {
     return (
         <React.Fragment>
