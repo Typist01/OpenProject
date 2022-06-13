@@ -1,31 +1,28 @@
 import { Model, Optional, NonAttribute } from "sequelize";
-import Task from "./Task";
 
-type ProjectAttributes = {
+type TaskAttributes = {
   id: string;
-  name: string;
   description: string;
   contributors: Array<string>;
-  tasks: Array<string>;
+  prerequisites: Array<string>;
   createdAt: Date;
   updatedAt: Date;
 };
-type ProjectCreationAttributes = Optional<ProjectAttributes, "tasks">;
+type TaskCreationAttributes = Optional<TaskAttributes, "prerequisites">;
 
-class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
+class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   declare id: string;
-  declare name: string;
   declare description: string;
   declare contributors: Array<string>;
-  declare tasks: Array<string>;
+  declare prerequisites: Array<string>;
   declare createdAt: Date;
   declare updatedAt: Date;
 
+  get Prerequisites(): NonAttribute<Array<string>> {
+    return this.prerequisites;
+  }
   get Description(): NonAttribute<string> {
     return this.description;
-  }
-  get Name(): NonAttribute<string> {
-    return this.name;
   }
   get Id(): NonAttribute<string> {
     return this.id;
@@ -33,8 +30,5 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   get Contributors(): Array<string> {
     return this.contributors;
   }
-  async getTasks() {
-    return this.tasks.map(t => Task.findOne({ where: { id: t } }));
-  }
 }
-export default Project;
+export default Task;

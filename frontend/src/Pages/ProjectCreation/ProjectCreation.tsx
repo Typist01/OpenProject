@@ -16,7 +16,7 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
 
   return (
     <React.Fragment>
-      {prerequisiteVisible ? <PrerequisiteModal closeFunction={handlePrerequisiteClick} /> : null}
+      {prerequisiteVisible ? <PrerequisiteModal closeFunction={handlePrerequisiteClick} taskInput={taskInput} /> : null}
       <div key={key} className="task-container">
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
@@ -35,13 +35,8 @@ const ProjectCreation = () => {
     console.log(taskArray);
   });
 
-  const [title, setTitle] = useState<string>("Untitled Project");
-  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) =>
-    setTitle(
-      e.currentTarget.value.length !== 0
-        ? e.currentTarget.value.slice("Untitled Project".length)
-        : "Untitled Project"
-    );
+  const [title, setTitle] = useState<string>("");
+  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
   const handleTitleClick = (e: React.FormEvent<HTMLInputElement>) => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length);
 
   return (
@@ -55,7 +50,7 @@ const ProjectCreation = () => {
               onClick={handleTitleClick}
               onInput={handleTitleChange}
               value={title}
-              defaultValue="Untitled Project"
+              placeholder="Untitled Project"
             />
           </div>
         </div>
@@ -67,16 +62,14 @@ const ProjectCreation = () => {
             />
           ))}
         </div>
-        <div flex-container>
-          <div className="buttons flex-container">
-            <button
-              className="button"
-              onClick={() => setTaskArray([...taskArray, ""])}
-            >
-              Add New Task
-            </button>
-            <button className="button">Save</button>
-          </div>
+        <div className="buttons flex-container">
+          <button
+            className="button"
+            onClick={() => setTaskArray([...taskArray, ""])}
+          >
+            Add New Task
+          </button>
+          <button className="button">Save</button>
         </div>
       </div>
     </React.Fragment>

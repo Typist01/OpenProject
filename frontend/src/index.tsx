@@ -6,6 +6,7 @@ import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
 import Searchbar from './Pages/Searchbar/Searchbar';
 import reportWebVitals from './reportWebVitals';
 import ProjectPage from "./Pages/ProjectPage/ProjectPage"
+import TaskPage from './Pages/TaskPage/TaskPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -17,11 +18,13 @@ root.render(
           <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
           <Route path="test" element={<Searchbar />} caseSensitive={false} />
           <Route path="project" element={<ProjectPage />} caseSensitive={false} />
+          <Route path="project/task" element={<TaskPage />} caseSensitive={false} />
+
 
         </Route>
       </Routes>
-      </BrowserRouter>
-    </React.StrictMode>
-    );
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 reportWebVitals();
