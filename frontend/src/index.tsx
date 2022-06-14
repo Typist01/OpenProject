@@ -3,18 +3,21 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.scss';
 import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
-import Searchbar from './Pages/Searchbar/Searchbar';
+import Searchbar from './Components/Searchbar/Searchbar';
 import reportWebVitals from './reportWebVitals';
 import ProjectPage from "./Pages/ProjectPage/ProjectPage"
 import TaskPage from './Pages/TaskPage/TaskPage';
+import NavBar from './Components/NavBar/NavBar';
+import Home from './Pages/Home/Home';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path="/">
-          <Route index element={<h1>hi from app</h1>} />
+          <Route index element={<Home />} />
           <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
           <Route path="test" element={<Searchbar />} caseSensitive={false} />
           <Route path="project" element={<ProjectPage />} caseSensitive={false} />

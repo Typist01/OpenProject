@@ -1,0 +1,19 @@
+.search-input{
+    position: relative;
+    margin: auto;
+    font-size: 15px;
+    padding: 5px 15px;
+    max-width:600px;
+    width: 30%;
+    height:35px;
+    border-radius: 3px;
+    left:150px;
+    top:0px;
+    min-width: 200px;
+    
+
+}
+
+.search-input:hover{
+    border: solid rgb(0, 157, 255);
+}

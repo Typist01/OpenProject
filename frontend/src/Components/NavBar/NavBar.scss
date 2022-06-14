@@ -1,0 +1,28 @@
+
+header{
+    background-color: white;
+}
+
+.nav-flex-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+
+}
+
+
+.nav-links{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-links li{
+    color: black;
+    list-style: none;
+    margin: 0px 25px;
+}
+
+.logo{
+    color: black;
+}
