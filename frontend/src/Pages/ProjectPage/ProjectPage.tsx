@@ -45,7 +45,6 @@ const ProjectPage = () => {
             <h2 className="aim-title">Aim</h2>
             <div className="section">
                 <div className="aim-box"></div>
-                {/* <textarea id="aim-box" /> */}
 
                 <div className="tasks-container">
                     <TaskBox key={0} />

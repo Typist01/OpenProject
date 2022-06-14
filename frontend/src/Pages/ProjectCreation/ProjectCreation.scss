@@ -1,6 +1,7 @@
 $base-color: #1e1e1e;
 $blue: #0059ffe3;
 $light-blue: #b1dcfb;
+$grey: #4a4a4a;
 
 
 
@@ -59,11 +60,8 @@ body {
 .task-container {
   margin: auto;
   background-color: $blue;
-
-
-
   border-radius: 8px;
-  width: 800px;
+  width: 700px;
   height: 65px;
   display: flex;
   align-items: center;
@@ -75,26 +73,26 @@ body {
 }
 
 .task-container label {
-  font-size: 22px;
-  margin-right: 8rem;
+  font-size: 18px;
+  margin-right: 4rem;
 }
 
 .task-container input {
   font-size: 18px;
-  height: 25px;
+  height: 30px;
   margin-left: 10px;
   border-radius: 8px;
   width: 370px;
-  border: none;
   text-align: center;
+  color: $grey;
+  border:none;
 }
 
 .task-container input:focus {
-  height: 26px;
-  border: none;
+  height: 31px;
   outline: none;
   text-align: center;
-  width: 375px;
+  border: 1px;
 }
 
 
@@ -168,5 +166,29 @@ button {
   cursor: pointer;
   margin: 20px;
   border: none;
+
+}
+
+.aim-section{
+  align-items: center;
+  text-align: center;
+}
+
+#aim-input{
+  width:540px;
+  height:250px;
+  resize: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  padding: 30px;
+  font-size: 18px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color:$grey;
+}
+
+#aim-input:focus{
+  outline: none;
+  width:542px;
+  
 
 }

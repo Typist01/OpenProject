@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectCreation.scss";
-import PrerequisiteModal from "./PrerequisiteModal";
+import Modal from "./PrerequisiteModal";
 
 export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => {
   const [taskInput, setTaskInput] = useState<string>("");
@@ -16,7 +16,7 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
 
   return (
     <React.Fragment>
-      {prerequisiteVisible ? <PrerequisiteModal closeFunction={handlePrerequisiteClick} taskInput={taskInput} /> : null}
+      {prerequisiteVisible ? <Modal closeFunction={handlePrerequisiteClick} taskInput={taskInput} /> : null}
       <div key={key} className="task-container">
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
@@ -30,7 +30,7 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
   );
 }
 const ProjectCreation = () => {
-  const [taskArray, setTaskArray] = useState<Array<string>>([]);
+  const [taskArray, setTaskArray] = useState<Array<string>>([""]);
   useEffect(() => {
     console.log(taskArray);
   });
@@ -54,7 +54,16 @@ const ProjectCreation = () => {
             />
           </div>
         </div>
+
+        <div className="aim-section">
+          <h1 className="aim-heading">Project Aim</h1>
+          <textarea id="aim-input" />
+        </div>
+
         <div className="tasks-container">
+          <br></br>
+          <br></br>
+
           {taskArray.map((_, i) => (
             <Task
               key={i}

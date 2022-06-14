@@ -31,7 +31,9 @@ const PrerequisiteModal = ({
     taskInput: string;
 }) => {
     const [prerequisites, setPrerequisites] = useState([""]);
-    // const [selectedFile, setSelectedFile] = useState<string | undefined>(undefined);
+    const [selectedFile, setSelectedFile] = useState<File | null>(
+        null
+    );
 
     const addPrerequisite = () => setPrerequisites(prevValue => [...prevValue, ""]);
     // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,55 +43,76 @@ const PrerequisiteModal = ({
     // }
 
     return (
-        <div
-            id="myModal"
-            className={"modal modal-shown  prerequisite-modal"}
-            onClick={() => {
-                console.log("clicked");
-            }}
-        >
-            <div className="modal-content">
-                <h1>{task}</h1>
-                <h1>Prerequisites</h1>
-                {prerequisites.map((_, i) => (
-                    <Prerequisite
-                        key={i}
-                        secondKey={i}
-                    />
-                ))}
+        <React.Fragment>
+            <div
+                id="myModal"
+                className={"modal modal-shown  prerequisite-modal"}
+                onClick={(e: any) => {
+                    if (e.target.closest(".modal-content")) {
+                        console.log("you clicked inside")
+                        return
+                    }
+                    else {
+                        console.log("you clicked outside")
+                        closeFunction()
+                    }
+                }}
+            >
+                <div className="modal-content">
+                    <h1>{task}</h1>
+                    <h1>Prerequisites</h1>
+                    {prerequisites.map((_, i) => (
+                        <Prerequisite
+                            key={i}
+                            secondKey={i}
+                        />
+                    ))}
 
-                <div className="pr-buttons">
-                    <button
-                        onClick={addPrerequisite}
-                        className="pr-button"
-                    >
-                        Add More
-                    </button>
-                    <button
-                        // type="text"
-                        // value={selectedFile}
-                        // onChange={handleOnChange}
-                        className="pr-button"
-                    >
-                        Attach File
-                    </button>
-                </div>
+                    <div className="pr-buttons">
+                        <button
+                            onClick={addPrerequisite}
+                            className="pr-button"
+                        >
+                            Add More
+                        </button>
+                        <label className="custom-file-upload" htmlFor="file-upload" >
+                            File Upload
+                        </label>
 
-                <div className="section">
-                    <button className="upload-button"> Upload</button>
+                        <input
+                            id="file-upload"
+                            type="file"
+                            onChange={e => {
+                                setSelectedFile(e.currentTarget.files![0]);
+                                console.log(selectedFile);
+                            }}
+                            className="pr-button"
+                            multiple={false}
+                        >
+                        </input>
+
+
+                    </div>
+
+                    <div className="section">
+
+
+                        <button className="upload-button">Save</button>
+
+
+                    </div>
+
                 </div>
-                <span
-                    className="close"
-                    onClick={closeFunction}
-                >
-                    &times;
-                </span>
-            </div>
-        </div>
+            </div >
+        </React.Fragment >
+
     );
 
 }
 
 
+const Modal = ({ closeFunction, taskInput }: { closeFunction: () => void; taskInput: string; }) => (
 
-export default PrerequisiteModal;
+    <PrerequisiteModal closeFunction={closeFunction} taskInput={taskInput} />
+)
+export default Modal;
