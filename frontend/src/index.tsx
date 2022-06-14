@@ -9,6 +9,7 @@ import ProjectPage from "./Pages/ProjectPage/ProjectPage"
 import TaskPage from './Pages/TaskPage/TaskPage';
 import NavBar from './Components/NavBar/NavBar';
 import Home from './Pages/Home/Home';
+import CommunityPage from './Pages/Communities/CommunityPage/CommunityPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -22,6 +23,7 @@ root.render(
           <Route path="test" element={<Searchbar />} caseSensitive={false} />
           <Route path="project" element={<ProjectPage />} caseSensitive={false} />
           <Route path="project/task/:id" element={<TaskPage />} caseSensitive={false} />
+          <Route path="community" element={<CommunityPage />} caseSensitive={false} ></Route>
         </Route>
       </Routes>
     </BrowserRouter>

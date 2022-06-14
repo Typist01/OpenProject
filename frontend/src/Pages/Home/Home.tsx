@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import CommunityCreationModal from "../Communities/CreateCommunity/CreateCommunity"
+import CommunityCreationModal from "../Communities/CreateCommunityModal/CreateCommunity"
 import "./Home.scss"
-
 
 const Home = () => {
     const [showModal, setShowModal] = useState(false)
