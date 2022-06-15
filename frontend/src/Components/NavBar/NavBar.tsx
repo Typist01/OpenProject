@@ -19,9 +19,9 @@ export default function NavBar() {
                     <nav>
                         <ul className="nav-links">
                             {/* links just for testing purposes, real links in nav bar should be different */}
-                            <li>test links:</li>
                             <li><a href="/create-project"> /create-project</a></li>
                             <li><a href="/project">/Project</a></li>
+                            <li><Link to="/community">/community</Link></li>
                             <li><a href="/project/task/1">task view</a></li>
                         </ul>
                     </nav>
