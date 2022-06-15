@@ -3,7 +3,8 @@ import { Model, NonAttribute } from "sequelize";
 type TaskSubmissionAttributes = {
   id: string;
   taskID: string;
-  text: string;
+  userID: string;
+  content: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -14,18 +15,25 @@ class TaskSubmission extends Model<
 > {
   declare id: string;
   declare taskId: string;
-  declare text: string;
+  declare userID: string;
+  declare content: string;
   declare createdAt: Date;
   declare updatedAt: Date;
 
-  get Text(): NonAttribute<string> {
-    return this.text;
+  get Content(): NonAttribute<string> {
+    return this.content;
   }
   get Id(): NonAttribute<string> {
     return this.id;
   }
   get TaskId(): NonAttribute<string> {
     return this.taskId;
+  }
+  get UserID(): NonAttribute<string> {
+    return this.userID;
+  }
+  get CreatedAt(): NonAttribute<Date> {
+    return this.createdAt;
   }
 }
 export default TaskSubmission;

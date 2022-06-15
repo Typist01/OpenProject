@@ -7,9 +7,9 @@ const fastify_1 = __importDefault(require("fastify"));
 const sequelize_1 = require("sequelize");
 const users_1 = require("./routes/users");
 const projects_1 = require("./routes/projects");
-const { DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_HOST } = process.env;
-const sequelize = new sequelize_1.Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
-    host: DB_HOST,
+// const { DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_HOST } = process.env;
+const sequelize = new sequelize_1.Sequelize("OpenProject", "root", "OpenProject4$", {
+    host: "localhost",
     dialect: "mysql",
 });
 const app = (0, fastify_1.default)();

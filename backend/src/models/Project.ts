@@ -33,6 +33,9 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   get Contributors(): Array<string> {
     return this.contributors;
   }
+  get CreatedAt(): NonAttribute<Date> {
+    return this.createdAt;
+  }
   async getTasks() {
     return this.tasks.map(t => Task.findOne({ where: { id: t } }));
   }
