@@ -2,22 +2,20 @@ import { Model, Optional, NonAttribute } from "sequelize";
 import Task from "./Task";
 
 type ProjectAttributes = {
-  id: string;
   name: string;
   description: string;
   contributors: Array<string>;
-  tasks: Array<string>;
+  tasks: { name: string };
   createdAt: Date;
   updatedAt: Date;
 };
 type ProjectCreationAttributes = Optional<ProjectAttributes, "tasks">;
 
 class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
-  declare id: string;
   declare name: string;
   declare description: string;
   declare contributors: Array<string>;
-  declare tasks: Array<string>;
+  declare tasks: { name: string; project: string };
   declare createdAt: Date;
   declare updatedAt: Date;
 
@@ -27,9 +25,6 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   get Name(): NonAttribute<string> {
     return this.name;
   }
-  get Id(): NonAttribute<string> {
-    return this.id;
-  }
   get Contributors(): Array<string> {
     return this.contributors;
   }
@@ -37,7 +32,9 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
     return this.createdAt;
   }
   async getTasks() {
-    return this.tasks.map(t => Task.findOne({ where: { id: t } }));
+    return Object.values(this.tasks).map(t =>
+      Task.findOne({ where: { name: t, projectName: this.Name } })
+    );
   }
 }
 export default Project;

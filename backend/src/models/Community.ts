@@ -2,7 +2,6 @@ import { Model, NonAttribute } from "sequelize";
 import User from "./User";
 
 type CommunityAttributes = {
-  id: string;
   name: string;
   description: string;
   projects: Array<string>;
@@ -11,7 +10,6 @@ type CommunityAttributes = {
   updatedAt: Date;
 };
 class Community extends Model<CommunityAttributes> {
-  declare id: string;
   declare name: string;
   declare description: string;
   declare projects: Array<string>;
@@ -21,9 +19,6 @@ class Community extends Model<CommunityAttributes> {
 
   get Description(): NonAttribute<string> {
     return this.description;
-  }
-  get Id(): NonAttribute<string> {
-    return this.id;
   }
   get Name(): NonAttribute<string> {
     return this.name;
@@ -35,7 +30,7 @@ class Community extends Model<CommunityAttributes> {
     return this.createdAt;
   }
   async getSubscribers() {
-    return this.subscribers.map(s => User.findOne({ where: { id: s } }));
+    return this.subscribers.map(s => User.findOne({ where: { name: s } }));
   }
 }
 

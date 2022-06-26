@@ -34,30 +34,21 @@ app.get(
   await sequelize.sync();
 })();
 
-app.listen({ port: 8001 }, (err, address) => {
+app.listen({ port: 91 }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
   }
   User.init(
     {
-      id: {
-        type: new DataTypes.STRING(22),
-        primaryKey: true,
-        allowNull: false,
-      },
       name: {
         type: new DataTypes.STRING(30),
+        primaryKey: true,
         allowNull: false,
       },
       image: DataTypes.TEXT,
-      token: {
-        type: new DataTypes.STRING(22),
-        allowNull: false,
-        primaryKey: true,
-      },
-      communities: new DataTypes.ARRAY(DataTypes.STRING(22)),
-      projects: new DataTypes.ARRAY(DataTypes.STRING(22)),
+      communities: DataTypes.JSON(),
+      projects: DataTypes.JSON(),
       password: {
         type: new DataTypes.STRING(72),
         allowNull: false,
@@ -72,24 +63,20 @@ app.listen({ port: 8001 }, (err, address) => {
   );
   Community.init(
     {
-      id: {
-        type: new DataTypes.STRING(22),
-        primaryKey: true,
-        allowNull: false,
-      },
       name: {
         type: new DataTypes.STRING(30),
         allowNull: false,
+        primaryKey: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
       subscribers: {
-        type: new DataTypes.ARRAY(DataTypes.STRING(22)),
+        type: DataTypes.JSON(),
         allowNull: false,
       },
-      projects: new DataTypes.ARRAY(DataTypes.STRING(22)),
+      projects: DataTypes.JSON(),
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
@@ -100,14 +87,10 @@ app.listen({ port: 8001 }, (err, address) => {
   );
   Project.init(
     {
-      id: {
-        type: new DataTypes.STRING(22),
-        primaryKey: true,
-        allowNull: false,
-      },
       name: {
         type: new DataTypes.STRING(30),
         allowNull: false,
+        primaryKey: true,
       },
       description: {
         type: DataTypes.TEXT,
@@ -128,9 +111,8 @@ app.listen({ port: 8001 }, (err, address) => {
   );
   Task.init(
     {
-      id: {
-        type: new DataTypes.STRING(22),
-        primaryKey: true,
+      projectName: {
+        type: new DataTypes.STRING(30),
         allowNull: false,
       },
       name: {
@@ -153,20 +135,22 @@ app.listen({ port: 8001 }, (err, address) => {
   );
   Submission.init(
     {
-      id: {
-        type: new DataTypes.STRING(22),
-        primaryKey: true,
+      name: {
+        type: new DataTypes.STRING(30),
         allowNull: false,
       },
-      userID: {
-        type: new DataTypes.STRING(22),
+      userName: {
+        type: new DataTypes.STRING(30),
+        allowNull: false,
+      },
+      projectName: {
+        type: new DataTypes.STRING(30),
         allowNull: false,
       },
       content: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      images: new DataTypes.ARRAY(DataTypes.TEXT),
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
@@ -179,15 +163,14 @@ app.listen({ port: 8001 }, (err, address) => {
     {
       id: {
         type: new DataTypes.STRING(22),
-        primaryKey: true,
         allowNull: false,
       },
-      taskID: {
-        type: new DataTypes.STRING(22),
+      taskName: {
+        type: new DataTypes.STRING(30),
         allowNull: false,
       },
-      userID: {
-        type: new DataTypes.STRING(22),
+      userName: {
+        type: new DataTypes.STRING(30),
         allowNull: false,
       },
       content: {

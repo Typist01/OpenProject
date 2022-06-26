@@ -1,18 +1,18 @@
 import { Model, Optional, NonAttribute } from "sequelize";
 
 type TaskAttributes = {
-  id: string;
+  projectName: string;
   name: string;
   description: string;
-  prerequisites: Array<string>;
-  files: Array<string>;
+  prerequisites: { content: string };
+  files: { content: string };
   createdAt: Date;
   updatedAt: Date;
 };
 type TaskCreationAttributes = Optional<TaskAttributes, "prerequisites">;
 
 class Task extends Model<TaskAttributes, TaskCreationAttributes> {
-  declare id: string;
+  declare projectName: string;
   declare name: string;
   declare description: string;
   declare contributors: Array<string>;
@@ -26,8 +26,8 @@ class Task extends Model<TaskAttributes, TaskCreationAttributes> {
   get Description(): NonAttribute<string> {
     return this.description;
   }
-  get Id(): NonAttribute<string> {
-    return this.id;
+  get ProjectName(): NonAttribute<string> {
+    return this.projectName;
   }
   get Name(): NonAttribute<string> {
     return this.name;
