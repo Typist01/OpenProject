@@ -1,34 +1,26 @@
 import fastify, { FastifyRequest, FastifyReply } from "fastify";
-// import { Sequelize } from "sequelize-typescript";
-// import initUserRoutes from "./routes/users";
-// import initProjectRoutes from "./routes/projects";
+import { Sequelize } from "sequelize-typescript";
+import initUserRoutes from "./routes/users";
+import initProjectRoutes from "./routes/projects";
 
-// const sequelize = new Sequelize(
-//   "github_2",
-//   "root",
-//   "OpenProject4$" ,
-//   {
-//     host: "localhost" ,
-//     dialect: "mysql",
-//   }
-// );
+const sequelize = new Sequelize("github_2", "root", "OpenProject4$", {
+  host: "localhost",
+  dialect: "mysql",
+});
 const app = fastify();
-// initUserRoutes(app, sequelize);
-// initProjectRoutes(app, sequelize);
+initUserRoutes(app, sequelize);
+initProjectRoutes(app, sequelize);
 
 app.get(
   "/",
-  async (_req: FastifyRequest, res: FastifyReply): Promise<Response> => {
+  async (req: FastifyRequest, res: FastifyReply): Promise<Response> => {
     return res.status(200).send({
-      message: `Endpoints available at http://localhost:`,
+      message: req,
     });
   }
 );
-// (async () => {
-//   await sequelize.sync();
-// })();
 
-app.listen({ port: 8001 }, (err, address) => {
+app.listen({ port: 8001 }, async (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
@@ -180,4 +172,5 @@ app.listen({ port: 8001 }, (err, address) => {
   //   }
   // );
   console.log(`Server listening at ${address}`);
+  await sequelize.sync();
 });
