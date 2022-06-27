@@ -6,14 +6,30 @@
     max-width:600px;
     width: 30%;
     height:35px;
-    border-radius: 3px;
+    border-radius: 15px;
     left:150px;
     top:0px;
     min-width: 200px;
-    
 
 }
 
 .search-input:hover{
     border: solid rgb(0, 157, 255);
+}
+
+.search-results{
+    height: 300px;
+    width: 30%;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    top:80px;
+}
+
+.search-result{
+    height: 50px;
+    border-radius: 3px;
+    margin-top: 5px;
+    background-color: black;
+    color: black;
 }

@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 
 const getProjectHandler =
   (_sequelize: Sequelize) => (req: FastifyRequest, res: FastifyReply) => {

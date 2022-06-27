@@ -6,17 +6,106 @@
     background-color: #fee7e7;
     color: black;
     font-size: 16px;
-    width: 400px;
-    height: 250px;
+    width: 250px;
+    height: 200px;
     margin: auto;
+    padding: 5px;
+    margin-top: 50px;
 }
-.home-button:hover{
-    width: 401px;
 
+
+.project-previews{
+    margin: auto;
+    width: 550px;
+    margin-top: 50px;
+
+}
+.project-preview-container{
+    margin: auto;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    width: 500px;
+    height: 250px;
+    background-color: rgb(87, 250, 231);
+    color: black;
+    border-radius: 3px;
+    padding: 3px 15px;
+}
+
+.project-preview-container:hover{
+    cursor: pointer;
+    
+}
+
+.submission-preview-container{
+    margin: auto;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    width: 500px;
+    height: 250px;
+    background-color: rgb(87, 250, 231);
+    color: black;
+    border-radius: 3px;
+    padding: 3px 15px;
+}
+.submission-preview-container:hover{
+    cursor: pointer;
+    
+}
+
+.home-nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+.home-heading{
+    display: inline;
+    font-size: 25px;
+    margin: 5px 30px;    
+}
+.home-heading:hover{
+    cursor: pointer;
+}
+
+.home-section{
+    display: flex;
+    margin-top: 3%;
+
+}
+
+.home-left-nav{ 
+    margin-top: 20%;
+    margin-left: 7%;
+    margin-right: 50px;
+}
+
+.home-right-nav{
+    margin-right: 7%;
+    margin-left: 50px;
+    margin-top: 10%;
+}
+
+.community-preview{
+    width: 300px;
+    height: 250px;
+    background-color: beige;
+    padding:10px 15px;
+    border-radius: 3px;
+    color: black;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+.community-preview:hover{
+    cursor: pointer;
+}
+
+.highlight{
+    color: aquamarine;
 }
 
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
     }
-    

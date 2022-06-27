@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./Searchbar.scss"
 
+// const Results = () => {
+//     const searchResults = ["one", "two", "three"];
+//     return (
+//         <div className="search-results">
+//             {searchResults.map(_ => <div className="search-result"></div>)}
+
+
+//         </div>
+
+//     )
+// }
+
 
 const SearchBar = () => {
 
@@ -18,6 +30,7 @@ const SearchBar = () => {
 
     return (<React.Fragment>
         <input className="search-input" type="text" value={userQuery} onChange={searchHandler} />
+        {/* <Results /> */}
     </React.Fragment>)
 }
 

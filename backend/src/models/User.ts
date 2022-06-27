@@ -1,38 +1,52 @@
-import { Model, Optional, NonAttribute } from "sequelize";
 import Project from "./Project";
 import Community from "./Community";
+import {
+  Table,
+  Model,
+  Column,
+  CreatedAt,
+  UpdatedAt,
+  DataType,
+  NotNull,
+  AllowNull,
+} from "sequelize-typescript";
 
-type UserAttributes = {
-  name: string;
-  projects: { name: string };
-  communities: { name: string };
-  image: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-type UserCreationAttributes = Optional<UserAttributes, "projects"> &
-  Optional<UserAttributes, "communities"> &
-  Optional<UserAttributes, "image">;
-
-class User extends Model<UserAttributes, UserCreationAttributes> {
+@Table
+class User extends Model {
+  @Column(DataType.STRING(30))
+  @NotNull
   declare name: string;
-  declare projects: { name: string };
-  declare communities: { name: string };
+
+  @Column(DataType.JSON())
+  @AllowNull
+  declare projects: { [id in number]: string };
+
+  @Column(DataType.JSON())
+  @AllowNull
+  declare communities: { [id in number]: string };
+
+  @Column(DataType.TEXT())
+  @AllowNull
   declare image: string;
+
+  @Column(DataType.STRING(72))
+  @NotNull
   declare password: string;
+
+  @CreatedAt
   declare createdAt: Date;
+  @UpdatedAt
   declare updatedAt: Date;
 
-  get Name(): NonAttribute<string> {
-    return this.name;
-  }
-  get Image(): NonAttribute<string> {
-    return this.image;
-  }
-  get CreatedAt(): NonAttribute<Date> {
-    return this.createdAt;
-  }
+  // get Name(): NonAttribute<string> {
+  //   return this.name;
+  // }
+  // get Image(): NonAttribute<string> {
+  //   return this.image;
+  // }
+  // get CreatedAt(): NonAttribute<Date> {
+  //   return this.createdAt;
+  // }
   async getProjects() {
     return Object.values(this.projects).map(p =>
       Project.findOne({ where: { name: p } })
