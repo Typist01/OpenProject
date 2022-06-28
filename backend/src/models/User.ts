@@ -1,5 +1,3 @@
-import Project from "./Project";
-import Community from "./Community";
 import {
   Table,
   Model,
@@ -12,32 +10,42 @@ import {
 } from "sequelize-typescript";
 
 @Table
-class User extends Model {
+class User extends Model<User> /* <{
+  name: string;
+  projects: { [id in number]: string } | null;
+  communities: { [id in number]: string } | null;
+  image: string | null;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+}> */ {
   @Column(DataType.STRING(30))
   @NotNull
-  declare name: string;
+  name!: string;
 
   @Column(DataType.JSON())
   @AllowNull
-  declare projects: { [id in number]: string };
+  projects?: { [id in number]: string };
 
   @Column(DataType.JSON())
   @AllowNull
-  declare communities: { [id in number]: string };
+  communities?: { [id in number]: string };
 
   @Column(DataType.TEXT())
   @AllowNull
-  declare image: string;
+  image?: string;
 
   @Column(DataType.STRING(72))
   @NotNull
-  declare password: string;
+  password!: string;
 
+  @Column
   @CreatedAt
   declare createdAt: Date;
+
+  @Column
   @UpdatedAt
   declare updatedAt: Date;
-
   // get Name(): NonAttribute<string> {
   //   return this.name;
   // }
@@ -47,15 +55,14 @@ class User extends Model {
   // get CreatedAt(): NonAttribute<Date> {
   //   return this.createdAt;
   // }
-  async getProjects() {
-    return Object.values(this.projects).map(p =>
-      Project.findOne({ where: { name: p } })
-    );
-  }
-  async getCommunities() {
-    return Object.values(this.communities).map(p =>
-      Community.findOne({ where: { name: p } })
-    );
-  }
+  // async getProjects() {
+  //   return Object.values(this.projects).map(p =>
+  //     Project.findOne({ where: { name: p } })
+  //   );
+  // }
+  // async getCommunities() {
+  //   return Object.values(this.communities).map(p =>
+  //     Community.findOne({ where: { name: p } })
+  //   );
 }
 export default User;

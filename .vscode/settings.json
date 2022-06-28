@@ -1,6 +1,5 @@
 {
   "[javascript]": {
     "editor.formatOnSave": true
-  },
-  "liveshare.connectionMode": "direct"
+  }
 }

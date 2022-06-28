@@ -43,6 +43,10 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
                             <label htmlFor="check"></label>
                             <span>{projectType}</span>
                         </div> */}
+                        <div>
+                            <textarea className="community-description-text-area" placeholder="Description"></textarea>
+
+                        </div>
                         <br></br>
                         <button>Submit</button>
 

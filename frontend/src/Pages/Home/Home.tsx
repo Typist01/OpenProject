@@ -5,7 +5,10 @@ import "./Home.scss";
 const ProjectPreview = () => {
     return (
         <div className="project-preview-container">
-            <h1 className="project-preview-title">Project Name</h1>
+            <div className="flex-container relative-container">
+                <h1 className="project-preview-title ">Project Name</h1>
+                <div className="project-preview-pp"></div>
+            </div>
             <p className="project-preview-description">
                 {" "}
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat
@@ -21,7 +24,10 @@ const ProjectPreview = () => {
 const SubmissionPreview = () => {
     return (
         <div className="submission-preview-container">
-            <h1 className="project-preview-title">Submission Name</h1>
+            <div className="flex-container relative-container">
+                <h1 className="project-preview-title">Submission Name</h1>
+                <div className="project-preview-pp"></div>
+            </div>
             <p className="project-preview-description">
                 {" "}
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat
@@ -29,7 +35,6 @@ const SubmissionPreview = () => {
                 laudantium! Ipsam atque odio incidunt dolorem officiis minus. Ducimus
                 asperiores delectus obcaecati!
             </p>
-
         </div>
     )
 }
@@ -37,7 +42,10 @@ const SubmissionPreview = () => {
 const CommunityPreview = () => {
     return (
         <div className="community-preview">
-            <h1> Community Name </h1>
+            <div className="flex-container relative-container">
+                <h1 className="community-preview-title"> Community Name </h1>
+                <div className="community-preview-pp"></div>
+            </div>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam optio ad dolor iusto fuga velit blanditiis fugiat sint nulla nostrum tempora voluptatum explicabo non, voluptatibus pariatur nam, quas nemo voluptate.</p>
             <p>Member count: </p>
         </div>

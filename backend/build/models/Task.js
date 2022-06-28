@@ -8,14 +8,17 @@ class Task extends sequelize_1.Model {
     get Description() {
         return this.description;
     }
-    get Id() {
-        return this.id;
+    get ProjectName() {
+        return this.projectName;
     }
-    get Title() {
-        return this.title;
+    get Name() {
+        return this.name;
     }
     get Contributors() {
         return this.contributors;
+    }
+    get CreatedAt() {
+        return this.createdAt;
     }
 }
 exports.default = Task;
