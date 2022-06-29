@@ -7,15 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-let User = class User extends sequelize_typescript_1.Model /* <{
-  name: string;
-  projects: { [id in number]: string } | null;
-  communities: { [id in number]: string } | null;
-  image: string | null;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-}> */ {
+let User = class User extends sequelize_typescript_1.Model {
     name;
     projects;
     communities;
@@ -23,32 +15,33 @@ let User = class User extends sequelize_typescript_1.Model /* <{
     password;
 };
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(30)),
-    sequelize_typescript_1.NotNull
+    sequelize_typescript_1.PrimaryKey,
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(30))
 ], User.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON()),
-    sequelize_typescript_1.AllowNull
+    sequelize_typescript_1.AllowNull,
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON())
 ], User.prototype, "projects", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON()),
-    sequelize_typescript_1.AllowNull
+    sequelize_typescript_1.AllowNull,
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON())
 ], User.prototype, "communities", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT()),
-    sequelize_typescript_1.AllowNull
+    sequelize_typescript_1.AllowNull,
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT())
 ], User.prototype, "image", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(72)),
-    sequelize_typescript_1.NotNull
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(72))
 ], User.prototype, "password", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
-    sequelize_typescript_1.CreatedAt
+    sequelize_typescript_1.CreatedAt,
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.DATE)
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
-    sequelize_typescript_1.UpdatedAt
+    sequelize_typescript_1.UpdatedAt,
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.DATE)
 ], User.prototype, "updatedAt", void 0);
 User = __decorate([
     sequelize_typescript_1.Table

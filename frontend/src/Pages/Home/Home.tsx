@@ -53,7 +53,7 @@ const CommunityPreview = () => {
 }
 
 const RenderMain = (props: any) => {
-    if (props.highlight == "projects") {
+    if (props.highlight === "projects") {
         return (
             <React.Fragment>
                 <ProjectPreview />
@@ -117,12 +117,12 @@ const Home = () => {
 
                 <div className="project-previews">
                     <div className="home-nav">
-                        <div className={`home-heading ${highlight == "projects" ? "highlight" : null} `}>
+                        <div className={`home-heading ${highlight === "projects" ? "highlight" : null} `}>
                             <strong onClick={() => {
                                 setHighlight("projects")
                             }}>Projects</strong>
                         </div>
-                        <div className={`home-heading ${highlight == "submissions" ? "highlight" : null} `}>
+                        <div className={`home-heading ${highlight === "submissions" ? "highlight" : null} `}>
                             <strong onClick={() => {
                                 setHighlight("submissions")
                             }}>Submissions</strong>

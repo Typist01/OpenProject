@@ -3,24 +3,52 @@
     width: 600px;
     height: 160px;
     background-color: white;
+    margin: 0;
     margin: auto;
     margin-top:50px;
+    outline: 0;
+    cursor: pointer;
 }
+.search-result:hover{
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: rgb(0, 255, 153);
 
+}
 .search-result-title{
-    padding-top: 5px;
-    padding-left: 10px;
     font-size: 24px;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 3px;
+    margin-left: 15px;
+    padding-top: 7px;
+    
 }
 
 .search-tag{
     padding: 0;
     margin: 0;
-    background-color: blue;
+    margin-left: 10px;
+    background-color: rgba(0, 0, 255, 0.181);
     width: 150px;
-    height: 30px;
+    height: 20px;
+    line-height: 20px;
+
     border-radius: 15px;
     text-align: center;
 }
+.search-tag:hover{
+    outline: solid;
+    outline-color: blue;
+    outline-width: 1px;
+}
 
-
+.result-description{
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+}
