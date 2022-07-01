@@ -1,0 +1,60 @@
+.heading{
+    text-align: center;
+    margin: 0;
+    margin-top: 70px;
+}
+.login-entries{
+    width: 350px;
+    margin: auto;
+    margin-top: 80px;
+}
+.login-entry{
+    margin-top: 40px;
+}
+.password-entry{
+    width: 350px;
+    margin: auto;
+    margin-top: 45px;
+
+}
+
+.login-label{
+    font-size: 23px;
+
+}
+.login-input{
+    margin-top: 5px;
+    width: 350px;
+    height: 50px;
+    line-height: 45px;
+    font-size: 30px;
+    border-radius: 3px;
+    border: none;
+    text-align: center;
+}
+.login-input:focus{
+    border: none;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: yellowgreen;
+}
+
+.button-div{
+    text-align: center;
+}
+
+.login-button {
+    width: 200px;
+    height: 100px;
+    margin-top: 20px; 
+}
+
+.login-button:hover{
+    
+}
+
+button{
+    outline: none;
+    margin: 0;
+    padding: 0;
+}

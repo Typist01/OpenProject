@@ -11,6 +11,8 @@ import NavBar from './Components/NavBar/NavBar';
 import Home from './Pages/Home/Home';
 import CommunityPage from './Pages/Communities/CommunityPage/CommunityPage';
 import SearchResultsPage from './Pages/SearchResults/SearchResults';
+import LoginPage from "./Pages/SignUp/SignUp";
+import SignUpPage from './Pages/SignUp/SignUp';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -26,7 +28,8 @@ root.render(
           <Route path="project/task/:id" element={<TaskPage />} caseSensitive={false} />
           <Route path="community" element={<CommunityPage />} caseSensitive={false} ></Route>
           <Route path="search-results" element={<SearchResultsPage />} caseSensitive={false} ></Route>
-
+          <Route path="login" element={<LoginPage />} caseSensitive={false} ></Route>
+          <Route path="signup" element={<SignUpPage />} caseSensitive={false} ></Route>
         </Route>
       </Routes>
     </BrowserRouter>
