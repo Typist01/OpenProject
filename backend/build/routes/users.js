@@ -5,24 +5,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const getUsersHandler = (sequelize) => async (_request, reply) => {
-    reply.status(200).send(await sequelize.models["User"]?.findAll());
+    reply
+        .status(200)
+        .send(JSON.stringify(await sequelize.models["User"]?.findAll()));
 };
 const getUserHandler = (sequelize) => async (request, reply) => {
-    const { name, password, projects, communities, image, createdAt, updatedAt, } = (await sequelize.models["User"]?.findOne({
+    const { Name: name, Password: password, Projects: projects, Communities: communities, Image: image, createdAt, updatedAt, } = (await sequelize.models["User"]?.findOne({
         where: { name: request.query.name },
     }));
-    if (!(await bcrypt_1.default.compare(request.query.password, password)))
-        return reply.status(200).send({
+    try {
+        console.log(JSON.stringify({
             allowed: "0",
-            user: JSON.stringify({
+            user: {
                 name,
                 image,
                 createdAt,
-            }),
+            },
+        }));
+        if (!(await bcrypt_1.default.compare(request.query.password, password)))
+            return reply.status(200).send(JSON.stringify({
+                allowed: "0",
+                user: JSON.stringify({
+                    name,
+                    image,
+                    createdAt,
+                }),
+            }));
+    }
+    catch (e) {
+        console.log({
+            name,
+            image,
+            createdAt,
         });
+    }
     reply.status(200).send(JSON.stringify({
         allowed: "1",
-        user: {
+        user: JSON.stringify({
             name,
             password,
             projects,
@@ -30,7 +49,7 @@ const getUserHandler = (sequelize) => async (request, reply) => {
             image,
             createdAt,
             updatedAt,
-        },
+        }),
     }));
 };
 const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
@@ -40,7 +59,7 @@ const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
         reply.status(401).send(JSON.stringify({
             message: await fetch(`http://localhost:8001/user?name=${body.name}&password=${body.password}`),
         }));
-    const { name, password, projects, communities, image, createdAt, updatedAt, } = (await sequelize.models["User"]?.create({
+    const { Name: name, Password: password, Projects: projects, Communities: communities, Image: image, createdAt, updatedAt, } = (await sequelize.models["User"]?.create({
         where: { name: body.name },
         defaults: {
             name: body.name,
@@ -65,7 +84,7 @@ const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
     }));
 };
 const deleteUserHandler = (sequelize) => async ({ body, }, reply) => {
-    const { name, password } = (await sequelize.models["User"]?.findOne({
+    const { Name: name, Password: password } = (await sequelize.models["User"]?.findOne({
         where: { name: body.name, password: body.password },
     }));
     if (bcrypt_1.default.compareSync(body.password, password))
@@ -88,6 +107,7 @@ const initUserRoutes = (app, sequelize) => {
         schema: {
             querystring: {
                 name: { type: "string" },
+                password: { type: "string" },
             },
             response: {
                 200: {

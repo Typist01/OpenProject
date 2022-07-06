@@ -8,17 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 let User = class User extends sequelize_typescript_1.Model {
-    name;
-    projects;
-    communities;
-    image;
-    password;
+    get Name() {
+        return this.name;
+    }
+    get Password() {
+        return this.password;
+    }
+    get Projects() {
+        return this.projects;
+    }
+    get Communities() {
+        return this.communities;
+    }
+    get Image() {
+        return this.image;
+    }
 };
 __decorate([
     sequelize_typescript_1.PrimaryKey,
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(30))
 ], User.prototype, "name", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(72))
+], User.prototype, "password", void 0);
 __decorate([
     sequelize_typescript_1.AllowNull,
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON())
@@ -31,10 +45,6 @@ __decorate([
     sequelize_typescript_1.AllowNull,
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT())
 ], User.prototype, "image", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(72))
-], User.prototype, "password", void 0);
 __decorate([
     sequelize_typescript_1.CreatedAt,
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.DATE)

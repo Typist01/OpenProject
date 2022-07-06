@@ -29,21 +29,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_1 = __importDefault(require("./routes/users"));
-const projects_1 = __importDefault(require("./routes/projects"));
+// import initProjectRoutes from "./routes/projects";
 const User_1 = __importDefault(require("./models/User"));
-const Project_1 = __importDefault(require("./models/Project"));
+// import Project from "./models/Project";
 (async () => {
     const sequelize = new sequelize_typescript_1.Sequelize("github_2", "root", "OpenProject4$", {
         host: "localhost",
         dialect: "mysql",
         dialectModule: await Promise.resolve().then(() => __importStar(require("mysql2"))),
-        models: [User_1.default, Project_1.default],
+        models: [User_1.default] // , Project],
     });
     sequelize.addModels([__dirname + "/models/User.ts"]);
     sequelize.addModels([__dirname + "/models/Project.ts"]);
     const app = (0, fastify_1.default)();
     (0, users_1.default)(app, sequelize);
-    (0, projects_1.default)(app, sequelize);
+    // initProjectRoutes(app, sequelize);
     app.get("/", async (req, res) => {
         return res.status(200).send(JSON.stringify({
             message: req.ip,

@@ -1,22 +1,22 @@
 import fastify, { FastifyRequest, FastifyReply } from "fastify";
 import { Sequelize } from "sequelize-typescript";
 import initUserRoutes from "./routes/users";
-import initProjectRoutes from "./routes/projects";
+// import initProjectRoutes from "./routes/projects";
 import User from "./models/User";
-import Project from "./models/Project";
+// import Project from "./models/Project";
 
 (async () => {
   const sequelize = new Sequelize("github_2", "root", "OpenProject4$", {
     host: "localhost",
     dialect: "mysql",
     dialectModule: await import("mysql2"),
-    models: [User, Project],
+    models: [User]// , Project],
   });
   sequelize.addModels([__dirname + "/models/User.ts"]);
   sequelize.addModels([__dirname + "/models/Project.ts"]);
   const app = fastify();
   initUserRoutes(app, sequelize);
-  initProjectRoutes(app, sequelize);
+  // initProjectRoutes(app, sequelize);
 
   app.get(
     "/",

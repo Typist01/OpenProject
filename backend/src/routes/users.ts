@@ -6,7 +6,9 @@ import bcrypt from "bcrypt";
 const getUsersHandler =
   (sequelize: Sequelize) =>
   async (_request: FastifyRequest, reply: FastifyReply) => {
-    reply.status(200).send(await sequelize.models["User"]?.findAll());
+    reply
+      .status(200)
+      .send(JSON.stringify(await sequelize.models["User"]?.findAll()));
   };
 const getUserHandler =
   (sequelize: Sequelize) =>
@@ -17,29 +19,49 @@ const getUserHandler =
     reply: FastifyReply
   ): Promise<any> => {
     const {
-      name,
-      password,
-      projects,
-      communities,
-      image,
+      Name: name,
+      Password: password,
+      Projects: projects,
+      Communities: communities,
+      Image: image,
       createdAt,
       updatedAt,
     } = (await sequelize.models["User"]?.findOne({
       where: { name: request.query.name },
     })) as User;
-    if (!(await bcrypt.compare(request.query.password, password)))
-      return reply.status(200).send({
-        allowed: "0",
-        user: JSON.stringify({
-          name,
-          image,
-          createdAt,
-        }),
+    try {
+      console.log(
+        JSON.stringify({
+          allowed: "0",
+          user: {
+            name,
+            image,
+            createdAt,
+          },
+        })
+      );
+      if (!(await bcrypt.compare(request.query.password, password)))
+        return reply.status(200).send(
+          JSON.stringify({
+            allowed: "0",
+            user: JSON.stringify({
+              name,
+              image,
+              createdAt,
+            }),
+          })
+        );
+    } catch (e: any) {
+      console.log({
+        name,
+        image,
+        createdAt,
       });
+    }
     reply.status(200).send(
       JSON.stringify({
         allowed: "1",
-        user: {
+        user: JSON.stringify({
           name,
           password,
           projects,
@@ -47,7 +69,7 @@ const getUserHandler =
           image,
           createdAt,
           updatedAt,
-        },
+        }),
       })
     );
   };
@@ -78,11 +100,11 @@ const postCreateUserHandler =
         })
       );
     const {
-      name,
-      password,
-      projects,
-      communities,
-      image,
+      Name: name,
+      Password: password,
+      Projects: projects,
+      Communities: communities,
+      Image: image,
       createdAt,
       updatedAt,
     } = (await sequelize.models["User"]?.create({
@@ -125,7 +147,9 @@ const deleteUserHandler =
     }>,
     reply: FastifyReply
   ) => {
-    const { name, password } = (await sequelize.models["User"]?.findOne({
+    const { Name: name, Password: password } = (await sequelize.models[
+      "User"
+    ]?.findOne({
       where: { name: body.name, password: body.password },
     })) as User;
     if (bcrypt.compareSync(body.password, password))
@@ -155,6 +179,7 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
         schema: {
           querystring: {
             name: { type: "string" },
+            password: { type: "string" },
           },
           response: {
             200: {
