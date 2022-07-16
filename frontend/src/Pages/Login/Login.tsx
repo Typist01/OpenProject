@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { api } from "../../constants";
 import "./Login.scss";
 import { useAppContext } from "../../Context/LoginContext";
+import axios from "axios";
 
 const LoginPage = () => {
     const [name, setName] = useState("");
@@ -46,28 +47,35 @@ const LoginPage = () => {
         if (name.trim() === "") return console.log("No username provided.");
         if (password.trim() === "") return console.log("No password provided.");
         setDisableControls(true);
-        e.preventDefault();
+        e.preventDefault();//
         console.log(
             "login attempted",
             api + `user?name=${name}&password=${password}`
         );
-        const response = await fetch(api + `user?name=${name}&password=${password}`, {
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            },
-            mode: "no-cors",
-        });
+
+        const response = await axios.get(
+            api + `user?=${name}&password=${password}`,
+            {
+            }
+        );
+
+        //  = await fetch(api + `user?name=${name}&password=${password}`, {
+        //     headers: {
+        //         "Access-Control-Allow-Origin": "*"
+        //     },
+        //     mode: "no-cors",
+        // });
         try {
-            const responseText = await response.text();
+            const responseText = response.data;
             const json = responseText === "" ? {} : JSON.parse(responseText);
-            console.log(json, responseText);
-            // {} && '' let's continue tmrw. u can rewrite this using axios, but I won't. i've to work on smth else
-            // okay
+            console.log(json, responseText); // says access is blocked in console
             if (Object.keys(json).length === 0) return;
             const { user, allowed } = json;
-            if (allowed === '0') return console.log("Login prohibited.", user);
-            else if (response.status === 401) return console.log("User doesn't exist.");
-            else if (allowed === "1" && response.ok)
+            if (allowed === '0')
+                return console.log("Login prohibited.", user);
+            else if (response.status === 401)
+                return console.log("User doesn't exist.");
+            else if (allowed === "1" && response.status === 200)
                 return console.log("User logged in.", user);
             setDisableControls(false);
         }

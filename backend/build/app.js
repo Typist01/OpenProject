@@ -37,14 +37,16 @@ const User_1 = __importDefault(require("./models/User"));
         host: "localhost",
         dialect: "mysql",
         dialectModule: await Promise.resolve().then(() => __importStar(require("mysql2"))),
-        models: [User_1.default] // , Project],
+        models: [User_1.default], // , Project],
     });
     sequelize.addModels([__dirname + "/models/User.ts"]);
     sequelize.addModels([__dirname + "/models/Project.ts"]);
     const app = (0, fastify_1.default)();
     (0, users_1.default)(app, sequelize);
-    // initProjectRoutes(app, sequelize);
-    app.get("/", async (req, res) => {
+    // idk what's wrong, but it's here in the backend, try to do
+    // initProjectRoutes(app, sequelize); wait Imma save the login page ok
+    app.get("/", // we can also go back to the commit on july 6th, wanna try that?
+    async (req, res) => {
         return res.status(200).send(JSON.stringify({
             message: req.ip,
         }));

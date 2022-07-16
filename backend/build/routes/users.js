@@ -84,6 +84,7 @@ const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
     }));
 };
 const deleteUserHandler = (sequelize) => async ({ body, }, reply) => {
+    //let's test teh backend again
     const { Name: name, Password: password } = (await sequelize.models["User"]?.findOne({
         where: { name: body.name, password: body.password },
     }));

@@ -47,7 +47,7 @@ const AuthContextProvider = (props: Props) => {
             window.localStorage.removeItem("thisuser");
             console.log("user not logged in");
         }
-    }, [user.isLoggedIn]);
+    }, [user, user.isLoggedIn]);
 
     function loginHandler(username: string) {
         setUser(prevValue => ({
@@ -102,4 +102,3 @@ export function useAppContext() {
 }
 
 export default AuthContextProvider;
-

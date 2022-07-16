@@ -147,6 +147,7 @@ const deleteUserHandler =
     }>,
     reply: FastifyReply
   ) => {
+    //let's test teh backend again
     const { Name: name, Password: password } = (await sequelize.models[
       "User"
     ]?.findOne({
