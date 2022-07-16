@@ -3,20 +3,22 @@ import { Sequelize } from "sequelize-typescript";
 import initUserRoutes from "./routes/users";
 // import initProjectRoutes from "./routes/projects";
 import User from "./models/User";
-// import Project from "./models/Project";
+import cors from "@fastify/cors";
 
 (async () => {
   const sequelize = new Sequelize("github_2", "root", "OpenProject4$", {
     host: "localhost",
     dialect: "mysql",
     dialectModule: await import("mysql2"),
-    models: [User]// , Project],
+    models: [User], // , Project],
   });
   sequelize.addModels([__dirname + "/models/User.ts"]);
   sequelize.addModels([__dirname + "/models/Project.ts"]);
   const app = fastify();
+
+  app.register(cors);
+
   initUserRoutes(app, sequelize);
-  // initProjectRoutes(app, sequelize);
 
   app.get(
     "/",
@@ -28,7 +30,6 @@ import User from "./models/User";
       );
     }
   );
-
   app.listen({ port: 8001 }, async (err, address) => {
     if (err) {
       console.error(err);

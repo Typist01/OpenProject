@@ -2,8 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AppContextInterface {
     user: {
-        id: string,
-        isLoggedIn: boolean,
+        token: string,
     },
     onLogin: (username: string) => void,
     onLogout: () => void,
@@ -34,37 +33,39 @@ const AuthContextProvider = (props: Props) => {
     }, []);
 
     const [user, setUser] = useState({
-        id: "",
-        isLoggedIn: false,
-        onLogin: () => { },
+        token: "",
     });
 
     useEffect(() => {
-        if (user.isLoggedIn) {
-            window.localStorage.setItem("thisuser", JSON.stringify(user));
+        if (user.token !== null) {
+            window.localStorage.setItem("token", JSON.stringify(user.token));
             console.log("local storage updated");
         } else {
-            window.localStorage.removeItem("thisuser");
+            window.localStorage.removeItem("token");
             console.log("user not logged in");
         }
-    }, [user.isLoggedIn]);
-
-    function loginHandler(username: string) {
-        setUser(prevValue => ({
-            ...prevValue,
-            isLoggedIn: true,
-            id: username,
+    }, [user.token]); // we also need to check in the backend if the token is right to make sure heis rly logged in
+    // we can do that in loginHandler
+    // then some kind of function that checks every now and then
+    // maybe like authenticateAccess here, so ctx.authenticateAccess() returns true/false yes, but the token is stored nowhere
+    // but if we want to check if the user is logged in we need to check if the token is right yes idk imma watch a video about that. will take some time ok
+    // it is stored in local storage. yeah we need to also generate it in the backend. 
+    // so when we send a login request and backend approves the login it should also sned out a temporary token
+    // so one of the json elements received needs to be a token that is saved in some kind of a login sessions database or with the user?
+    // shall we take a break? come back maybe in 1/2 hrs? yes, just gonna commit this 
+    // on login calls this function
+    function loginHandler(token: string) {
+        setUser(_ => ({
+            token //this should work? idk
         }));
         window.localStorage.setItem("thisuser", JSON.stringify(user));
     }
 
     function logoutHandler() {
         window.localStorage.removeItem("thisuser");
-        setUser(prevValue => ({
-            ...prevValue,
-            isLoggedIn: false,
-            id: "",
-        }));
+        setUser({
+            token: ""
+        });
     }
 
     function getLocalData() {

@@ -26,6 +26,7 @@ let User = class User extends sequelize_typescript_1.Model {
 };
 __decorate([
     sequelize_typescript_1.PrimaryKey,
+    sequelize_typescript_1.NotNull,
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(30))
 ], User.prototype, "name", void 0);

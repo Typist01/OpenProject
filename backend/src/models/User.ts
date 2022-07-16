@@ -7,11 +7,13 @@ import {
   DataType,
   AllowNull,
   PrimaryKey,
+  NotNull,
 } from "sequelize-typescript";
 
 @Table
 class User extends Model<User> {
   @PrimaryKey
+  @NotNull
   @AllowNull(false)
   @Column(DataType.STRING(30))
   private declare name: string;

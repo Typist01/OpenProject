@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { api } from "../../constants";
 import "./Login.scss";
 import { useAppContext } from "../../Context/LoginContext";
+// import axios from "axios";
 
 const LoginPage = () => {
     const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const LoginPage = () => {
     const [focussed, setFocussed] = useState(false);
     const [validation, setValidation] = useState({
         name: false,
-        password: false
+        password: false,
     });
     const ctx = useAppContext();
 
@@ -39,50 +40,63 @@ const LoginPage = () => {
         if (name === "username") setName(value);
         else if (name === "password") setPassword(value);
         inputValidator(e);
-    }
+    };
 
-
-    const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleOnClick = async (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        if (localStorage.getItem("x")) {
+            return;//wait, this should be done
+        }
         if (name.trim() === "") return console.log("No username provided.");
         if (password.trim() === "") return console.log("No password provided.");
+
         setDisableControls(true);
         e.preventDefault();
-        console.log(
-            "login attempted",
-            api + `user?name=${name}&password=${password}`
+        console.log("login attempted");
+
+        const response = await fetch(
+            api + `user?name=${name}&password=${password}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                mode: "cors",
+            }
         );
-        const response = await fetch(api + `user?name=${name}&password=${password}`, {
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            },
-            mode: "no-cors",
-        });
+        const data = await response.json();
         try {
-            const responseText = await response.text();
-            const json = responseText === "" ? {} : JSON.parse(responseText);
-            console.log(json, responseText);
-            // {} && '' let's continue tmrw. u can rewrite this using axios, but I won't. i've to work on smth else
-            // okay
-            if (Object.keys(json).length === 0) return;
-            const { user, allowed } = json;
-            if (allowed === '0') return console.log("Login prohibited.", user);
-            else if (response.status === 401) return console.log("User doesn't exist.");
-            else if (allowed === "1" && response.ok)
-                return console.log("User logged in.", user);
+            console.log((response));
+            console.log(data);
+            if (Object.keys(data).length === 0)
+                return;
+
+            const { user, allowed } = data;
+            if (allowed === false)
+                return console.log("Login prohibited.", user);
+            else if (response.status === 401)
+                return console.log("User doesn't exist.");
+            else if (allowed === true && response.status === 200) {
+                if (ctx === null)
+                    return;
+                ctx!.onLogin("username");
+                console.log("ctx.user" + ctx.user);
+                return console.log("User logged in.", user); //tain the ls me,an  that he's logged in?, yeah it's kinda redundant. I was told by someoen also, I guess I cna change ot ot just the username
+            }// it's actually kinda dumb. If the data is correct and in the ls,  the user is logged in
+            // if dat aisn't in ls, does it return null? or yes ok
             setDisableControls(false);
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
 
         // call ctx.onLogin(username) on successful login
-    }
-    if (ctx?.user.isLoggedIn) {
+    };
+    if (ctx!?.user!?.token !== null) {
         return (
             <React.Fragment>
-                <h1>You are already logged in</h1>
+                <h1>You are already logged in</h1><a onClick={ctx!.onLogout}>Logout?</a>
             </React.Fragment>
-        )
+        );
     }
     return (
         <React.Fragment>
@@ -125,6 +139,6 @@ const LoginPage = () => {
             </div>
         </React.Fragment>
     );
-}
+};
 
 export default LoginPage;

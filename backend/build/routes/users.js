@@ -10,47 +10,52 @@ const getUsersHandler = (sequelize) => async (_request, reply) => {
         .send(JSON.stringify(await sequelize.models["User"]?.findAll()));
 };
 const getUserHandler = (sequelize) => async (request, reply) => {
-    const { Name: name, Password: password, Projects: projects, Communities: communities, Image: image, createdAt, updatedAt, } = (await sequelize.models["User"]?.findOne({
+    const data = (await sequelize.models["User"]?.findOne({
         where: { name: request.query.name },
     }));
     try {
-        console.log(JSON.stringify({
-            allowed: "0",
-            user: {
-                name,
-                image,
-                createdAt,
-            },
-        }));
-        if (!(await bcrypt_1.default.compare(request.query.password, password)))
-            return reply.status(200).send(JSON.stringify({
-                allowed: "0",
-                user: JSON.stringify({
-                    name,
-                    image,
-                    createdAt,
-                }),
-            }));
+        if (data !== null) {
+            const { Name: name, Image: image, Password: password, Projects: projects, Communities: communities, createdAt, updatedAt, } = data;
+            if (!(await bcrypt_1.default.compare(request.query.password, password))) {
+                console.log(1);
+                return reply.status(200).send(JSON.stringify({
+                    allowed: false,
+                    user: {
+                        name,
+                        image,
+                        createdAt,
+                    },
+                }, null, 4));
+            }
+            else {
+                reply.status(200).send(JSON.stringify({
+                    allowed: true,
+                    user: {
+                        name,
+                        password,
+                        projects,
+                        communities,
+                        image,
+                        createdAt,
+                        updatedAt,
+                    },
+                }, null, 4));
+            }
+        }
+        else
+            reply.status(200).send(JSON.stringify({
+                allowed: false,
+                message: "No content.",
+                user: "No data",
+            }, null, 4));
     }
     catch (e) {
-        console.log({
-            name,
-            image,
-            createdAt,
+        console.log(e);
+        reply.status(200).send({
+            message: "Just an error",
+            user: "No data",
         });
     }
-    reply.status(200).send(JSON.stringify({
-        allowed: "1",
-        user: JSON.stringify({
-            name,
-            password,
-            projects,
-            communities,
-            image,
-            createdAt,
-            updatedAt,
-        }),
-    }));
 };
 const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
     if ((await sequelize.models["User"]?.findOne({

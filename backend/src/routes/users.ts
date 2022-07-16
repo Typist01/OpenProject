@@ -6,9 +6,17 @@ import bcrypt from "bcrypt";
 const getUsersHandler =
   (sequelize: Sequelize) =>
   async (_request: FastifyRequest, reply: FastifyReply) => {
-    reply
-      .status(200)
-      .send(JSON.stringify(await sequelize.models["User"]?.findAll()));
+    reply.status(200).send(
+      JSON.stringify(
+        ((await sequelize.models["User"]?.findAll()) as User[])?.map(u => ({
+          name: u.Name,
+          image: u.Image,
+          communities: u.Communities,
+          projects: u.Projects,
+          createdAt: u.createdAt,
+        }))
+      )
+    );
   };
 const getUserHandler =
   (sequelize: Sequelize) =>
@@ -18,60 +26,76 @@ const getUserHandler =
     }>,
     reply: FastifyReply
   ): Promise<any> => {
-    const {
-      Name: name,
-      Password: password,
-      Projects: projects,
-      Communities: communities,
-      Image: image,
-      createdAt,
-      updatedAt,
-    } = (await sequelize.models["User"]?.findOne({
+    const data = (await sequelize.models["User"]?.findOne({
       where: { name: request.query.name },
     })) as User;
+
     try {
-      console.log(
-        JSON.stringify({
-          allowed: "0",
-          user: {
-            name,
-            image,
-            createdAt,
-          },
-        })
-      );
-      if (!(await bcrypt.compare(request.query.password, password)))
-        return reply.status(200).send(
-          JSON.stringify({
-            allowed: "0",
-            user: JSON.stringify({
-              name,
-              image,
-              createdAt,
-            }),
-          })
-        );
-    } catch (e: any) {
-      console.log({
-        name,
-        image,
-        createdAt,
-      });
-    }
-    reply.status(200).send(
-      JSON.stringify({
-        allowed: "1",
-        user: JSON.stringify({
-          name,
-          password,
-          projects,
-          communities,
-          image,
+      if (data !== null) {
+        const {
+          Name: name,
+          Image: image,
+          Password: password,
+          Projects: projects,
+          Communities: communities,
           createdAt,
           updatedAt,
-        }),
-      })
-    );
+        } = data;
+        if (!(await bcrypt.compare(request.query.password, password))) {
+          console.log(1);
+          return reply.status(200).send(
+            JSON.stringify(
+              {
+                allowed: false,
+                user: {
+                  name,
+                  image,
+                  createdAt,
+                },
+              },
+              null,
+              4
+            )
+          );
+        } else {
+          reply.status(200).send(
+            JSON.stringify(
+              {
+                allowed: true,
+                user: {
+                  name,
+                  password,
+                  projects,
+                  communities,
+                  image,
+                  createdAt,
+                  updatedAt,
+                },
+              },
+              null,
+              4
+            )
+          );
+        }
+      } else
+        reply.status(200).send(
+          JSON.stringify(
+            {
+              allowed: false,
+              message: "No content.",
+              user: "No data",
+            },
+            null,
+            4
+          )
+        );
+    } catch (e: any) {
+      console.log(e);
+      reply.status(200).send({
+        message: "Just an error",
+        user: "No data",
+      });
+    }
   };
 
 const postCreateUserHandler =
