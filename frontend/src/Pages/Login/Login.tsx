@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { api } from "../../constants";
 import "./Login.scss";
 import { useAppContext } from "../../Context/LoginContext";
-// import axios from "axios";
 
 const LoginPage = () => {
     const [name, setName] = useState("");
@@ -45,9 +44,8 @@ const LoginPage = () => {
     const handleOnClick = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
-        if (localStorage.getItem("x")) {
-            return;//wait, this should be done
-        }
+        if (localStorage.getItem("x"))
+            return;
         if (name.trim() === "") return console.log("No username provided.");
         if (password.trim() === "") return console.log("No password provided.");
 
@@ -79,22 +77,21 @@ const LoginPage = () => {
             else if (allowed === true && response.status === 200) {
                 if (ctx === null)
                     return;
-                ctx!.onLogin("username");
-                console.log("ctx.user" + ctx.user);
-                return console.log("User logged in.", user); //tain the ls me,an  that he's logged in?, yeah it's kinda redundant. I was told by someoen also, I guess I cna change ot ot just the username
-            }// it's actually kinda dumb. If the data is correct and in the ls,  the user is logged in
-            // if dat aisn't in ls, does it return null? or yes ok
+                ctx!.onLogin(name);
+                console.log("ctx.token" + ctx.token);
+                return console.log("User logged in.", user);
+            }
             setDisableControls(false);
         } catch (err) {
             console.log(err);
         }
-
-        // call ctx.onLogin(username) on successful login
     };
-    if (ctx!?.user!?.token !== null) {
+
+    console.log(ctx);
+    if (ctx!.token !== "") {
         return (
             <React.Fragment>
-                <h1>You are already logged in</h1><a onClick={ctx!.onLogout}>Logout?</a>
+                <h1 >You are already logged in</h1><button className="logout-button" onClick={ctx!.onLogout}>Logout?</button>
             </React.Fragment>
         );
     }

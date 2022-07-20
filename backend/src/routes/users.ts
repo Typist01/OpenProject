@@ -40,9 +40,9 @@ const getUserHandler =
           Communities: communities,
           createdAt,
           updatedAt,
+          Token: token,
         } = data;
         if (!(await bcrypt.compare(request.query.password, password))) {
-          console.log(1);
           return reply.status(200).send(
             JSON.stringify(
               {
@@ -70,6 +70,7 @@ const getUserHandler =
                   image,
                   createdAt,
                   updatedAt,
+                  token,
                 },
               },
               null,

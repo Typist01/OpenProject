@@ -23,6 +23,9 @@ let User = class User extends sequelize_typescript_1.Model {
     get Image() {
         return this.image;
     }
+    get Token() {
+        return this.token;
+    }
 };
 __decorate([
     sequelize_typescript_1.PrimaryKey,
@@ -31,9 +34,15 @@ __decorate([
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(30))
 ], User.prototype, "name", void 0);
 __decorate([
+    sequelize_typescript_1.NotNull,
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(72))
 ], User.prototype, "password", void 0);
+__decorate([
+    sequelize_typescript_1.NotNull,
+    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT)
+], User.prototype, "token", void 0);
 __decorate([
     sequelize_typescript_1.AllowNull,
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.JSON())

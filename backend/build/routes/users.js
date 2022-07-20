@@ -5,9 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const getUsersHandler = (sequelize) => async (_request, reply) => {
-    reply
-        .status(200)
-        .send(JSON.stringify(await sequelize.models["User"]?.findAll()));
+    reply.status(200).send(JSON.stringify((await sequelize.models["User"]?.findAll())?.map(u => ({
+        name: u.Name,
+        image: u.Image,
+        communities: u.Communities,
+        projects: u.Projects,
+        createdAt: u.createdAt,
+    }))));
 };
 const getUserHandler = (sequelize) => async (request, reply) => {
     const data = (await sequelize.models["User"]?.findOne({
@@ -15,9 +19,8 @@ const getUserHandler = (sequelize) => async (request, reply) => {
     }));
     try {
         if (data !== null) {
-            const { Name: name, Image: image, Password: password, Projects: projects, Communities: communities, createdAt, updatedAt, } = data;
+            const { Name: name, Image: image, Password: password, Projects: projects, Communities: communities, createdAt, updatedAt, Token: token, } = data;
             if (!(await bcrypt_1.default.compare(request.query.password, password))) {
-                console.log(1);
                 return reply.status(200).send(JSON.stringify({
                     allowed: false,
                     user: {
@@ -38,6 +41,7 @@ const getUserHandler = (sequelize) => async (request, reply) => {
                         image,
                         createdAt,
                         updatedAt,
+                        token,
                     },
                 }, null, 4));
             }

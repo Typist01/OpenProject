@@ -18,9 +18,15 @@ class User extends Model<User> {
   @Column(DataType.STRING(30))
   private declare name: string;
 
+  @NotNull
   @AllowNull(false)
   @Column(DataType.STRING(72))
   private declare password: string;
+
+  @NotNull
+  @AllowNull(false)
+  @Column(DataType.TEXT)
+  private declare token: string;
 
   @AllowNull
   @Column(DataType.JSON())
@@ -60,6 +66,10 @@ class User extends Model<User> {
 
   public get Image(): string | undefined {
     return this.image;
+  }
+
+  public get Token(): string {
+    return this.token;
   }
 }
 export default User;

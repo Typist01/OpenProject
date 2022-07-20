@@ -64,7 +64,7 @@ function convert_tens(n: number): string {
   else return tens[Math.floor(n / 10)] + " " + ones[n % 10];
 }
 
-const convert = (n: number): string => (n == 0 ? "zero" : convert_millions(n));
+const convert = (n: number): string => (n === 0 ? "zero" : convert_millions(n));
 
 // function main() {
 //   var cases = [
