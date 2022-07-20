@@ -1,8 +1,4 @@
 import { Model, NonAttribute } from "sequelize";
-// whhat do we wanna do now?ok
-// continue with this, we kinda dropped it to develop in the internet computer.
-// I think we were on the part where we were trying to connect to mysql workbench ok
-// I was trying to create tables there. mySQL is empty atm, making a new connection. start by creating the users table ok
 
 type SubmissionAttributes = {
   name: string;

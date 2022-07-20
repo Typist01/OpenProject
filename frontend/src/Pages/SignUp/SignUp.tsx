@@ -49,19 +49,18 @@ const SignUpPage = () => {
         setDisableControls(true);
         e.preventDefault();
         const user = await fetch(api + "createUser", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name,
-                password,
-            }),
-            mode: "no-cors"
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            password,
+          }),
+          mode: "no-cors",
         });
         if (user.status === 401) return console.log("User already exists");
-        else if (user.ok) console.log("User was created", user);
+        else if (user.ok) console.log("User was created", await user.json());
         setDisableControls(false);
     }
     return (

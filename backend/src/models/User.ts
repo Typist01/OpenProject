@@ -25,7 +25,7 @@ class User extends Model<User> {
 
   @NotNull
   @AllowNull(false)
-  @Column(DataType.TEXT)
+  @Column(DataType.TEXT())
   private declare token: string;
 
   @AllowNull

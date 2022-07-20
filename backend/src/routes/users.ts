@@ -18,6 +18,7 @@ const getUsersHandler =
       )
     );
   };
+
 const getUserHandler =
   (sequelize: Sequelize) =>
   async (
@@ -26,7 +27,7 @@ const getUserHandler =
     }>,
     reply: FastifyReply
   ): Promise<any> => {
-    const data = (await sequelize.models["User"]?.findOne({
+    const data = (await sequelize.model("User")?.findOne({
       where: { name: request.query.name },
     })) as User;
 
@@ -83,8 +84,8 @@ const getUserHandler =
           JSON.stringify(
             {
               allowed: false,
-              message: "No content.",
-              user: "No data",
+              message: "No content provided.",
+              user: "No data.",
             },
             null,
             4
@@ -97,6 +98,30 @@ const getUserHandler =
         user: "No data",
       });
     }
+  };
+
+const getUserWithTokenHandler =
+  (sequelize: Sequelize) =>
+  async (
+    {
+      query,
+    }: FastifyRequest<{
+      Querystring: { token: string };
+    }>,
+    reply: FastifyReply
+  ): Promise<any> => {
+    const data = (await sequelize.model("User")?.findOne({
+      where: { name: query.token },
+    })) as User;
+    const { Password: password, Name: name } = data ?? {
+      Password: "",
+      Name: "",
+    };
+    reply.send(
+      JSON.stringify(
+        fetch(`http://localhost:8001/user?name=${name}&password=${password}`)
+      )
+    );
   };
 
 const postCreateUserHandler =
@@ -112,11 +137,12 @@ const postCreateUserHandler =
     }>,
     reply: FastifyReply
   ) => {
+    console.log(body);
     if (
-      (await sequelize.models["User"]?.findOne({
+      (await sequelize.model("User")?.findOne({
         where: { name: body.name },
       })) !== null
-    )
+    ) {
       reply.status(401).send(
         JSON.stringify({
           message: await fetch(
@@ -124,15 +150,22 @@ const postCreateUserHandler =
           ),
         })
       );
+    }
+    const createdPw = await bcrypt.hash(body.password, 10),
+      createdToken = await bcrypt.hash(
+        createdPw + (await bcrypt.hash(Date.now().toString(), 10)),
+        10
+      );
     const {
       Name: name,
       Password: password,
+      Token: token,
       Projects: projects,
       Communities: communities,
       Image: image,
       createdAt,
       updatedAt,
-    } = (await sequelize.models["User"]?.create({
+    } = (await sequelize.model("User")?.create({
       where: { name: body.name },
       defaults: {
         name: body.name,
@@ -141,7 +174,8 @@ const postCreateUserHandler =
         image: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        password: await bcrypt.hash(body.password, 10),
+        password: createdPw,
+        token: createdToken,
       },
     })) as User;
     reply.status(200).send(
@@ -149,6 +183,7 @@ const postCreateUserHandler =
         user: {
           name,
           password,
+          token,
           projects,
           communities,
           image,
@@ -172,11 +207,11 @@ const deleteUserHandler =
     }>,
     reply: FastifyReply
   ) => {
-    const { Name: name, Password: password } = (await sequelize.models[
-      "User"
-    ]?.findOne({
-      where: { name: body.name, password: body.password },
-    })) as User;
+    const { Name: name, Password: password } = (await sequelize
+      .model("User")
+      ?.findOne({
+        where: { name: body.name, password: body.password },
+      })) as User;
     if (bcrypt.compareSync(body.password, password))
       reply.status(403).send(
         JSON.stringify({
@@ -223,6 +258,31 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
         },
       },
       getUserHandler(sequelize)
+    )
+    .get(
+      "/userByToken",
+      {
+        schema: {
+          querystring: {
+            token: { type: "string" },
+          },
+          response: {
+            200: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                communities: { type: "object" },
+                projects: { type: "object" },
+                image: { type: "string" },
+                password: { type: "string" },
+                createdAt: { type: "string" },
+                updatedAt: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+      getUserWithTokenHandler(sequelize)
     )
     .post<{
       Body: {

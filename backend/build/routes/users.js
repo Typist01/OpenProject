@@ -14,7 +14,7 @@ const getUsersHandler = (sequelize) => async (_request, reply) => {
     }))));
 };
 const getUserHandler = (sequelize) => async (request, reply) => {
-    const data = (await sequelize.models["User"]?.findOne({
+    const data = (await sequelize.model("User")?.findOne({
         where: { name: request.query.name },
     }));
     try {
@@ -49,8 +49,8 @@ const getUserHandler = (sequelize) => async (request, reply) => {
         else
             reply.status(200).send(JSON.stringify({
                 allowed: false,
-                message: "No content.",
-                user: "No data",
+                message: "No content provided.",
+                user: "No data.",
             }, null, 4));
     }
     catch (e) {
@@ -61,14 +61,27 @@ const getUserHandler = (sequelize) => async (request, reply) => {
         });
     }
 };
+const getUserWithTokenHandler = (sequelize) => async ({ query, }, reply) => {
+    const data = (await sequelize.model("User")?.findOne({
+        where: { name: query.token },
+    }));
+    const { Password: password, Name: name } = data ?? {
+        Password: "",
+        Name: "",
+    };
+    reply.send(JSON.stringify(fetch(`http://localhost:8001/user?name=${name}&password=${password}`)));
+};
 const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
-    if ((await sequelize.models["User"]?.findOne({
+    console.log(JSON.stringify(body));
+    if ((await sequelize.model("User")?.findOne({
         where: { name: body.name },
-    })) !== null)
+    })) !== null) {
         reply.status(401).send(JSON.stringify({
             message: await fetch(`http://localhost:8001/user?name=${body.name}&password=${body.password}`),
         }));
-    const { Name: name, Password: password, Projects: projects, Communities: communities, Image: image, createdAt, updatedAt, } = (await sequelize.models["User"]?.create({
+    }
+    const createdPw = await bcrypt_1.default.hash(body.password, 10), createdToken = await bcrypt_1.default.hash(createdPw + (await bcrypt_1.default.hash(Date.now().toString(), 10)), 10);
+    const { Name: name, Password: password, Token: token, Projects: projects, Communities: communities, Image: image, createdAt, updatedAt, } = (await sequelize.model("User")?.create({
         where: { name: body.name },
         defaults: {
             name: body.name,
@@ -77,13 +90,15 @@ const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
             image: null,
             createdAt: new Date(),
             updatedAt: new Date(),
-            password: await bcrypt_1.default.hash(body.password, 10),
+            password: createdPw,
+            token: createdToken,
         },
     }));
     reply.status(200).send(JSON.stringify({
         user: {
             name,
             password,
+            token,
             projects,
             communities,
             image,
@@ -93,7 +108,9 @@ const postCreateUserHandler = (sequelize) => async ({ body, }, reply) => {
     }));
 };
 const deleteUserHandler = (sequelize) => async ({ body, }, reply) => {
-    const { Name: name, Password: password } = (await sequelize.models["User"]?.findOne({
+    const { Name: name, Password: password } = (await sequelize
+        .model("User")
+        ?.findOne({
         where: { name: body.name, password: body.password },
     }));
     if (bcrypt_1.default.compareSync(body.password, password))
@@ -134,6 +151,27 @@ const initUserRoutes = (app, sequelize) => {
             },
         },
     }, getUserHandler(sequelize))
+        .get("/userByToken", {
+        schema: {
+            querystring: {
+                token: { type: "string" },
+            },
+            response: {
+                200: {
+                    type: "object",
+                    properties: {
+                        name: { type: "string" },
+                        communities: { type: "object" },
+                        projects: { type: "object" },
+                        image: { type: "string" },
+                        password: { type: "string" },
+                        createdAt: { type: "string" },
+                        updatedAt: { type: "string" },
+                    },
+                },
+            },
+        },
+    }, getUserWithTokenHandler(sequelize))
         .post("/createUser", {
         schema: {
             querystring: {

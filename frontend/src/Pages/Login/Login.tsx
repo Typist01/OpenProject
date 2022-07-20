@@ -13,6 +13,7 @@ const LoginPage = () => {
         password: false,
     });
     const ctx = useAppContext();
+    const [invalidLogin, setInvalidLogin] = useState(false);
 
     const inputValidator = (e: React.ChangeEvent<HTMLInputElement>) => {
         const iElement = e.currentTarget.name;
@@ -70,10 +71,15 @@ const LoginPage = () => {
                 return;
 
             const { user, allowed } = data;
-            if (allowed === false)
+            if (allowed === false) {
+                setInvalidLogin(true);
                 return console.log("Login prohibited.", user);
-            else if (response.status === 401)
+            }
+            else if (response.status === 401){
+                setInvalidLogin(true);
                 return console.log("User doesn't exist.");
+            }
+
             else if (allowed === true && response.status === 200) {
                 if (ctx === null)
                     return;
@@ -125,6 +131,7 @@ const LoginPage = () => {
                     ></input>
                 </div>
                 <div className="button-div">
+                    <h3 className={`invalid-msg ${invalidLogin ? null : "hidden"}`}>Invalid username or password</h3>
                     <button
                         className="login-button"
                         onClick={handleOnClick}

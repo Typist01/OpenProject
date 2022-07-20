@@ -41,7 +41,7 @@ __decorate([
 __decorate([
     sequelize_typescript_1.NotNull,
     (0, sequelize_typescript_1.AllowNull)(false),
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT)
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.TEXT())
 ], User.prototype, "token", void 0);
 __decorate([
     sequelize_typescript_1.AllowNull,

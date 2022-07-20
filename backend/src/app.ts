@@ -6,16 +6,15 @@ import User from "./models/User";
 import cors from "@fastify/cors";
 
 (async () => {
-  const sequelize = new Sequelize("github_2", "root", "OpenProject4$", {
+  const sequelize = new Sequelize("openproject", "root", "OpenProject4$", {
     host: "localhost",
     dialect: "mysql",
     dialectModule: await import("mysql2"),
-    models: [User], // , Project],
+    models: [User],
   });
   sequelize.addModels([__dirname + "/models/User.ts"]);
   sequelize.addModels([__dirname + "/models/Project.ts"]);
   const app = fastify();
-
   app.register(cors);
 
   initUserRoutes(app, sequelize);
@@ -30,12 +29,14 @@ import cors from "@fastify/cors";
       );
     }
   );
+
   app.listen({ port: 8001 }, async (err, address) => {
     if (err) {
       console.error(err);
       process.exit(1);
     }
     console.log(`Server listening at ${address}`);
+
     await sequelize.sync();
   });
 })();

@@ -33,11 +33,11 @@ const users_1 = __importDefault(require("./routes/users"));
 const User_1 = __importDefault(require("./models/User"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 (async () => {
-    const sequelize = new sequelize_typescript_1.Sequelize("github_2", "root", "OpenProject4$", {
+    const sequelize = new sequelize_typescript_1.Sequelize("openproject", "root", "OpenProject4$", {
         host: "localhost",
         dialect: "mysql",
         dialectModule: await Promise.resolve().then(() => __importStar(require("mysql2"))),
-        models: [User_1.default], // , Project],
+        models: [User_1.default],
     });
     sequelize.addModels([__dirname + "/models/User.ts"]);
     sequelize.addModels([__dirname + "/models/Project.ts"]);
