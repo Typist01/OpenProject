@@ -2,11 +2,22 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { Sequelize } from "sequelize-typescript";
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import { FromSchema } from "json-schema-to-ts";
+import { Codes } from "../types";
+
+const namePw = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    password: { type: "string" },
+  },
+  required: ["name", "password"],
+} as const;
 
 const getUsersHandler =
   (sequelize: Sequelize) =>
   async (_request: FastifyRequest, reply: FastifyReply) => {
-    reply.status(200).send(
+    reply.status(Codes.Successful).send(
       JSON.stringify(
         ((await sequelize.models["User"]?.findAll()) as User[])?.map(u => ({
           name: u.Name,
@@ -22,13 +33,15 @@ const getUsersHandler =
 const getUserHandler =
   (sequelize: Sequelize) =>
   async (
-    request: FastifyRequest<{
+    {
+      query,
+    }: FastifyRequest<{
       Querystring: { name: string; password: string };
     }>,
     reply: FastifyReply
   ): Promise<any> => {
-    const data = (await sequelize.model("User")?.findOne({
-      where: { name: request.query.name },
+    const data = (await sequelize.models["User"]?.findOne({
+      where: { name: query.name },
     })) as User;
 
     try {
@@ -43,8 +56,9 @@ const getUserHandler =
           updatedAt,
           Token: token,
         } = data;
-        if (!(await bcrypt.compare(request.query.password, password))) {
-          return reply.status(200).send(
+
+        if (!(await bcrypt.compare(query.password, password))) {
+          return reply.status(Codes.Successful).send(
             JSON.stringify(
               {
                 allowed: false,
@@ -59,7 +73,7 @@ const getUserHandler =
             )
           );
         } else {
-          reply.status(200).send(
+          return reply.status(Codes.Successful).send(
             JSON.stringify(
               {
                 allowed: true,
@@ -80,11 +94,11 @@ const getUserHandler =
           );
         }
       } else
-        reply.status(200).send(
+        return reply.status(Codes.Successful).send(
           JSON.stringify(
             {
               allowed: false,
-              message: "No content provided.",
+              message: "Could not find user.",
               user: "No data.",
             },
             null,
@@ -93,7 +107,8 @@ const getUserHandler =
         );
     } catch (e: any) {
       console.log(e);
-      reply.status(200).send({
+      return reply.status(Codes.Successful).send({
+        allowed: false,
         message: "Just an error",
         user: "No data",
       });
@@ -130,44 +145,38 @@ const postCreateUserHandler =
     {
       body,
     }: FastifyRequest<{
-      Body: {
-        name: string;
-        password: string;
-      };
+      Body: FromSchema<typeof namePw>;
     }>,
     reply: FastifyReply
-  ) => {
-    console.log(body);
+  ): Promise<any> => {
     if (
-      (await sequelize.model("User")?.findOne({
+      (await sequelize.models["User"]?.count({
         where: { name: body.name },
-      })) !== null
-    ) {
-      reply.status(401).send(
+      })) !== 0
+    )
+      return reply.status(Codes.AlreadyExists).send(
         JSON.stringify({
-          message: await fetch(
-            `http://localhost:8001/user?name=${body.name}&password=${body.password}`
-          ),
+          message: `User "${body.name}" already exists.`,
         })
       );
-    }
-    const createdPw = await bcrypt.hash(body.password, 10),
-      createdToken = await bcrypt.hash(
-        createdPw + (await bcrypt.hash(Date.now().toString(), 10)),
-        10
-      );
-    const {
-      Name: name,
-      Password: password,
-      Token: token,
-      Projects: projects,
-      Communities: communities,
-      Image: image,
-      createdAt,
-      updatedAt,
-    } = (await sequelize.model("User")?.create({
-      where: { name: body.name },
-      defaults: {
+
+    try {
+      const createdPw = await bcrypt.hash(body.password, 10),
+        createdToken = await bcrypt.hash(
+          createdPw + (await bcrypt.hash(Date.now().toString(), 10)),
+          10
+        );
+
+      const {
+        Name: name,
+        Password: password,
+        Token: token,
+        Projects: projects,
+        Communities: communities,
+        Image: image,
+        createdAt,
+        updatedAt,
+      } = (await sequelize.model("User")?.create({
         name: body.name,
         projects: null,
         communities: null,
@@ -176,22 +185,25 @@ const postCreateUserHandler =
         updatedAt: new Date(),
         password: createdPw,
         token: createdToken,
-      },
-    })) as User;
-    reply.status(200).send(
-      JSON.stringify({
-        user: {
-          name,
-          password,
-          token,
-          projects,
-          communities,
-          image,
-          createdAt,
-          updatedAt,
-        },
-      })
-    );
+      })) as User;
+
+      return reply.status(Codes.Successful).send(
+        JSON.stringify({
+          user: {
+            name,
+            password,
+            token,
+            projects,
+            communities,
+            image,
+            createdAt,
+            updatedAt,
+          },
+        })
+      );
+    } catch (e) {
+      return reply.status(Codes.Successful).send(JSON.stringify(e));
+    }
   };
 
 const deleteUserHandler =
@@ -200,34 +212,35 @@ const deleteUserHandler =
     {
       body,
     }: FastifyRequest<{
-      Body: {
-        name: string;
-        password: string;
-      };
+      Body: FromSchema<typeof namePw>;
     }>,
     reply: FastifyReply
-  ) => {
-    const { Name: name, Password: password } = (await sequelize
-      .model("User")
-      ?.findOne({
-        where: { name: body.name, password: body.password },
-      })) as User;
-    if (bcrypt.compareSync(body.password, password))
-      reply.status(403).send(
+  ): Promise<any> => {
+    const data = (await sequelize.model("User")?.findOne({
+      where: { name: body.name },
+    })) as User;
+    if (data === null)
+      return reply.status(Codes.NotFound).send(
         JSON.stringify({
-          message: `Forbidden.`,
+          message: `User "${body.name}" not found.`,
         })
       );
-    else {
-      await sequelize.models["User"]?.destroy({
-        where: { name: body.name, password: body.password },
-      });
-      reply.status(200).send(
+
+    if (!(await bcrypt.compare(body.password, data.Password)))
+      return reply.status(Codes.Forbidden).send(
         JSON.stringify({
-          message: `"${name}" was successfully deleted.`,
+          message: `No permission to delete ${body.name}.`,
         })
       );
-    }
+
+    await sequelize.models["User"]?.destroy({
+      where: { name: body.name },
+    });
+    return reply.status(Codes.Successful).send(
+      JSON.stringify({
+        message: `User "${body.name}" was successfully deleted.`,
+      })
+    );
   };
 
 const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
@@ -242,7 +255,7 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
             password: { type: "string" },
           },
           response: {
-            200: {
+            [Codes.Successful]: {
               type: "object",
               properties: {
                 name: { type: "string" },
@@ -267,7 +280,7 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
             token: { type: "string" },
           },
           response: {
-            200: {
+            [Codes.Successful]: {
               type: "object",
               properties: {
                 name: { type: "string" },
@@ -285,24 +298,19 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       getUserWithTokenHandler(sequelize)
     )
     .post<{
-      Body: {
-        name: string;
-        password: string;
-      };
+      Body: FromSchema<typeof namePw>;
     }>(
       "/createUser",
       {
         schema: {
-          querystring: {
-            name: { type: "string" },
-            password: { type: "string" },
-          },
+          body: namePw,
           response: {
-            200: {
+            [Codes.Successful]: {
               type: "object",
               properties: {
                 name: { type: "string" },
                 password: { type: "string" },
+                token: { type: "string" },
                 communities: { type: "object" },
                 projects: { type: "object" },
                 image: { type: "string" },
@@ -316,20 +324,14 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       postCreateUserHandler(sequelize)
     )
     .delete<{
-      Body: {
-        name: string;
-        password: string;
-      };
+      Body: FromSchema<typeof namePw>;
     }>(
       "/deleteUser",
       {
         schema: {
-          querystring: {
-            name: { type: "string" },
-            password: { type: "string" },
-          },
+          body: namePw,
           response: {
-            200: {
+            [Codes.Successful]: {
               type: "object",
               properties: {
                 name: { type: "string" },

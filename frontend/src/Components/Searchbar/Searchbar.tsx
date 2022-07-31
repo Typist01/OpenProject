@@ -1,49 +1,56 @@
 import React, { useEffect, useState } from "react";
+import { api } from "../../constants";
 import "./Searchbar.scss"
 
-// const Results = () => {
-//     const searchResults = ["one", "two", "three"];
-//     return (
-//         <div className="search-results">
-//             {searchResults.map(_ => <div className="search-result"></div>)}
+enum ResultType {
+    User = "User"
+}
 
-
-//         </div>
-
-//     )
-// }
-
+const SearchResults = ({
+    results, query
+}: {
+    results: Record<string, ResultType>;
+    query: string;
+}) => (
+    <div className="result-container">
+        <ul className="results">
+            {Object.entries(results).filter(x => x[0].includes(query)).map((x, i, arr) => (
+                <li
+                    className="result"
+                    id={i === arr.length - 1 ? "last-result" : ""}
+                >
+                    <button className="result-button">
+                        <p className="result-name">{x[0]}</p>
+                        <code className="result-type">{x[1]}</code>
+                    </button>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
 
 const SearchBar = () => {
-
-    const [userQuery, setUserQuery] = useState("")
+    const [query, setUserQuery] = useState("");
+    const [resultsData, setResultsData] = useState<Record<string, ResultType>>({});
 
     useEffect(() => {
-        console.log(userQuery)
-    }, [userQuery])
+        console.log("use effect called")
+        fetch(api + "users")
+            .then(x => x.json())
+            .then((data: any[]) => {
+                data.forEach(x => setResultsData(r => ({ ...r, [x.name]: ResultType.User })));
+            });
+    }, [query]);
 
-    function searchHandler(e: any) {
-        const val = e.target.value
-        setUserQuery(val)
-    }
-
-
-    return (<React.Fragment>
-        <input className="search-input" type="text" value={userQuery} onChange={searchHandler} />
-        {/* <Results /> */}
-    </React.Fragment>)
+    return (
+        <div className="search-bar">
+            <div className="search-container">
+                <input className="search-input" type="text" value={query} onChange={e => setUserQuery(e.target.value)} />
+            </div>
+            <div className={query.length === 0 ? "hidden" : ""}>
+                <SearchResults results={resultsData} query={query} />
+            </div>
+        </div>);
 }
 
 export default SearchBar;
-
-// const Searchbar = () => {
-//     const [tExists, setTExists] = useState(false);
-//     return (
-//     <div className="searchbar">
-//         <input style={{ height: "100px" }} id="searchbarInput" type="text" onChange={e => setTExists(e.target.value.length > 0 ? true : false)}>
-//             <h4>{tExists ? "" : "Search..."}</h4>
-//         </input>
-//     </div>
-//     )
-// };
-// export default Searchbar;
