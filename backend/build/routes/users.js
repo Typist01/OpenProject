@@ -23,6 +23,7 @@ const getUsersHandler = (sequelize) => async (_request, reply) => {
     }))));
 };
 const getUserHandler = (sequelize) => async ({ query, }, reply) => {
+    console.log(query.name);
     const data = (await sequelize.models["User"]?.findOne({
         where: { name: query.name },
     }));

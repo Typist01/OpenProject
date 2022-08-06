@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import CommunityCreationModal from "../Communities/CreateCommunityModal/CreateCommunity";
+import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
+import CommunityCreationModal from "../Communities/CreateCommunity/CreateCommunity";
 import "./Home.scss";
 
 const ProjectPreview = () => {
@@ -77,6 +78,7 @@ const RenderMain = (props: any) => {
 const Home = () => {
     const [showModal, setShowModal] = useState(false);
     const [highlight, setHighlight] = useState("projects");
+    const [showProjectModal, setShowProjectModal] = useState(false);
 
     return (
         <React.Fragment>
@@ -92,6 +94,11 @@ const Home = () => {
                             }}
                         />
                     ) : null}
+                    {showProjectModal ? (
+                        <ProjectCreationModal closeFunction={() => { setShowProjectModal(v => !v) }}
+                        />
+                    ) : null}
+
                     <div className="">
                         <button
                             className="home-button"
@@ -105,7 +112,9 @@ const Home = () => {
                     </div>
                     <div>
                         <button
-                            className="home-button"
+                            className="home-button" onClick={() => {
+                                setShowProjectModal(true)
+                            }}
                         >
                             <h1>Create a new project</h1>
                             <p>Write down tasks and project requirements</p>

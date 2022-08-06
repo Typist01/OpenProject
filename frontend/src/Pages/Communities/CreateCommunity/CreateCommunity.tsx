@@ -2,9 +2,6 @@ import React, { } from "react";
 import "./CreateCommunity.scss"
 import "./checkbox.scss"
 
-
-
-// salam
 const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }) => {
 
     // const [userQuery, setUserQuery] = useState({
@@ -23,10 +20,8 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
 
     // toggle modal close on outside click
     function clickHandler(e: any) {
-        if (e.target.closest(".cc-modal-content")) {
-        } else {
+        if (!e.target.closest(".cc-modal-content"))
             closeFunction()
-        }
     }
 
     return (

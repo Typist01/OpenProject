@@ -46,7 +46,6 @@ $search-width-scaling: 65%;
     width: $search-width-scaling;
     min-width: $search-width-min;
     height: 500px;
-    padding: 15px 5px;
     padding-top: 0;
     margin: auto;
 }
@@ -86,20 +85,23 @@ $search-width-scaling: 65%;
     border-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: gray;
-}
-
-.result-name,
-.result-type {
-    display: inline;
-    margin-inline-end: 400px;
+    position: relative;
 }
 
 .result-name {
+    left: 10px;
+    position: relative;
+    text-align: start;
     color: black;
-    right: 10px;
 }
 
 .result-type {
     color: gray;
-    text-align: right;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+}
+
+.result-button:hover {
+    background-color: rgb(214, 214, 214);
 }

@@ -23,6 +23,7 @@ const SearchResults = ({
                         <p className="result-name">{x[0]}</p>
                         <code className="result-type">{x[1]}</code>
                     </button>
+                    {/* w */}
                 </li>
             ))}
         </ul>
@@ -30,11 +31,10 @@ const SearchResults = ({
 );
 
 const SearchBar = () => {
-    const [query, setUserQuery] = useState("");
+    const [query, setQuery] = useState("");
     const [resultsData, setResultsData] = useState<Record<string, ResultType>>({});
 
     useEffect(() => {
-        console.log("use effect called")
         fetch(api + "users")
             .then(x => x.json())
             .then((data: any[]) => {
@@ -45,12 +45,21 @@ const SearchBar = () => {
     return (
         <div className="search-bar">
             <div className="search-container">
-                <input className="search-input" type="text" value={query} onChange={e => setUserQuery(e.target.value)} />
+                <input
+                    className="search-input"
+                    type="text"
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                />
             </div>
-            <div className={query.length === 0 ? "hidden" : ""}>
-                <SearchResults results={resultsData} query={query} />
+            <div className={query.trim().length === 0 ? "hidden" : ""}>
+                <SearchResults
+                    results={resultsData}
+                    query={query.trim()}
+                />
             </div>
-        </div>);
+        </div>
+    );
 }
 
 export default SearchBar;

@@ -1,8 +1,9 @@
-.home-container{
+.home-container {
     text-align: center;
     margin-top: 50px;
 }
-.home-button{
+
+.home-button {
     background-color: #fee7e7;
     color: black;
     font-size: 16px;
@@ -11,16 +12,18 @@
     margin: auto;
     padding: 5px;
     margin-top: 50px;
+    outline: none;
 }
 
 
-.project-previews{
+.project-previews {
     margin: auto;
     width: 550px;
     margin-top: 50px;
 
 }
-.project-preview-container{
+
+.project-preview-container {
     margin: auto;
     margin-top: 35px;
     margin-bottom: 35px;
@@ -32,12 +35,12 @@
     padding: 3px 15px;
 }
 
-.project-preview-container:hover{
+.project-preview-container:hover {
     cursor: pointer;
-    
+
 }
 
-.submission-preview-container{
+.submission-preview-container {
     margin: auto;
     margin-top: 35px;
     margin-bottom: 35px;
@@ -48,85 +51,93 @@
     border-radius: 3px;
     padding: 3px 15px;
 }
-.submission-preview-container:hover{
+
+.submission-preview-container:hover {
     cursor: pointer;
-    
+
 }
 
-.home-nav{
+.home-nav {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
 
 }
-.home-heading{
+
+.home-heading {
     display: inline;
     font-size: 25px;
-    margin: 5px 30px;    
+    margin: 5px 30px;
 }
-.home-heading:hover{
+
+.home-heading:hover {
     cursor: pointer;
 }
 
-.home-section{
+.home-section {
     display: flex;
     margin-top: 3%;
 
 }
 
-.home-left-nav{ 
+.home-left-nav {
     margin-top: 20%;
     margin-left: 7%;
     margin-right: 50px;
 }
 
-.home-right-nav{
+.home-right-nav {
     margin-right: 7%;
     margin-left: 50px;
     margin-top: 10%;
 }
 
-.community-preview{
+.community-preview {
     width: 300px;
     height: 250px;
     background-color: beige;
-    padding:10px 15px;
+    padding: 10px 15px;
     border-radius: 3px;
     color: black;
     margin-top: 35px;
     margin-bottom: 35px;
 }
-.community-preview:hover{
+
+.community-preview:hover {
     cursor: pointer;
 }
+
 // Im thinking wait
 
-.highlight{
+.highlight {
     color: aquamarine;
 }
 
-.project-preview-pp{
+.project-preview-pp {
     width: 60px;
     height: 60px;
     border-radius: 30px;
     background-color: black;
     position: absolute;
     right: 5px;
-    
+
 }
-.relative-container{
+
+.relative-container {
     position: relative;
 }
-.project-preview-title{
+
+.project-preview-title {
     font-size: 28px;
 
 }
 
-.community-preview-title{
+.community-preview-title {
     font-size: 25px;
 }
-.community-preview-pp{
+
+.community-preview-pp {
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -135,7 +146,15 @@
     right: 5px;
 }
 
-a, a:hover, a:focus, a:active {
+a,
+a:hover,
+a:focus,
+a:active {
     text-decoration: none;
     color: inherit;
-    }
+}
+
+button {
+    outline: none;
+    border: none;
+}

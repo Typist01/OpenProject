@@ -1,7 +1,7 @@
 import fastify, { FastifyRequest, FastifyReply } from "fastify";
 import { Sequelize } from "sequelize-typescript";
 import initUserRoutes from "./routes/users";
-// import initProjectRoutes from "./routes/projects";
+import initProjectRoutes from "./routes/projects";
 import User from "./models/User";
 import cors from "@fastify/cors";
 
@@ -18,6 +18,7 @@ import cors from "@fastify/cors";
   app.register(cors);
 
   initUserRoutes(app, sequelize);
+  initProjectRoutes(app, sequelize);
 
   app.get(
     "/",

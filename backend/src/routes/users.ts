@@ -40,6 +40,7 @@ const getUserHandler =
     }>,
     reply: FastifyReply
   ): Promise<any> => {
+    console.log(query.name);
     const data = (await sequelize.models["User"]?.findOne({
       where: { name: query.name },
     })) as User;
@@ -148,7 +149,7 @@ const postCreateUserHandler =
       Body: FromSchema<typeof namePw>;
     }>,
     reply: FastifyReply
-  ): Promise<any> => {
+  ) => {
     if (
       (await sequelize.models["User"]?.count({
         where: { name: body.name },

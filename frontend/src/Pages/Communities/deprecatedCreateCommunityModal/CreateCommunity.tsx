@@ -20,7 +20,7 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
     // function handleCheckBox() {
     //     projectType == "private" ? setProjectType("community") : setProjectType("private")
     // }
-
+// do you know why it is throwing errors?
     // toggle modal close on outside click
     function clickHandler(e: any) {
         if (e.target.closest(".cc-modal-content")) {

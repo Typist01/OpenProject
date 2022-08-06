@@ -1,31 +1,32 @@
-
-.search-result{
+.search-result {
     width: 600px;
     height: 160px;
     background-color: white;
     margin: 0;
     margin: auto;
-    margin-top:50px;
+    margin-top: 50px;
     outline: 0;
     cursor: pointer;
 }
-.search-result:hover{
+
+.search-result:hover {
     outline-style: solid;
     outline-width: 1px;
     outline-color: rgb(0, 255, 153);
 
 }
-.search-result-title{
+
+.search-result-title {
     font-size: 24px;
     margin: 0;
     padding: 0;
     padding-bottom: 3px;
     margin-left: 15px;
     padding-top: 7px;
-    
+
 }
 
-.search-tag{
+.search-tag {
     padding: 0;
     margin: 0;
     margin-left: 10px;
@@ -33,17 +34,17 @@
     width: 150px;
     height: 20px;
     line-height: 20px;
-
     border-radius: 15px;
     text-align: center;
 }
-.search-tag:hover{
+
+.search-tag:hover {
     outline: solid;
     outline-color: blue;
     outline-width: 1px;
 }
 
-.result-description{
+.result-description {
     padding: 0;
     margin: 0;
     justify-content: center;

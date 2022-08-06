@@ -1,28 +1,32 @@
-.heading{
+.heading {
     text-align: center;
     margin: 0;
     margin-top: 70px;
 }
-.login-entries{
+
+.login-entries {
     width: 350px;
     margin: auto;
     margin-top: 80px;
 }
-.login-entry{
+
+.login-entry {
     margin-top: 40px;
 }
-.password-entry{
+
+.password-entry {
     width: 350px;
     margin: auto;
     margin-top: 45px;
 
 }
 
-.login-label{
+.login-label {
     font-size: 23px;
 
 }
-.login-input{
+
+.login-input {
     margin-top: 5px;
     width: 350px;
     height: 50px;
@@ -32,49 +36,47 @@
     border: none;
     text-align: center;
 }
-.login-input:focus{
+
+.login-input:focus {
     border: none;
     outline: solid;
     outline-width: 1px;
     outline-color: yellowgreen;
 }
 
-.button-div{
+.button-div {
     text-align: center;
 }
 
 .login-button {
     width: 200px;
     height: 100px;
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
-.login-button:hover{
-    
-}
-
-.invalid-input{
+.invalid-input {
     outline: solid;
     outline-color: red;
     outline-width: 2px;
-    
+
 }
 
-button{
+button {
     outline: none;
     margin: 0;
     padding: 0;
 }
 
-.logout-button{
+.logout-button {
     width: 70px;
     height: 50px;
 }
 
-.invalid-msg{
+.invalid-msg {
     color: rgba(217, 255, 0, 0.875);
     font-size: 14px;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
