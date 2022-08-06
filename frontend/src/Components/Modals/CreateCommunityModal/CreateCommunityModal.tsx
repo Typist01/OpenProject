@@ -32,10 +32,10 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
                                     if (e.key === "Tab" || e.key === "Enter") {
                                         console.log(`${e.key} pressed`);
                                         e.preventDefault();
-                                        if (tags.includes(tagText))
+                                        if (tags.includes(tagText) || tagText.trim() === "")
                                             return;
               
-                                        setTags(ts => [...ts, tagText]);
+                                        setTags(ts => [...ts, tagText.trim()]);
                                         setTagText("");
                                     }
                                 }} />

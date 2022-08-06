@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
-import CommunityCreationModal from "../Communities/CreateCommunity/CreateCommunity";
+import CommunityCreationModal from "../../Components/Modals/CreateCommunityModal/CreateCommunityModal";
 import "./Home.scss";
 
 const ProjectPreview = () => {
@@ -22,23 +22,21 @@ const ProjectPreview = () => {
     );
 };
 
-const SubmissionPreview = () => {
-    return (
-        <div className="submission-preview-container">
-            <div className="flex-container relative-container">
-                <h1 className="project-preview-title">Submission Name</h1>
-                <div className="project-preview-pp"></div>
-            </div>
-            <p className="project-preview-description">
-                {" "}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat
-                distinctio quidem sint provident laborum placeat, adipisci dignissimos
-                laudantium! Ipsam atque odio incidunt dolorem officiis minus. Ducimus
-                asperiores delectus obcaecati!
-            </p>
+const SubmissionPreview = () => (
+    <div className="submission-preview-container">
+        <div className="flex-container relative-container">
+            <h1 className="project-preview-title">Submission Name</h1>
+            <div className="project-preview-pp"></div>
         </div>
-    )
-}
+        <p className="project-preview-description">
+            {" "}
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat
+            distinctio quidem sint provident laborum placeat, adipisci dignissimos
+            laudantium! Ipsam atque odio incidunt dolorem officiis minus. Ducimus
+            asperiores delectus obcaecati!
+        </p>
+    </div>
+);
 
 const CommunityPreview = () => {
     return (

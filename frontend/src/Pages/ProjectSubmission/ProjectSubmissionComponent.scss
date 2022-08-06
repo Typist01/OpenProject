@@ -1,40 +1,50 @@
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
 
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #1e1e1e;
-    color: white;
-    margin: 7% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
-    max-width: 500px;
-    border: none;
-  }
-  
-  .modal-content h1{
-    margin:0;
-    padding: 0;
-    margin-top: 30px;
-    font-size: 27px;
-    font-weight: 600;
-  
-  }
+/* Modal Content/Box */
+.modal-content {
+  background-color: #1e1e1e;
+  color: white;
+  margin: 7% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+  max-width: 500px;
+  border: none;
+}
 
-.modal-content h2{
-  margin:0;
+.modal-content h1 {
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+  font-size: 27px;
+  font-weight: 600;
+
+}
+
+.modal-content h2 {
+  margin: 0;
   padding: 0;
   margin-top: 30px;
   font-size: 16px;
@@ -42,73 +52,73 @@
 
 }
 
-  
-  /* The Close Button */
-  .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-  }
 
-  .modal-shown {
-    display:block;
-  }
-
-.section{
-    text-align: center;
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
+.close:hover,
+.close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-.prerequisite-title-input{
-  margin:0;
-  padding: 0;
-  width:60%;
-  height: 28px;
-  resize: none;
-  margin-top: 20px;
-  border-radius: 2px; 
+.modal-shown {
+  display: block;
+}
+
+.section {
   text-align: center;
 }
-.prerequisite-title-input:focus{
-  margin:0;
+
+
+.prerequisite-title-input {
+  margin: 0;
   padding: 0;
-  width:60%;
+  width: 60%;
   height: 28px;
   resize: none;
   margin-top: 20px;
-  border-radius: 2px; 
-  outline:none;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.prerequisite-title-input:focus {
+  margin: 0;
+  padding: 0;
+  width: 60%;
+  height: 28px;
+  resize: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  outline: none;
   transform: scale(1.01);
   text-align: center;
 
 }
 
-
-.prerequisite-text-area{
-  margin:0;
+.prerequisite-text-area {
+  margin: 0;
   padding: 0;
-  width:70%;
-  height:150px;
+  width: 70%;
+  height: 150px;
   resize: none;
-  border-radius: 2px; 
+  border-radius: 2px;
   padding: 30px;
   margin-top: 10px;
 
 }
-.prerequisite-text-area:Focus{
+
+.prerequisite-text-area:Focus {
   padding: 0;
   resize: none;
-  border-radius: 2px; 
+  border-radius: 2px;
   outline: none;
   padding: 30px;
   transform: scale(1.01);
 }
-
