@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_1 = __importDefault(require("./routes/users"));
-// import initProjectRoutes from "./routes/projects";
+const projects_1 = __importDefault(require("./routes/projects"));
 const User_1 = __importDefault(require("./models/User"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 (async () => {
@@ -44,6 +44,7 @@ const cors_1 = __importDefault(require("@fastify/cors"));
     const app = (0, fastify_1.default)();
     app.register(cors_1.default);
     (0, users_1.default)(app, sequelize);
+    (0, projects_1.default)(app, sequelize);
     app.get("/", async (req, res) => {
         return res.status(200).send(JSON.stringify({
             message: req.ip,
