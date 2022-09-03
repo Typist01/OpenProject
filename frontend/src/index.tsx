@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.scss';
-import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
+// import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
 import Searchbar from './Components/Searchbar/Searchbar';
 import reportWebVitals from './reportWebVitals';
 import ProjectPage from "./Pages/ProjectPage/ProjectPage"
@@ -25,7 +25,7 @@ root.render(
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} />
+            {/* <Route path="create-project" element={<ProjectCreation />} caseSensitive={false} /> */}
             <Route path="test" element={<Searchbar />} caseSensitive={false} />
             <Route path="project" element={<ProjectPage />} caseSensitive={false} />
             <Route path="project/task/:id" element={<TaskPage />} caseSensitive={false} />
