@@ -1,11 +1,14 @@
-const redux = require("redux");
+import redux from "redux";
 
 const changeHandlerReducerFunction = (
   state = { myVar: "initial state" },
-  action
+  action: { type: string }
 ) => {
   if (action.type == "button-click-somewhere") {
     return { ...state, myVar: "updated state after button-click-somewhere" };
+  }
+  if (action.type === "one") {
+    return { ...state, myVar: "one was dispatched" };
   }
   return state;
 };

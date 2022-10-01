@@ -14,6 +14,7 @@ import SearchResultsPage from './Pages/SearchResults/SearchResults';
 import LoginPage from "./Pages/Login/Login";
 import SignUpPage from './Pages/SignUp/SignUp';
 import AuthContextProvider from './Context/LoginContext';
+import ReduxStuff from './Pages/ReduxStuff';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -33,6 +34,7 @@ root.render(
             <Route path="search-results" element={<SearchResultsPage />} caseSensitive={false} ></Route>
             <Route path="login" element={<LoginPage />} caseSensitive={false} ></Route>
             <Route path="signup" element={<SignUpPage />} caseSensitive={false} ></Route>
+            <Route path="redux-stuff" element={<ReduxStuff />} caseSensitive={false} ></Route>
           </Route>
         </Routes>
       </AuthContextProvider>
