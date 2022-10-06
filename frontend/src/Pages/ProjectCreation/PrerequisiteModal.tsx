@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./PrerequisiteModal.scss"
+import "../../sass/pages/PrerequisiteModal.scss"
 
 
 const Prerequisite = ({ key, secondKey, storedData, handleChange }: { handleChange: (details: string) => void; key: number; secondKey: number; storedData: string; }) => {
@@ -96,7 +96,7 @@ const PrerequisiteModal = ({
                     {/* that would help us do this without using useState? idk what's the problem all the time lol */}
                     {/* like why it is throwing errors or what functionality we are tryign to implement. idk */}
                     {/* can you check if the create project api endpoint works? wait */}
-                    
+
                     <div className="pr-buttons">
                         <button
                             onClick={addPrerequisite}

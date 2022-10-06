@@ -2,7 +2,7 @@
 // 
 
 // import React from "react";
-// import "./PrerequisiteModal.scss"
+// import "../../sass/pages/PrerequisiteModal.scss"
 
 // const PrerequisiteModal = ({ closeFunction }: { closeFunction: () => void; }) => {
 //     // const [hidden, setHidden] = useState<boolean>(true);

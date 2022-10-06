@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
 import CommunityCreationModal from "../../Components/Modals/CreateCommunityModal/CreateCommunityModal";
-import "./Home.scss";
+import "../../sass/pages/Home.scss";
 
 const ProjectPreview = () => {
     return (
         <div className="project-preview-container">
-            <div className="flex-container relative-container">
+            <div className="flex-container relative-container home-project-heading-container">
                 <h1 className="project-preview-title ">Project Name</h1>
                 <div className="project-preview-pp"></div>
             </div>
@@ -24,7 +24,7 @@ const ProjectPreview = () => {
 
 const SubmissionPreview = () => (
     <div className="submission-preview-container">
-        <div className="flex-container relative-container">
+        <div className="flex-container relative-container submission-preview-container-heading">
             <h1 className="project-preview-title">Submission Name</h1>
             <div className="project-preview-pp"></div>
         </div>

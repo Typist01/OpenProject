@@ -1,6 +1,4 @@
-import { DonutLarge, SystemSecurityUpdate } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
-import { time } from "console";
 import task from "./Models/task";
 
 interface projectState {
@@ -25,14 +23,42 @@ const projectSlice = createSlice({
       };
       state.tasks = [...state.tasks, emptyTask];
     },
-    updateTaskName(state, action) {
+    updateTask(state, action) {
       const taskIndex = state.tasks.findIndex(
         task => task.id == action.payload.id
       );
-      state.tasks[taskIndex].name = action.payload.name;
+      if (action.type === "updateTask/name") {
+        state.tasks[taskIndex].name = action.payload.name;
+      } else if (action.type === "updateTask/addFile") {
+        state.tasks[taskIndex].files = [
+          ...state.tasks[taskIndex].files,
+          action.payload,
+        ];
+      } else if (action.type === "updateTask/addPrerequisite") {
+        const newPrerequisite = {
+          id: action.payload.prerequisite.id,
+          name: "",
+          body: "",
+        };
+        state.tasks[taskIndex].prerequisites = [
+          ...state.tasks[taskIndex].prerequisites,
+          newPrerequisite,
+        ];
+      } else if (action.type === "updateTask/updatePrerequisite") {
+        const prerequisiteIndex = state.tasks[
+          taskIndex
+        ].prerequisites.findIndex(
+          prerequisite => prerequisite.id == action.payload.prerequisite.id
+        );
+        state.tasks[taskIndex].prerequisites[prerequisiteIndex].body =
+          action.payload.prerequisite.body;
+      }
     },
   },
 });
 
-const actions = projectSlice.actions;
-const projectSlicerReducer = projectSlice.reducer;
+export const { addTask, updateTask } = projectSlice.actions;
+export default projectSlice.reducer;
+
+// const actions = projectSlice.actions;
+// const projectSlicerReducer = projectSlice.reducer;

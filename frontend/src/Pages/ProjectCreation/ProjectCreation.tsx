@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
-import "./ProjectCreation.scss";
-import Modal from "./PrerequisiteModal";
+import "../../sass/pages/ProjectCreation.scss";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { addTask } from "../../store/projectSlice";
+// import Modal from "./PrerequisiteModal";
 
 export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => {
   const [taskInput, setTaskInput] = useState<string>("");
-  const [taskData, setTaskData] = useState<{ id: number, name: string, prerequisites: Array<string> }[]>({ id: key, name: "", prerequisites: [""] });
-  const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
+  const project = useAppSelector(state => state.project)
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log(project)
+  }, [])
+
+  function handleSomeClick() {
+    dispatch(addTask({ payload: { user: "myUser" } }))
+  }
+
+  // const [taskData, setTaskData] = useState<{ id: number, name: string, prerequisites: Array<string> }[]>({ id: key, name: "", prerequisites: [""] });
+  // const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
 
   function handleTaskInput(e: React.FormEvent<HTMLInputElement>) {
     const { value } = e.currentTarget;
@@ -19,25 +32,25 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
 
   // }
 
-  const [currentTaskId, setCurrentTaskId] = useState(0);
+  // const [currentTaskId, setCurrentTaskId] = useState(0);
 
-
-  const handlePrerequisiteClick = () => {
-    setCurrentTaskId(secondKey);
-    // where should we declare this stateful variable. idk
-    setPrequisiteVisibility(v => !v);
-  }
+  // const handlePrerequisiteClick = () => {
+  //   // setCurrentTaskId(secondKey);
+  //   // where should we declare this stateful variable. idk
+  //   // setPrequisiteVisibility(v => !v);
+  // }
 
   return (
     <>
-      {prerequisiteVisible ? <Modal closeFunction={handlePrerequisiteClick} taskId={currentTaskId} data={taskData} setData={setTaskData} /> : null}
+      {/* {prerequisiteVisible ? <Modal closeFunction={handlePrerequisiteClick} taskId={currentTaskId} data={taskData} setData={setTaskData} /> : null} */}
       <div key={key} className="task-container">
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
         </label>
         <input key={key} className="task-input" type="text" value={taskInput} name={secondKey.toString()} onChange={handleTaskInput} />
         <div className="icon">
-          <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button>
+          {/* <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button> */}
+          <button className="prerequisite-button" onClick={handleSomeClick}>Prerequisites</button>
         </div>
       </div>
     </>
@@ -46,11 +59,11 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
 
 const ProjectCreation = () => {
   const [taskArray, setTaskArray] = useState<Array<string>>([""]);
-  const [tasks, setTasks] = useState<Array<{ id: number; name: string; prerequisites: Array<{}>; }>>([{
-    id: 1,
-    name: "",
-    prerequisites: []
-  }]);
+  // const [tasks, setTasks] = useState<Array<{ id: number; name: string; prerequisites: Array<{}>; }>>([{
+  //   id: 1,
+  //   name: "",
+  //   prerequisites: []
+  // }]);
 
   useEffect(() => {
     console.log(taskArray);
@@ -87,7 +100,6 @@ const ProjectCreation = () => {
             <Task
               key={i}
               secondKey={i}
-              prerequisites
             />
             // imma go eat ok
           ))}

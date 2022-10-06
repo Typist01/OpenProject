@@ -1,5 +1,5 @@
 import React from "react"
-import "./ProjectPage.scss"
+import "../../sass/pages/ProjectPage.scss"
 
 const ProjectPage = () => {
     const lorem = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste repellat rem, quas vitae, nihil dignissimos quidem culpa possimus eum cupiditate alias voluptate, et temporibus! Quia similique impedit quas doloremque totam."

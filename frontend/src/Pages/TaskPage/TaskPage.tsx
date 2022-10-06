@@ -1,5 +1,5 @@
 import React from "react"
-import "./TaskPage.scss"
+import "../../sass/pages/TaskPage.scss"
 import convert from "./numtowords";
 // const numbers = [" One", "Two", "Three", "Four", "Five", "Six"];
 
