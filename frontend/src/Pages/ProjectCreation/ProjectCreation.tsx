@@ -6,16 +6,9 @@ import { addTask } from "../../store/projectSlice";
 
 export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => {
   const [taskInput, setTaskInput] = useState<string>("");
-  const project = useAppSelector(state => state.project)
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    console.log(project)
-  }, [])
 
-  function handleSomeClick() {
-    dispatch(addTask({ payload: { user: "myUser" } }))
-  }
+
 
   // const [taskData, setTaskData] = useState<{ id: number, name: string, prerequisites: Array<string> }[]>({ id: key, name: "", prerequisites: [""] });
   // const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
@@ -50,7 +43,7 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
         <input key={key} className="task-input" type="text" value={taskInput} name={secondKey.toString()} onChange={handleTaskInput} />
         <div className="icon">
           {/* <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button> */}
-          <button className="prerequisite-button" onClick={handleSomeClick}>Prerequisites</button>
+          <button className="prerequisite-button" onClick={() => console.log("prerequisite button clicked")}>Prerequisites</button>
         </div>
       </div>
     </>
@@ -58,7 +51,9 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
 }
 
 const ProjectCreation = () => {
-  const [taskArray, setTaskArray] = useState<Array<string>>([""]);
+  const dispatch = useAppDispatch();
+  const project = useAppSelector(state => state.project)
+  // const [taskArray, setTaskArray] = useState<Array<string>>([""]);
   // const [tasks, setTasks] = useState<Array<{ id: number; name: string; prerequisites: Array<{}>; }>>([{
   //   id: 1,
   //   name: "",
@@ -66,12 +61,17 @@ const ProjectCreation = () => {
   // }]);
 
   useEffect(() => {
-    console.log(taskArray);
-  }, [taskArray]);
+    console.log(project.tasks)
+    handleAddTask();
+  }, []);
+
 
   const [title, setTitle] = useState<string>("");
   const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
   const handleTitleClick = (e: React.FormEvent<HTMLInputElement>) => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length);
+  function handleAddTask() {
+    dispatch(addTask({ payload: { user: "myUser" } }))
+  }
   return (
     <>
       <div className=" form">
@@ -96,7 +96,7 @@ const ProjectCreation = () => {
         <div className="tasks-container">
           <br />
           <br />
-          {taskArray.map((_, i) => (
+          {project.tasks.map((_, i) => (
             <Task
               key={i}
               secondKey={i}
@@ -107,7 +107,7 @@ const ProjectCreation = () => {
         <div className="buttons flex-container">
           <button
             className="button"
-            onClick={() => setTaskArray([...taskArray, ""])}
+            onClick={handleAddTask}
           >
             Add New Task
           </button>
