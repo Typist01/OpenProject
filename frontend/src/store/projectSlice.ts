@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import task from "./Models/task";
+import Task from "./Models/task";
+import { taskUpdate } from "./Models/task";
 
 interface projectState {
   id: string;
-  tasks: task[];
+  tasks: Task[];
 }
 
 const projectSlice = createSlice({
@@ -14,8 +15,10 @@ const projectSlice = createSlice({
   },
   reducers: {
     addTask(state, action) {
-      const id = action.payload.user + window.performance.now();
-      const emptyTask: task = {
+      console.log("add task called in redux");
+      console.log(action);
+      const id = "" + action.payload.user + window.performance.now();
+      const emptyTask: Task = {
         id,
         name: "",
         prerequisites: [],
@@ -24,17 +27,20 @@ const projectSlice = createSlice({
       state.tasks = [...state.tasks, emptyTask];
     },
     updateTask(state, action) {
+      console.log("update task called");
+      console.log(action);
       const taskIndex = state.tasks.findIndex(
         task => task.id == action.payload.id
       );
-      if (action.type === "updateTask/name") {
+      const payload = action.payload;
+      if (payload.type === taskUpdate.name) {
         state.tasks[taskIndex].name = action.payload.name;
-      } else if (action.type === "updateTask/addFile") {
+      } else if (payload.type === "updateTask/addFile") {
         state.tasks[taskIndex].files = [
           ...state.tasks[taskIndex].files,
           action.payload,
         ];
-      } else if (action.type === "updateTask/addPrerequisite") {
+      } else if (payload.type === taskUpdate.addPrerequisite) {
         const newPrerequisite = {
           id: action.payload.prerequisite.id,
           name: "",
@@ -44,7 +50,7 @@ const projectSlice = createSlice({
           ...state.tasks[taskIndex].prerequisites,
           newPrerequisite,
         ];
-      } else if (action.type === "updateTask/updatePrerequisite") {
+      } else if (payload.type === taskUpdate.updatePrerequisite) {
         const prerequisiteIndex = state.tasks[
           taskIndex
         ].prerequisites.findIndex(

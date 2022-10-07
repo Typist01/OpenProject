@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "../../sass/pages/ProjectCreation.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addTask } from "../../store/projectSlice";
+import { addTask, updateTask } from "../../store/projectSlice";
+import Task, { taskUpdate } from "../../store/Models/task";
 // import Modal from "./PrerequisiteModal";
 
-export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => {
-  const [taskInput, setTaskInput] = useState<string>("");
-
-
-
+export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number, secondKey: number, taskBody: Task, updateName: (a: string, b: string) => void }) => {
 
   // const [taskData, setTaskData] = useState<{ id: number, name: string, prerequisites: Array<string> }[]>({ id: key, name: "", prerequisites: [""] });
   // const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
 
   function handleTaskInput(e: React.FormEvent<HTMLInputElement>) {
     const { value } = e.currentTarget;
-    const name = e.currentTarget.getAttribute("name");
-    setTaskInput(value);
-    console.log(value, name);
+    // const name = e.currentTarget.getAttribute("name");
+    updateName(taskBody.id, value);
   }
 
   // const handleDataUpdate = () => {
@@ -40,7 +36,7 @@ export const Task = ({ key, secondKey }: { key: number, secondKey: number }) => 
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
         </label>
-        <input key={key} className="task-input" type="text" value={taskInput} name={secondKey.toString()} onChange={handleTaskInput} />
+        <input key={key} className="task-input" type="text" value={taskBody.name} name={secondKey.toString()} onChange={handleTaskInput} />
         <div className="icon">
           {/* <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button> */}
           <button className="prerequisite-button" onClick={() => console.log("prerequisite button clicked")}>Prerequisites</button>
@@ -70,8 +66,16 @@ const ProjectCreation = () => {
   const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
   const handleTitleClick = (e: React.FormEvent<HTMLInputElement>) => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length);
   function handleAddTask() {
-    dispatch(addTask({ payload: { user: "myUser" } }))
+    dispatch(addTask({ user: "myUser" }))
   }
+
+  // @ts-ignore
+  function handleTaskUpdateName(id: string, name: string) {
+    dispatch(updateTask({ id, name, type: taskUpdate.name }))
+  }
+
+
+
   return (
     <>
       <div className=" form">
@@ -96,10 +100,12 @@ const ProjectCreation = () => {
         <div className="tasks-container">
           <br />
           <br />
-          {project.tasks.map((_, i) => (
-            <Task
+          {project.tasks.map((task, i) => (
+            <TaskBox
               key={i}
               secondKey={i}
+              taskBody={task}
+              updateName={handleTaskUpdateName}
             />
             // imma go eat ok
           ))}

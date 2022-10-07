@@ -1,12 +1,12 @@
-import task from "./task"
+import Task from "./task";
 
 type project = {
-    id: string;
-    name: string;
-    tasks: task[];
-    author: string;
-    createdAt: Date;
-    LastUpdatedAt: Date;
-}
+  id: string;
+  name: string;
+  tasks: Task[];
+  author: string;
+  createdAt: Date;
+  LastUpdatedAt: Date;
+};
 
-export default project
+export default project;

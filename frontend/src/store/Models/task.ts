@@ -1,10 +1,16 @@
 import prerequisite from "./prerequisite";
 
-type task = {
-    id:string;
-    name:string;
-    prerequisites:prerequisite[]
-    files:any[]
-}
+type Task = {
+  id: string;
+  name: string;
+  prerequisites: prerequisite[];
+  files: any[];
+};
 
-export default task
+export default Task;
+
+export const taskUpdate = {
+  name: "updateTask/name",
+  addPrerequisite: "updateTask/addPrerequisite",
+  updatePrerequisite: "updateTask/updatePrerequisite",
+};
