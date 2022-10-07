@@ -3,12 +3,12 @@ import "../../sass/pages/ProjectCreation.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addTask, updateTask } from "../../store/projectSlice";
 import Task, { taskUpdate } from "../../store/Models/task";
-// import Modal from "./PrerequisiteModal";
+import Modal from "./PrerequisiteModal";
 
 export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number, secondKey: number, taskBody: Task, updateName: (a: string, b: string) => void }) => {
 
   // const [taskData, setTaskData] = useState<{ id: number, name: string, prerequisites: Array<string> }[]>({ id: key, name: "", prerequisites: [""] });
-  // const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
+  const [prerequisiteVisible, setPrequisiteVisibility] = useState<boolean>(false);
 
   function handleTaskInput(e: React.FormEvent<HTMLInputElement>) {
     const { value } = e.currentTarget;
@@ -23,23 +23,25 @@ export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number,
 
   // const [currentTaskId, setCurrentTaskId] = useState(0);
 
-  // const handlePrerequisiteClick = () => {
-  //   // setCurrentTaskId(secondKey);
-  //   // where should we declare this stateful variable. idk
-  //   // setPrequisiteVisibility(v => !v);
-  // }
+  const handlePrerequisiteClick = () => {
+    setPrequisiteVisibility(v => !v);
+  }
 
   return (
     <>
-      {/* {prerequisiteVisible ? <Modal closeFunction={handlePrerequisiteClick} taskId={currentTaskId} data={taskData} setData={setTaskData} /> : null} */}
+      {prerequisiteVisible ? <Modal closeFunction={handlePrerequisiteClick} taskBody={taskBody} /> : null}
+      {/* <Modal closeFunction={() => console.log("closed called")} taskBody={taskBody} />       */}
+
       <div key={key} className="task-container">
+
+
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
         </label>
         <input key={key} className="task-input" type="text" value={taskBody.name} name={secondKey.toString()} onChange={handleTaskInput} />
         <div className="icon">
-          {/* <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button> */}
-          <button className="prerequisite-button" onClick={() => console.log("prerequisite button clicked")}>Prerequisites</button>
+          <button className="prerequisite-button" onClick={handlePrerequisiteClick}>Prerequisites</button>
+          {/* <button className="prerequisite-button" onClick={() => console.log("prerequisite button clicked")}>Prerequisites</button> */}
         </div>
       </div>
     </>

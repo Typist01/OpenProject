@@ -42,7 +42,7 @@ const projectSlice = createSlice({
         ];
       } else if (payload.type === taskUpdate.addPrerequisite) {
         const newPrerequisite = {
-          id: action.payload.prerequisite.id,
+          id: action.payload.id + window.performance.now(),
           name: "",
           body: "",
         };
@@ -54,10 +54,10 @@ const projectSlice = createSlice({
         const prerequisiteIndex = state.tasks[
           taskIndex
         ].prerequisites.findIndex(
-          prerequisite => prerequisite.id == action.payload.prerequisite.id
+          prerequisite => prerequisite.id === action.payload.prerequisite.id
         );
         state.tasks[taskIndex].prerequisites[prerequisiteIndex].body =
-          action.payload.prerequisite.body;
+          action.payload.body;
       }
     },
   },

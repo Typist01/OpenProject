@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../sass/pages/PrerequisiteModal.scss"
+import { useAppDispatch } from "../../store/hooks";
+import prerequisite from "../../store/Models/prerequisite";
+import Task, { taskUpdate } from "../../store/Models/task";
+import { updateTask } from "../../store/projectSlice";
 
 
-const Prerequisite = ({ key, secondKey, storedData, handleChange }: { handleChange: (details: string) => void; key: number; secondKey: number; storedData: string; }) => {
+const Prerequisite = ({ key, secondKey, storedData, taskBody }: { key: number; secondKey: number; storedData: prerequisite; taskBody: Task }) => {
     const [title, setTitle] = useState("");
-    const [details, setDetails] = useState("");
 
-    useEffect(() => {
-        handleChange(details);
-    }, [details]);
+    const dispatch = useAppDispatch();
+
 
     return (
         <>
@@ -28,10 +30,13 @@ const Prerequisite = ({ key, secondKey, storedData, handleChange }: { handleChan
                 <input className="requisite-input" type="text"></input>
             </div> */}
                 <textarea
-                    value={details}
-                    onChange={(e) => setDetails(e.currentTarget.value)}
+                    value={storedData.body}
+                    onChange={(e) => {
+                        const content = e.target.value;
+                        dispatch(updateTask({ id: taskBody.id, prerequisite: storedData, type: taskUpdate.updatePrerequisite, body: content }))
+                    }}
                     className="prerequisite-text-area"
-                >{storedData}</textarea>
+                >{storedData.body}</textarea>
             </div>
         </>
     )
@@ -39,33 +44,27 @@ const Prerequisite = ({ key, secondKey, storedData, handleChange }: { handleChan
 
 const PrerequisiteModal = ({
     closeFunction,
-    taskInput: task,
-    data,
-    setData,
-    taskId
+    taskBody
 }: {
     closeFunction: () => void;
-    taskInput: string;
-    data: Array<{
-        id: number;
-        name: string;
-        prerequisites: string[];
-    }>;
-    setData: React.Dispatch<React.SetStateAction<{
-        id: number;
-        name: string;
-        prerequisites: string[];
-    }>>;
-    taskId: number;
+    taskBody: Task;
 }) => {
-    const [prerequisites, setPrerequisites] = useState<Array<string>>(data.find(p => p.id === taskId)?.prerequisites ?? []);
+    // const [prerequisites, setPrerequisites] = useState<Array<string>>(data.find(p => p.id === taskId)?.prerequisites ?? []);
     const [selectedFile, setSelectedFile] = useState<File | undefined>();
-    const addPrerequisite = () => setPrerequisites(prevValue => [...prevValue, ""]);
+    // const addPrerequisite = () => setPrerequisites(prevValue => [...prevValue, ""]);
     // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //     let v: string = "";
     //     e.target.files!.item(0)?.text().then(x => v = x);
     //     setSelectedFile(v);
     // }
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (taskBody.prerequisites.length < 1)
+            dispatch(updateTask({ id: taskBody.id, type: taskUpdate.addPrerequisite }))
+    }, [])
+
 
     return (
         <>
@@ -82,14 +81,14 @@ const PrerequisiteModal = ({
                 }}
             >
                 <div className="modal-content">
-                    <h1>{task}</h1>
+                    <h1>{taskBody.name}</h1>
                     <h1>Prerequisites</h1>
-                    {prerequisites.map((_, i) => (
+                    {taskBody.prerequisites.map((_, i) => (
                         <Prerequisite
                             key={i}
                             secondKey={i}
-                            storedData={data[taskId].prerequisites[i]}
-                            handleChange={(newItem: string) => setData(v => ({ ...v, prerequisites: [...v.prerequisites, newItem] }))}
+                            storedData={taskBody.prerequisites[i]}
+                            taskBody={taskBody}
                         />
                     ))}
                     {/* why don't we use cookies? */}
@@ -99,7 +98,9 @@ const PrerequisiteModal = ({
 
                     <div className="pr-buttons">
                         <button
-                            onClick={addPrerequisite}
+                            onClick={() => {
+                                dispatch(updateTask({ id: taskBody.id, type: taskUpdate.addPrerequisite }))
+                            }}
                             className="pr-button"
                         >
                             Add More
@@ -130,17 +131,6 @@ const PrerequisiteModal = ({
     );
 }
 
-export default ({ closeFunction, taskInput, data, setData, taskId }: {
-    closeFunction: () => void; taskInput: string; data: {
-        id: number;
-        name: string;
-        prerequisites: string[];
-    }[]; setData: React.Dispatch<React.SetStateAction<{
-        id: number;
-        name: string;
-        prerequisites: string[];
-    }>>;
-    taskId: number;
-}) => (
-    <PrerequisiteModal taskId={taskId} closeFunction={closeFunction} taskInput={taskInput} data={data} setData={setData} />
+export default ({ closeFunction, taskBody }: { closeFunction: () => void; taskBody: Task; }) => (
+    <PrerequisiteModal closeFunction={closeFunction} taskBody={taskBody} />
 );
