@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../sass/pages/ProjectCreation.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addTask, updateTask } from "../../store/projectSlice";
+import { addTask, updateProject, updateTask } from "../../store/projectSlice";
 import Task, { taskUpdate } from "../../store/Models/task";
 import Modal from "./PrerequisiteModal";
+import { projectUpdate } from "../../store/Models/project";
 
 export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number, secondKey: number, taskBody: Task, updateName: (a: string, b: string) => void }) => {
 
@@ -49,8 +50,12 @@ export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number,
 }
 
 const ProjectCreation = () => {
+
   const dispatch = useAppDispatch();
   const project = useAppSelector(state => state.project)
+  useEffect(() => {
+    console.log("something about the project changed")
+  }, [project])
   // const [taskArray, setTaskArray] = useState<Array<string>>([""]);
   // const [tasks, setTasks] = useState<Array<{ id: number; name: string; prerequisites: Array<{}>; }>>([{
   //   id: 1,
@@ -64,8 +69,11 @@ const ProjectCreation = () => {
   }, []);
 
 
-  const [title, setTitle] = useState<string>("");
-  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
+  // const [title, _] = useState<string>("");
+  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
+    dispatch(updateProject({ type: projectUpdate.name, body: val }))
+  };
   const handleTitleClick = (e: React.FormEvent<HTMLInputElement>) => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length);
   function handleAddTask() {
     dispatch(addTask({ user: "myUser" }))
@@ -76,6 +84,10 @@ const ProjectCreation = () => {
     dispatch(updateTask({ id, name, type: taskUpdate.name }))
   }
 
+  function handleAimChange(e: any) {
+    const val = e.currentTarget.value;
+    dispatch(updateProject({ type: projectUpdate.aim, body: val }))
+  }
 
 
   return (
@@ -88,7 +100,7 @@ const ProjectCreation = () => {
               contentEditable="true"
               onClick={handleTitleClick}
               onInput={handleTitleChange}
-              value={title}
+              value={project.name}
               placeholder="Untitled Project"
             />
           </div>
@@ -96,7 +108,7 @@ const ProjectCreation = () => {
 
         <div className="aim-section">
           <h1 className="aim-heading">Project Aim</h1>
-          <textarea id="aim-input" />
+          <textarea id="aim-input" onChange={handleAimChange} />
         </div>
 
         <div className="tasks-container">

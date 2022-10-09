@@ -1,12 +1,18 @@
 import Task from "./task";
 
-type project = {
+type Project = {
   id: string;
-  name: string;
+  name?: string;
   tasks: Task[];
-  author: string;
-  createdAt: Date;
-  LastUpdatedAt: Date;
+  aim?: string;
+  author?: string;
+  createdAt?: Date;
+  LastUpdatedAt?: Date;
 };
 
-export default project;
+export default Project;
+
+export const projectUpdate = {
+  name: "updateProject/name",
+  aim: "updateProject/aim",
+};

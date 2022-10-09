@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Project, { projectUpdate } from "./Models/project";
 import Task from "./Models/task";
 import { taskUpdate } from "./Models/task";
 
-interface projectState {
-  id: string;
-  tasks: Task[];
-}
+// interface projectState {
+//   id: string;
+//   tasks: Task[];
+// }
 
 const projectSlice = createSlice({
   name: "project",
-  initialState: <projectState>{
+  initialState: <Project>{
     id: "",
     tasks: [],
   },
@@ -60,10 +61,17 @@ const projectSlice = createSlice({
           action.payload.body;
       }
     },
+    updateProject(state, action) {
+      if (action.payload.type === projectUpdate.name) {
+        state.name = action.payload.body;
+      } else if (action.payload.type === projectUpdate.aim) {
+        state.aim = action.payload.body;
+      }
+    },
   },
 });
 
-export const { addTask, updateTask } = projectSlice.actions;
+export const { addTask, updateTask, updateProject } = projectSlice.actions;
 export default projectSlice.reducer;
 
 // const actions = projectSlice.actions;
