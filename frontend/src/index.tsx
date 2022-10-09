@@ -17,6 +17,7 @@ import AuthContextProvider from './Context/LoginContext';
 import "./sass/main.scss"
 import { Provider } from "react-redux";
 import { store } from "./store/store"
+import ProjectCreation from './Pages/ProjectCreation/ProjectCreation';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -36,6 +37,7 @@ root.render(
             <Route path="search-results" element={<SearchResultsPage />} caseSensitive={false} ></Route>
             <Route path="login" element={<LoginPage />} caseSensitive={false} ></Route>
             <Route path="signup" element={<SignUpPage />} caseSensitive={false} ></Route>
+            <Route path="create-project" element={<ProjectCreation />} caseSensitive={false}></Route>
           </Route>
         </Routes>
       </AuthContextProvider>

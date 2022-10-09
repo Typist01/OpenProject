@@ -1,194 +1,194 @@
-// $base-color: #1e1e1e;
-// $blue: #0059ffe3;
-// $light-blue: #b1dcfb;
-// $grey: #4a4a4a;
+$base-color: #1e1e1e;
+$blue: #0059ffe3;
+$light-blue: #b1dcfb;
+$grey: #4a4a4a;
 
 
 
-// body {
-//   /* display: flex; */
-//   /* align-items: center; */
-//   /* justify-content: /center; */
-//   background-color: base-color;
-//   color: white;
-// }
+body {
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: /center; */
+    background-color: base-color;
+    color: white;
+}
 
 
-// .header {
-//   display: flex;
-//   align-items: center;
-//   margin-top: 50px;
-//   margin-bottom: 50px;
+.header {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
 
-//   align-items: center;
-//   justify-content: center;
-//   /* width: 70%; */
-// }
+    align-items: center;
+    justify-content: center;
+    /* width: 70%; */
+}
 
-// .header input {
-//   height: 25px;
-//   width: 300px;
-//   border-radius: 8px;
-//   height:50px;
-//   font-size: 30px;
-//   margin-left: 10px;
+.header input {
+    height: 25px;
+    width: 300px;
+    border-radius: 8px;
+    height: 50px;
+    font-size: 30px;
+    margin-left: 10px;
 
-// }
+}
 
-// .header input:focus {
-//   height: 25px;
-//   width: 300px;
-//   border-radius: 8px;
-//   height:50px;
-//   font-size: 30px;
-//   margin-left: 10px;
+.header input:focus {
+    height: 25px;
+    width: 300px;
+    border-radius: 8px;
+    height: 50px;
+    font-size: 30px;
+    margin-left: 10px;
 
-// }
+}
 
-// .header label {
-//   font-size: 30px;
-//   margin-right: 10px;
-// }
-
-
-
-// .tasks-container {
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .task-container {
-//   margin: auto;
-//   background-color: $blue;
-//   border-radius: 8px;
-//   width: 700px;
-//   height: 65px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 30px;
-//   color: white;
-//   margin-top: 15px;
-//   margin-bottom: 15px;
-// }
-
-// .task-container label {
-//   font-size: 18px;
-//   margin-right: 4rem;
-// }
-
-// .task-container input {
-//   font-size: 18px;
-//   height: 30px;
-//   margin-left: 10px;
-//   border-radius: 8px;
-//   width: 370px;
-//   text-align: center;
-//   color: $grey;
-//   border:none;
-// }
-
-// .task-container input:focus {
-//   height: 31px;
-//   outline: none;
-//   text-align: center;
-//   border: 1px;
-// }
-
-
-// .shadow {
-//   -moz-box-shadow: 0 0 3px #ccc;
-//   -webkit-box-shadow: 0 0 3px #ccc;
-//   box-shadow: 0 0 50px #ccc;
-// }
+.header label {
+    font-size: 30px;
+    margin-right: 10px;
+}
 
 
 
-// #title {
-//   border: none;
-//   outline: none;
-//   text-align: center;
-//   min-width: 100px;
-//   max-width: 250px;
-//   display: inline-block;
-//   overflow: hidden;
-//   white-space: wrap;
-//   text-overflow: ellipsis;
-// }
+.tasks-container {
+    align-items: center;
+    justify-content: center;
+}
 
-// .task-content {
-//   width: 100%;
-//   display: inline-block;
-//   overflow: hidden;
-//   white-space: wrap;
-//   text-overflow: ellipsis;
-// }
+.task-container {
+    margin: auto;
+    background-color: $blue;
+    border-radius: 8px;
+    width: 700px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
-// .flex-container {
-//   display: flex;
-//   align-items: center;
-//   text-align: center;
-// }
+.task-container label {
+    font-size: 18px;
+    margin-right: 4rem;
+}
 
+.task-container input {
+    font-size: 18px;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 370px;
+    text-align: center;
+    color: $grey;
+    border: none;
+}
 
-// .buttons {
-//   position: relative;
-//   width: 600px;
-//   height: 200px;
-//   bottom: 30px;
-// }
-
-// button {
-//   width: 150px;
-//   height: 50px;
-//   background-color: black;
-//   color: white;
-//   border-radius: 8px;
-//   cursor: pointer;
-//   margin: 5px;
-// }
-
-// #new-task-button {
-//   margin-left: 50px;
-// }
-
-// .icon {
-//   color: "red"
-// }
-
-// .prerequisite-button {
-//   width: 120px;
-//   height: 40px;
-//   background-color: #b1dcfb;
-//   color: $base-color;
-//   font-size: 14px;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   margin: 20px;
-//   border: none;
-
-// }
-
-// .aim-section{
-//   align-items: center;
-//   text-align: center;
-// }
-
-// #aim-input{
-//   width:540px;
-//   height:250px;
-//   resize: none;
-//   margin-top: 20px;
-//   border-radius: 2px;
-//   padding: 30px;
-//   font-size: 18px;
-//   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-//   color:$grey;
-// }
-
-// #aim-input:focus{
-//   outline: none;
-//   width:542px;
+.task-container input:focus {
+    height: 31px;
+    outline: none;
+    text-align: center;
+    border: 1px;
+}
 
 
-// }
+.shadow {
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 50px #ccc;
+}
+
+
+
+#title {
+    border: none;
+    outline: none;
+    text-align: center;
+    min-width: 100px;
+    max-width: 250px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+}
+
+.task-content {
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+
+.buttons {
+    position: relative;
+    width: 600px;
+    height: 200px;
+    bottom: 30px;
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#new-task-button {
+    margin-left: 50px;
+}
+
+.icon {
+    color: "red"
+}
+
+.prerequisite-button {
+    width: 120px;
+    height: 40px;
+    background-color: #b1dcfb;
+    color: $base-color;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+    border: none;
+
+}
+
+.aim-section {
+    align-items: center;
+    text-align: center;
+}
+
+#aim-input {
+    width: 540px;
+    height: 250px;
+    resize: none;
+    margin-top: 20px;
+    border-radius: 2px;
+    padding: 30px;
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: $grey;
+}
+
+#aim-input:focus {
+    outline: none;
+    width: 542px;
+
+
+}
