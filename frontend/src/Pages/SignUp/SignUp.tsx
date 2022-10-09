@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api, Codes } from "../../constants";
-import "./SignUp.scss";
+import "../../sass/pages/SignUp.scss";
 
 enum Validation {
     Provided = 1,
@@ -169,7 +169,7 @@ const SignUpPage = () => {
                 <div className="login-entry">
                     {
                         errorMessages.confirmedPassword === null ? null : (
-                            <> nnv 
+                            <> nnv
                                 <label className="error-label"> {errorMessages.confirmedPassword} </label>
                                 <br />
                             </>

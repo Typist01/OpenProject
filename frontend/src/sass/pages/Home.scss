@@ -32,7 +32,8 @@
     background-color: rgb(87, 250, 231);
     color: black;
     border-radius: 3px;
-    padding: 3px 15px;
+    padding: 15px;
+    overflow: hidden;
 }
 
 .project-preview-container:hover {
@@ -49,12 +50,20 @@
     background-color: rgb(87, 250, 231);
     color: black;
     border-radius: 3px;
-    padding: 3px 15px;
+    padding: 15px;
 }
 
 .submission-preview-container:hover {
     cursor: pointer;
 
+}
+
+.submission-preview-container-heading {
+    height: 80px;
+}
+
+.home-project-heading-container {
+    height: 80px;
 }
 
 .home-nav {
@@ -120,7 +129,9 @@
     border-radius: 30px;
     background-color: black;
     position: absolute;
-    right: 5px;
+    right: 3px;
+    top: 3px;
+
 
 }
 
@@ -157,4 +168,5 @@ a:active {
 button {
     outline: none;
     border: none;
+    overflow: hidden;
 }

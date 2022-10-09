@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchResults.scss";
+import "../../sass/pages/SearchResults.scss";
 const SearchResultsPage = () => {
     return (
         <React.Fragment>

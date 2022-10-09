@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../../constants";
-import "./Login.scss";
+import "../../sass/pages/Login.scss";
 import { useAppContext } from "../../Context/LoginContext";
 
 const LoginPage = () => {
@@ -107,9 +107,8 @@ const LoginPage = () => {
         <div className="login-entry">
           <label className="login-label"> Username </label>
           <input
-            className={`login-input ${
-              validation.name || !focussed ? null : "invalid-input"
-            }`}
+            className={`login-input ${validation.name || !focussed ? null : "invalid-input"
+              }`}
             onChange={handleChange}
             onClick={() => setFocussed(v => !v)}
             name="username"
@@ -120,9 +119,8 @@ const LoginPage = () => {
         <div className="login-entry">
           <label className="login-label"> Password </label>
           <input
-            className={`login-input ${
-              validation.password || !focussed ? null : "invalid-input"
-            }`}
+            className={`login-input ${validation.password || !focussed ? null : "invalid-input"
+              }`}
             onChange={handleChange}
             onClick={() => setFocussed(v => !v)}
             name="password"
