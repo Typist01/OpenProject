@@ -1,0 +1,8 @@
+@function get-create-project-content-width() {
+    @media screen and (max-width: 900px) {
+        $result: 500px;
+    }
+
+    @return result;
+
+}

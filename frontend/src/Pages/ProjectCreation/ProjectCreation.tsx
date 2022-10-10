@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../../sass/pages/ProjectCreation.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { addTask, updateProject, updateTask } from "../../store/projectSlice";
 import Task, { taskUpdate } from "../../store/Models/task";
@@ -34,8 +33,6 @@ export const TaskBox = ({ key, secondKey, taskBody, updateName }: { key: number,
       {/* <Modal closeFunction={() => console.log("closed called")} taskBody={taskBody} />       */}
 
       <div key={key} className="task-container">
-
-
         <label key={key} className="task">
           {"Task " + (secondKey + 1)}
         </label>
@@ -107,7 +104,7 @@ const ProjectCreation = () => {
         </div>
 
         <div className="aim-section">
-          <h1 className="aim-heading">Project Aim</h1>
+          <h1 className="aim-heading">Aim</h1>
           <textarea id="aim-input" onChange={handleAimChange} />
         </div>
 
@@ -123,8 +120,8 @@ const ProjectCreation = () => {
             />
             // imma go eat ok
           ))}
-        </div>
-        <div className="buttons flex-container">
+
+<div className="create-project-buttons">
           <button
             className="button"
             onClick={handleAddTask}
@@ -133,6 +130,8 @@ const ProjectCreation = () => {
           </button>
           <button className="button">Save</button>
         </div>
+        </div>
+
       </div>
     </>
   );
