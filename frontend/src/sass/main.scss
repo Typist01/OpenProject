@@ -1,3 +1,7 @@
-@import "./base/typography.scss"
+@import "./base/base";
+@import "./abstracts/mixins.scss";
+@import "./base/typography.scss";
 
 
+@import "./pages/Home.scss";
+@import "./pages/ProjectCreation.scss";

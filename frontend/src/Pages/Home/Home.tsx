@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
 import CommunityCreationModal from "../../Components/Modals/CreateCommunityModal/CreateCommunityModal";
-import "../../sass/pages/Home.scss";
+import "../../sass/main.scss";
 
 const ProjectPreview = () => {
     return (

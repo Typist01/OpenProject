@@ -13,9 +13,40 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
             closeFunction()
         }
     }
+
     useEffect(() => {
         console.log(tags)
     }, [tags]);
+    const [projectName, setProjectName] = useState("");
+    const [description, setDescription] = useState("");
+
+    function changeHandler(e:React.SyntheticEvent){
+        const target = e.target as HTMLInputElement;
+        const name = target.name;
+        const val = target.value;
+        switch(name){
+            case("projectName"):
+                setProjectName(val);
+                break
+            case("description"):
+                setDescription(val);
+                break;
+        }
+    }
+
+    function submitHandler(e:React.SyntheticEvent){
+        e.preventDefault();
+        const submitBody = {
+            projectName,
+            tags,
+            description
+        }
+        console.log("form submitted")
+        console.log("with submit body: ")
+        console.log(submitBody)
+        console.log(tags, )
+        
+    }
 
     return (
         <>
@@ -23,7 +54,8 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
                 <div className="cc-modal-content">
                     <div className="cc-modal-body">
                         <h1 className="cc-title"> Create a new project! </h1>
-                        <input className="cc-title-input" placeholder="Enter a name" />
+                        <form onSubmit={submitHandler}>
+                        <input className="cc-title-input" placeholder="Enter a name" value={projectName} onChange={changeHandler} name="projectName" />
                         <div className="input-wrapper">
                             <input className="cc-title-input tag-input" placeholder="Enter categories/tags"
                                 onChange={e => setTagText(e.currentTarget.value)}
@@ -53,11 +85,11 @@ const CommunityCreationModal = ({ closeFunction }: { closeFunction: () => void }
                             </div>
                         </div>
                         <div>
-                            <textarea className="community-description-text-area" placeholder="Description"></textarea>
+                            <textarea className="community-description-text-area" placeholder="Description" value={description} onChange={changeHandler}  name="description"></textarea>
                         </div>
                         <br />
-                        <button>Submit</button>
-
+                        <button type="submit">Submit</button>
+                        </form>
                     </div>
 
                 </div>
