@@ -1,165 +1,182 @@
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
 
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #1e1e1e;
-    color: white;
-    margin: 7% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
-    max-width: 500px;
-    border: none;
-    border-radius: 3px;
-    z-index: 3;
-  }
-  
-  .modal-content h1{
-    margin:0;
-    padding: 0;
-    margin-top: 30px;
-    font-size: 27px;
-    font-weight: 600;
-    margin-bottom: 30px;
-  
-  }
+/* Modal Content/Box */
+.modal-content {
+  background-color: #1e1e1e;
+  color: white;
+  margin: 7% auto;
+  /* 15% from the top and centered */
+  padding: 2rem;
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+  max-width: 50rem;
+  border: none;
+  border-radius: 3px;
+  z-index: 3;
+}
 
+.modal-content h1 {
+  margin: 0;
+  padding: 0;
+  margin-top: 3rem;
+  font-size: 2.7rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
 
-
-  
-  /* The Close Button */
-  .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .modal-shown {
-    display:block;
-  }
-
-.section{
-    text-align: center;
 }
 
 
-.prerequisite-title-input{
-  margin:0;
-  padding: 0;
-  width:60%;
-  height: 28px;
-  resize: none;
-  margin-top: 20px;
-  border-radius: 3px; 
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 2.8rem;
+  font-weight: bold;
+
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-shown {
+  display: block;
+}
+
+.section {
   text-align: center;
 }
-.prerequisite-title-input:focus{
-  margin:0;
+
+
+.prerequisite-title-input {
+  margin: 0;
   padding: 0;
-  width:60%;
-  height: 28px;
+  width: 60%;
+  height: 2.8rem;
   resize: none;
-  margin-top: 20px;
-  border-radius: 2px; 
-  outline:none;
-  transform: scale(1.01);
+  margin-top: 2rem;
+  border-radius: 3px;
   text-align: center;
-
 }
 
-.prerequisite-text-area{
-  margin:0;
+.prerequisite-title-input:focus {
+  margin: 0;
   padding: 0;
-  width:70%;
-  min-height:150px;
+  width: 60%;
+  height: 2.8rem;
   resize: none;
-  border-radius: 3px; 
-  padding: 30px;
-  margin-top: 10px;
-
-}
-.prerequisite-text-area:Focus{
-  padding: 0;
-  resize: none;
-  border-radius: 2px; 
+  margin-top: 2rem;
+  border-radius: 2px;
   outline: none;
-  padding: 30px;
+  transform: scale(1.01);
+  text-align: center;
+
+}
+
+#title .prerequisite-title-input {
+  font-size: 1.2rem;
+}
+
+.prerequisite-text-area {
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  min-height: 15rem;
+  resize: none;
+  border-radius: 3px;
+  padding: 3rem;
+  margin-top: 1rem;
+
+}
+
+.prerequisite-text-area:Focus {
+  padding: 0;
+  resize: none;
+  border-radius: 2px;
+  outline: none;
+  padding: 3rem;
   transform: scale(1.01);
 }
 
 
-.pr-buttons{
+.pr-buttons {
   text-align: center;
   margin-top: 5%;
 }
 
 
-.requisite-label{
+.requisite-label {
   margin: 0;
   margin-top: 0;
-  margin-right: 50px;
-  font-size: 18px;
+  margin-right: 5rem;
+  font-size: 1.8rem;
   font-weight: 400;
 }
 
-.requisite-input{
+.requisite-input {
   border-radius: 3px;
-  height: 25px;
-  margin-left:10px;
+  height: 2.5rem;
+  margin-left: 1rem;
 }
 
-.requisite-input:focus{
+.requisite-input:focus {
   outline: none;
 }
-.requisite-input::placeholder{
-  color:white
+
+.requisite-input::placeholder {
+  color: white
 }
 
-#file-upload{
-  display:none;
+#file-upload {
+  display: none;
 }
 
-.pr-button{
+.pr-button {
   margin: 0;
-  margin-right: 20px;
+  margin-right: 2rem;
   padding: 0;
-  transform:scale(1);
-  border-radius:3px;
+  transform: scale(1);
+  border-radius: 3px;
 }
 
-.custom-file-upload{
-  margin-top: 5px;
+.custom-file-upload {
+  margin-top: .5rem;
   background-color: black;
   color: white;
   border-radius: 3px;
   padding: 14px 30px 16px 30px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.4rem;
 
 }
 
-.upload-button{
-  margin-top: 30px;
+.upload-button {
+  margin-top: 3rem;
   transform: scale(1.3);
 }
