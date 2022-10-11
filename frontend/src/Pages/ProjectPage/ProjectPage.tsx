@@ -41,10 +41,10 @@ const ProjectPage = () => {
 
     return (
         <React.Fragment>
-            <h1 className="title">Project Name</h1>
-            <h2 className="aim-title">Aim</h2>
+            <h1 className="project-title">Project Name</h1>
+            <h2 className="aim-heading">Aim</h2>
             <div className="section">
-                <div className="aim-box"></div>
+                <div className="aim-box"><p className="aim-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quo odio nihil ipsum laudantium, ut repudiandae eveniet doloremque perferendis itaque suscipit amet, qui maiores quod tempore quia? Architecto, quod esse.</p></div>
 
                 <div className="tasks-container">
                     <TaskBox key={0} />
