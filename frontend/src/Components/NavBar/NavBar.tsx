@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Searchbar from "../Searchbar/Searchbar";
 import "./NavBar.scss"
 import { Link } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import { Menu } from "./Menu";
+
+
 
 
 export default function NavBar() {
-    return (
+    const [menuVisible, setMenuVisible] = useState(false);
+    const closeMenu = () => setMenuVisible(false);
+    return ( 
+        <React.Fragment>
         <header>
-
             <div className="nav-flex-container" >
                 <Link to="/">
                     <div className="logo-container">
@@ -18,6 +24,9 @@ export default function NavBar() {
                 <div className="search-back-div">
                     <Searchbar />
                 </div>
+                <button className="menu-icon" onClick={() => setMenuVisible(v => !v)}>
+                    <MenuIcon />
+                </button>
                 {/* <nav className="links-container"> */}
                 {/* links just for testing purposes, real links in nav bar should be different */}
 
@@ -31,6 +40,9 @@ export default function NavBar() {
 
             </div>
         </header >
+        <Menu  menuVisible={menuVisible} closeMenu={closeMenu} />
+    </React.Fragment>
+
 
     )
 

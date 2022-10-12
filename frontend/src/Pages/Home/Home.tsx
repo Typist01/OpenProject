@@ -80,7 +80,6 @@ const Home = () => {
 
     return (
         <React.Fragment>
-
             <div className="home-section">
 
                 <div className="home-left-nav">
