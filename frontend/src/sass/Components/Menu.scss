@@ -38,6 +38,16 @@ $menu-color-dark: darkgrey;
     width: 400px;
     color: black;
     overflow: hidden;
+
+    @media screen and (max-width:600px) {
+        margin: 0;
+        right: 50%;
+        transform: translate(50%, 0);
+
+
+    }
+
+    outline:1px solid black;
 }
 
 .menu-list li {
@@ -46,7 +56,10 @@ $menu-color-dark: darkgrey;
     padding: 3% 7%;
     text-align: center;
     list-style: none;
+    border-bottom: dashed 1px;
+
 }
+
 
 .menu-list .list-item {
     position: relative;

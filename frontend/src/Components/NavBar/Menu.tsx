@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CommunityCreationModal from "../Modals/CreateCommunityModal/CreateCommunityModal";
 
+// navbar menu for tablet - mobile devices
 export function Menu(props:any){
     // const [isVisible, setIsVisible] = useState(false);
 
@@ -36,50 +37,36 @@ export function Menu(props:any){
 
     }
     return(
-        <React.Fragment>
-
-            {showCommunityCreationModal && <CommunityCreationModal closeFunction={closeCommunityModal}  />}
+    <React.Fragment>
+    {showCommunityCreationModal && <CommunityCreationModal closeFunction={closeCommunityModal}  />}
     <div className="menu-modal modal-background" style={{display:!props.menuVisible?"none":"block"}} onClick={clickHandler}>
-    <div className="navbar-menu" onClick={()=>console.log("menu clicked")}>
+        <div className="navbar-menu" onClick={()=>console.log("menu clicked")}>
+           
+            <ul className="menu-list" >
+            <li className="list-item">
+            <Link to="/create-project" onClick={props.closeMenu} >
+                <p>Create a project!</p>
+            </Link>
+            </li>
 
-        {/* <table className="menu-list">
-            <tr>
-                <p> hi from one</p>
-            </tr>
-            <tr>
-                <p> hi from two</p>
-            </tr>
-            <tr>
-                <p> hi from two</p>
-            </tr>
+          
+            <Link to="#" onClick={() => {
+                setShowCommunityCreationModal(true)
+                props.closeMenu()
+        }}>
+            <li className="list-item" >
+            <p>Form a community</p>
+            </li>
+            </Link>
 
-        </table> */}
-        <ul className="menu-list" >
-        <Link to="/create-project" onClick={props.closeMenu} >
-        <li className="list-item">
-            <p>Create a project!</p>
-
-        </li>
-        </Link>
-        <Link to="#" onClick={() => {
-            setShowCommunityCreationModal(true)
-            props.closeMenu()
-    }}>
-        <li className="list-item" >
-        <p>Form a community</p>
-        </li>
-        </Link>
-
-
-        <li className="list-item">
-        <p>Explore</p>
-        </li>
-        <li>
-            another
-        </li>
-        </ul>
-        
-    </div>
+            <Link to="#">
+            <li className="list-item">
+            <p>Explore</p>
+            </li>
+            </Link>
+            
+            </ul>
+        </div>
     </div>
     </React.Fragment>
     )
