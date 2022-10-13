@@ -62,7 +62,7 @@ const ProjectCreation = () => {
 
   useEffect(() => {
     console.log(project.tasks)
-    handleAddTask();
+    if (project.tasks.length<1) handleAddTask();
   }, []);
 
 

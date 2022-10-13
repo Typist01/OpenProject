@@ -25,6 +25,8 @@
     }
 }
 
+// @mixin get
+
 @mixin get-create-project-content-width {
     width: 700px;
 
@@ -32,4 +34,10 @@
         width: 600px;
     }
 
+}
+
+@mixin mobile-tablet-only {
+    @media screen and (min-width:1200px) {
+        display: none;
+    }
 }
