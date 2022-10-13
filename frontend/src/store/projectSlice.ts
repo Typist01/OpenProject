@@ -3,17 +3,12 @@ import Project, { projectUpdate } from "./Models/project";
 import Task from "./Models/task";
 import { taskUpdate } from "./Models/task";
 
-// interface projectState {
-//   id: string;
-//   tasks: Task[];
-// }
-
 const projectSlice = createSlice({
   name: "project",
-  initialState: <Project>{
+  initialState: {
     id: "",
     tasks: [],
-  },
+  } as Project,
   reducers: {
     addTask(state, action) {
       console.log("add task called in redux");
@@ -31,7 +26,7 @@ const projectSlice = createSlice({
       console.log("update task called");
       console.log(action);
       const taskIndex = state.tasks.findIndex(
-        task => task.id == action.payload.id
+        task => task.id === action.payload.id
       );
       const payload = action.payload;
       if (payload.type === taskUpdate.name) {
@@ -73,6 +68,3 @@ const projectSlice = createSlice({
 
 export const { addTask, updateTask, updateProject } = projectSlice.actions;
 export default projectSlice.reducer;
-
-// const actions = projectSlice.actions;
-// const projectSlicerReducer = projectSlice.reducer;

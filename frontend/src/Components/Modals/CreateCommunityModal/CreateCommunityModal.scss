@@ -1,22 +1,31 @@
 .cc-modal-content {
-    background-color: #1e1e1e;
     color: white;
     margin: 7% auto;
-    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 60%;
-    /* Could be more or less, depending on screen size */
     max-width: 800px;
     border: none;
     border-radius: 3px;
     z-index: 1;
     text-align: center;
     min-width: 400px;
+
+    &.dark {
+        background-color: #1e1e1e;
+    }
+
+    &.light {
+        background-color: #aeaeae;
+    }
 }
 
 .cc-modal-body {
     margin: 3% 5%;
+}
+
+.cc-title {
+    font-size: x-large;
 }
 
 .cc-title-input {

@@ -1,5 +1,4 @@
 header {
-    background-color: black;
     margin: 0px 0px;
     padding: 0;
     height: 80px;
@@ -10,7 +9,6 @@ header {
     justify-content: center;
     align-items: center;
     margin: 0 20px;
-
 }
 
 .nav-links {
@@ -21,14 +19,12 @@ header {
     right: 5px;
 }
 
-
 .nav-links li {
     color: white;
     list-style: none;
     margin: 0px 25px;
 
 }
-
 
 .logo {
     margin: 0;
@@ -38,14 +34,12 @@ header {
     text-align: center;
 }
 
-
 .search-back-div {
     height: 80px;
     width: 100%;
     align-items: center;
     justify-content: center;
     z-index: -1;
-
 }
 
 .links-container {
@@ -57,11 +51,21 @@ header {
 
 #theme-toggle {
     position: absolute;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     right: 2rem;
     top: 1rem;
     text-decoration: none;
     border: none;
     font-size: xx-large;
+    background-color: transparent;
+    user-select: none;
+}
+
+header.D {
+    background-color: black;
+}
+
+header.L {
+    background-color: #292929;
 }

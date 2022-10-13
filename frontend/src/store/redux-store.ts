@@ -14,7 +14,6 @@ const changeHandlerReducerFunction = (
 };
 
 const store = redux.createStore(changeHandlerReducerFunction);
-// seems to work, just had a typo.
 const mySubscriber = () => {
   const latestState = store.getState();
   console.log(latestState);
@@ -23,4 +22,3 @@ const mySubscriber = () => {
 store.subscribe(mySubscriber);
 store.dispatch({ type: "something else" });
 store.dispatch({ type: "button-click-somewhere" });
-// https://stackoverflow.com/questions/71944111/redux-createstore-is-deprecated-cannot-get-state-from-getstate-in-redux-ac

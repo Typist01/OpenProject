@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { api, Codes } from "../../constants";
+import { api, Codes, Theme } from "../../constants";
 import "../../sass/pages/SignUp.scss";
+import { getTheme } from "../../utils";
 
 enum Validation {
     Provided = 1,
@@ -24,6 +25,14 @@ const SignUpPage = () => {
         name: null,
         password: null,
         confirmedPassword: null
+    });
+
+    const [theme, setTheme] = useState<Theme>(getTheme());
+
+    window.addEventListener("storage", () => {
+        console.log(getTheme());
+        console.log(localStorage.getItem("theme"));
+        setTheme(getTheme());
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,7 +197,7 @@ const SignUpPage = () => {
                 </div>
                 <div className="button-div">
                     <button
-                        className="login-button"
+                        className={`login-button ${theme}`}
                         onClick={handleOnClick}
                         disabled={disableControls}
                     >

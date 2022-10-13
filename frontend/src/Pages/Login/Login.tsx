@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { api } from "../../constants";
+import { api, Theme } from "../../constants";
 import "../../sass/pages/Login.scss";
 import { useAppContext } from "../../Context/LoginContext";
+import { getTheme } from "../../utils";
 
 const LoginPage = () => {
   const [name, setName] = useState("");
@@ -14,6 +15,13 @@ const LoginPage = () => {
   });
   const ctx = useAppContext();
   const [invalidLogin, setInvalidLogin] = useState(false);
+  const [theme, setTheme] = useState<Theme>(getTheme());
+
+  window.addEventListener("storage", () => {
+    console.log(getTheme());
+    console.log(localStorage.getItem("theme"));
+    setTheme(getTheme());
+  });
 
   const inputValidator = (e: React.ChangeEvent<HTMLInputElement>) => {
     const iElement = e.currentTarget.name;
@@ -32,7 +40,8 @@ const LoginPage = () => {
         }));
         break;
     }
-  }; // backend isn't fine, how did you check http://localhost:8001/user?name=Stonygeist&password=123 
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
@@ -89,7 +98,7 @@ const LoginPage = () => {
   console.log(ctx);
   if (ctx!.token !== "") {
     return (
-      <React.Fragment>
+      <>
         <h1>You are already logged in</h1>
         <button
           className="logout-button"
@@ -97,11 +106,12 @@ const LoginPage = () => {
         >
           Logout?
         </button>
-      </React.Fragment>
+      </>
     );
   }
+
   return (
-    <React.Fragment>
+    <>
       <h1 className="heading"> Login </h1>
       <div className="login-entries">
         <div className="login-entry">
@@ -134,7 +144,7 @@ const LoginPage = () => {
             Invalid username or password
           </h3>
           <button
-            className="login-button"
+            className={`login-button ${theme}`}
             onClick={handleOnClick}
             disabled={disableControls ? true : false}
           >
@@ -142,7 +152,7 @@ const LoginPage = () => {
           </button>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -121,15 +121,15 @@ const ProjectCreation = () => {
             // imma go eat ok
           ))}
 
-<div className="create-project-buttons">
-          <button
-            className="button"
-            onClick={handleAddTask}
-          >
-            Add New Task
-          </button>
-          <button className="button">Save</button>
-        </div>
+          <div className="create-project-buttons">
+            <button
+              className="button"
+              onClick={handleAddTask}
+            >
+              Add New Task
+            </button>
+            <button className="button">Save</button>
+          </div>
         </div>
 
       </div>

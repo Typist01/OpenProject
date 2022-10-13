@@ -23,7 +23,6 @@
 
 .login-label {
     font-size: 23px;
-
 }
 
 .login-input {
@@ -52,13 +51,20 @@
     width: 200px;
     height: 100px;
     margin-top: 20px;
+
+    &.D {
+        background-color: black;
+    }
+
+    &.L {
+        background-color: rgb(124, 124, 124);
+    }
 }
 
 .invalid-input {
     outline: solid;
     outline-color: red;
     outline-width: 2px;
-
 }
 
 button {

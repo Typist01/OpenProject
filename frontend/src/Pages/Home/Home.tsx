@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
 import CommunityCreationModal from "../../Components/Modals/CreateCommunityModal/CreateCommunityModal";
 import "../../sass/main.scss";
+import { getTheme } from "../../utils";
+import { Theme } from "../../constants";
 
 const ProjectPreview = () => {
     return (
@@ -51,40 +53,34 @@ const CommunityPreview = () => {
     )
 }
 
-const RenderMain = (props: any) => {
-    if (props.highlight === "projects") {
-        return (
-            <React.Fragment>
-                <ProjectPreview />
-                <ProjectPreview />
-                <ProjectPreview />
-            </React.Fragment>
-
-        )
-    } else {
-        return (
-            <React.Fragment>
-                <SubmissionPreview />
-                <SubmissionPreview />
-                <SubmissionPreview />
-
-            </React.Fragment>
-        )
-    }
-}
+const RenderMain = (props: any) => props.highlight === "projects" ? (
+    <>
+        <ProjectPreview />
+        <ProjectPreview />
+        <ProjectPreview />
+    </>
+) : (
+    <>
+        <SubmissionPreview />
+        <SubmissionPreview />
+        <SubmissionPreview />
+    </>
+)
 
 const Home = () => {
     const [showModal, setShowModal] = useState(false);
     const [highlight, setHighlight] = useState("projects");
     const [showProjectModal, setShowProjectModal] = useState(false);
+    const [theme, setTheme] = useState<Theme>(getTheme());
+
+    window.addEventListener("storage", () => {
+        setTheme(getTheme());
+    });
 
     return (
-        <React.Fragment>
-
-            <div className="home-section">
-
+        <>
+            <div className={`home-section ${theme}`}>
                 <div className="home-left-nav">
-
                     {showModal ? (
                         <CommunityCreationModal
                             closeFunction={() => {
@@ -120,8 +116,6 @@ const Home = () => {
                     </div>
                 </div>
 
-
-
                 <div className="project-previews">
                     <div className="home-nav">
                         <div className={`home-heading ${highlight === "projects" ? "highlight" : null} `}>
@@ -143,18 +137,10 @@ const Home = () => {
                     <h1>Explore Communities</h1>
                     <CommunityPreview />
                     <CommunityPreview />
-
                     <CommunityPreview />
-
-
                 </div>
-
-
             </div>
-
-
-
-        </React.Fragment>
+        </>
     );
 };
 

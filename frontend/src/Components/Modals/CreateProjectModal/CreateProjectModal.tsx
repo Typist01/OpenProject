@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./CreateProjectModal.scss"
 import "./checkbox.scss"
-// import { FilterVintageSharp } from "@mui/icons-material"
+import { Theme } from "../../../constants";
+import { getTheme } from "../../../utils";
 
 const ProjectCreationModal = ({ closeFunction }: { closeFunction: () => void }) => {
     const [tags, setTags] = useState<Array<string | null>>([]);
     const [tagText, setTagText] = useState("");
+    const [theme] = useState<Theme>(getTheme());
 
     function clickHandler(e: any) {
         if (e.target.closest(".cc-modal-content")) {
@@ -14,13 +16,13 @@ const ProjectCreationModal = ({ closeFunction }: { closeFunction: () => void }) 
         }
     }
     useEffect(() => {
-        console.log(tags)
+        console.log(tags);
     }, [tags]);
 
     return (
         <>
             <div id="myModal" className={"modal modal-shown cc-modal"} onClick={clickHandler}>
-                <div className="cc-modal-content">
+                <div className={`cc-modal-content ${theme}`}>
                     <div className="cc-modal-body">
                         <h1 className="cc-title"> Create a new project! </h1>
                         <input className="cc-title-input" placeholder="Enter a name" />
@@ -45,7 +47,7 @@ const ProjectCreationModal = ({ closeFunction }: { closeFunction: () => void }) 
                                         <>
                                             <div className="tag">
                                                 <code className="tag-text">{t}</code>
-                                                <img id={`tag-${i}`} className="tag-cross" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/OS_X-Logo.svg" onClick={_ => { tags[i] = null; setTags(tags.filter(t => t !== null)); }} />
+                                                <img alt="tag" id={`tag-${i}`} className="tag-cross" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/OS_X-Logo.svg" onClick={() => { tags[i] = null; setTags(tags.filter(t => t !== null)); }} />
                                             </div>
                                         </>
                                     ))
