@@ -6,5 +6,9 @@
     "editor.suggest.insertMode": "replace",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true
   }
 }
