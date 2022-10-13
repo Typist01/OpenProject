@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import Searchbar from "../Searchbar/Searchbar";
-import "./NavBar.scss"
 import { Link } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Menu } from "./Menu";
@@ -40,6 +39,7 @@ export default function NavBar() {
 
             </div>
         </header >
+
         <Menu  menuVisible={menuVisible} closeMenu={closeMenu} />
     </React.Fragment>
 

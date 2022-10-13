@@ -21,6 +21,7 @@ header {
     top: 25px;
     transform: scale(2);
     background: none;
+    @include mobile-tablet-only;
 }
 
 .nav-links {
