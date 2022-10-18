@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProjectCreationModal from "../../Components/Modals/CreateProjectModal/CreateProjectModal";
 import CommunityCreationModal from "../../Components/Modals/CreateCommunityModal/CreateCommunityModal";
 import "../../sass/main.scss";
+import TokenStorage from "../../Components/TokenStorage/TokenStorage";
 
 const ProjectPreview = () => {
     return (
@@ -54,21 +55,20 @@ const CommunityPreview = () => {
 const RenderMain = (props: any) => {
     if (props.highlight === "projects") {
         return (
-            <React.Fragment>
+            <>
                 <ProjectPreview />
                 <ProjectPreview />
                 <ProjectPreview />
-            </React.Fragment>
+            </>
 
         )
     } else {
         return (
-            <React.Fragment>
+            <>
                 <SubmissionPreview />
                 <SubmissionPreview />
                 <SubmissionPreview />
-
-            </React.Fragment>
+            </>
         )
     }
 }
@@ -79,10 +79,9 @@ const Home = () => {
     const [showProjectModal, setShowProjectModal] = useState(false);
 
     return (
-        <React.Fragment>
-
+        <>
+            <TokenStorage></TokenStorage>
             <div className="home-section">
-
                 <div className="home-left-nav">
 
                     {showModal ? (
@@ -120,8 +119,6 @@ const Home = () => {
                     </div>
                 </div>
 
-
-
                 <div className="project-previews">
                     <div className="home-nav">
                         <div className={`home-heading ${highlight === "projects" ? "highlight" : null} `}>
@@ -136,25 +133,16 @@ const Home = () => {
                         </div>
                     </div>
                     <RenderMain highlight={highlight} />
-
                 </div>
 
                 <div className="home-right-nav">
                     <h1>Explore Communities</h1>
                     <CommunityPreview />
                     <CommunityPreview />
-
                     <CommunityPreview />
-
-
                 </div>
-
-
             </div>
-
-
-
-        </React.Fragment>
+        </>
     );
 };
 

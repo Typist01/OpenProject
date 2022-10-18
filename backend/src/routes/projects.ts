@@ -1,18 +1,8 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { Sequelize } from "sequelize-typescript";
 import Project from "../models/Project";
-import bcrypt from "bcrypt";
 import { FromSchema } from "json-schema-to-ts";
 import { Codes } from "../types";
-
-const namePw = {
-  type: "object",
-  properties: {
-    name: { type: "string" },
-    password: { type: "string" },
-  },
-  required: ["name", "password"],
-} as const;
 
 const getProjectsHandler =
   (sequelize: Sequelize) =>
@@ -40,7 +30,7 @@ const getProjectByNameHandler =
       Querystring: { name: string; owner: string };
     }>,
     reply: FastifyReply
-  ): Promise<any> => {
+  ) => {
     if (await sequelize.model("User")?.count({ where: { name: query.owner } }))
       return reply.status(Codes.NotFound).send({
         message: `User "${query.owner}" could not be found.`,
@@ -79,7 +69,7 @@ const getProjectByIdHandler =
   ): Promise<any> => {
     const data = (await sequelize.model("Project")?.findOne({
       where: { id: query.id },
-    })) as Project;
+    })) as Project | null;
 
     if (data === null)
       return reply.status(Codes.NotFound).send({
@@ -90,6 +80,40 @@ const getProjectByIdHandler =
     return reply.status(Codes.Successful).send({
       project: {},
     });
+  };
+
+const idSchema = {
+  type: "object",
+  properties: {
+    id: { type: "number" },
+  },
+  required: ["id"],
+} as const;
+
+const deleteProjectHandler =
+  (sequelize: Sequelize) =>
+  async (
+    {
+      body,
+    }: FastifyRequest<{
+      Body: FromSchema<typeof idSchema>;
+    }>,
+    reply: FastifyReply
+  ) => {
+    const data = (await sequelize.model("Project")?.findOne({
+      where: { id: body.id },
+    })) as Project;
+    if (data === null)
+      return reply.status(Codes.NotFound).send(
+        JSON.stringify({
+          message: `User "${body.id}" not found.`,
+        })
+      );
+    return reply.status(Codes.Successful).send(
+      JSON.stringify({
+        message: `Project "${body.id}" was successfully deleted.`,
+      })
+    );
   };
 
 const initProjectRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
@@ -118,82 +142,63 @@ const initProjectRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       },
       getProjectByNameHandler(sequelize)
     )
-    .get<{ Querystring: { name: string; owner: string } }>(
+    .get<{ Querystring: { id: string } }>(
       "/user",
       {
         schema: {
           querystring: {
-            name: { type: "string" },
-            owner: { type: "string" },
+            id: { type: "number" },
           },
           response: {
             [Codes.Successful]: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                communities: { type: "object" },
-                projects: { type: "object" },
-                image: { type: "string" },
-                password: { type: "string" },
-                createdAt: { type: "string" },
-                updatedAt: { type: "string" },
-              },
             },
           },
         },
       },
       getProjectByIdHandler(sequelize)
     )
-    .post<{
-      Body: FromSchema<typeof namePw>;
-    }>(
-      "/createUser",
-      {
-        schema: {
-          body: namePw,
-          response: {
-            [Codes.Successful]: {
-              type: "object",
-              properties: {
-                name: { type: "string" },
-                password: { type: "string" },
-                token: { type: "string" },
-                communities: { type: "object" },
-                projects: { type: "object" },
-                image: { type: "string" },
-                createdAt: { type: "string" },
-                updatedAt: { type: "string" },
-              },
-            },
-          },
-        },
-      },
-      postCreateUserHandler(sequelize)
-    )
+    // .post<{
+    //   Body: FromSchema<typeof namePw>;
+    // }>(
+    //   "/createUser",
+    //   {
+    //     schema: {
+    //       body: namePw,
+    //       response: {
+    //         [Codes.Successful]: {
+    //           type: "object",
+    //           properties: {
+    //             name: { type: "string" },
+    //             password: { type: "string" },
+    //             token: { type: "string" },
+    //             communities: { type: "object" },
+    //             projects: { type: "object" },
+    //             image: { type: "string" },
+    //             createdAt: { type: "string" },
+    //             updatedAt: { type: "string" },
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    //   postCreateUserHandler(sequelize)
+    // )
     .delete<{
-      Body: FromSchema<typeof namePw>;
+      Body: FromSchema<typeof idSchema>;
     }>(
       "/deleteUser",
       {
         schema: {
-          body: namePw,
+          body: idSchema,
           response: {
             [Codes.Successful]: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                password: { type: "string" },
-                communities: { type: "object" },
-                projects: { type: "object" },
-                image: { type: "string" },
-                createdAt: { type: "string" },
-                updatedAt: { type: "string" },
-              },
             },
           },
         },
       },
-      deleteUserHandler(sequelize)
+      deleteProjectHandler(sequelize)
     );
 };
 export default initProjectRoutes;

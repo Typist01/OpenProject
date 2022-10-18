@@ -53,6 +53,25 @@ const getProjectByIdHandler = (sequelize) => async ({ query, }, reply) => {
         project: {},
     });
 };
+const idSchema = {
+    type: "object",
+    properties: {
+        id: { type: "number" },
+    },
+    required: ["id"],
+};
+const deleteProjectHandler = (sequelize) => async ({ body, }, reply) => {
+    const data = (await sequelize.model("Project")?.findOne({
+        where: { id: body.id },
+    }));
+    if (data === null)
+        return reply.status(types_1.Codes.NotFound).send(JSON.stringify({
+            message: `User "${body.id}" not found.`,
+        }));
+    return reply.status(types_1.Codes.Successful).send(JSON.stringify({
+        message: `Project "${body.id}" was successfully deleted.`,
+    }));
+};
 const initProjectRoutes = (app, sequelize) => {
     app
         .get("/users", getProjectsHandler(sequelize))
@@ -135,6 +154,6 @@ const initProjectRoutes = (app, sequelize) => {
                 },
             },
         },
-    }, deleteUserHandler(sequelize));
+    }, deleteProjectHandler(sequelize));
 };
 exports.default = initProjectRoutes;

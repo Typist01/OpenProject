@@ -3,11 +3,9 @@ import Searchbar from "../Searchbar/Searchbar";
 import "./NavBar.scss"
 import { Link } from "react-router-dom";
 
-
 export default function NavBar() {
     return (
         <header>
-
             <div className="nav-flex-container" >
                 <Link to="/">
                     <div className="logo-container">
@@ -30,9 +28,6 @@ export default function NavBar() {
                 {/* </nav> */}
 
             </div>
-        </header >
-
+        </header>
     )
-
 }
-

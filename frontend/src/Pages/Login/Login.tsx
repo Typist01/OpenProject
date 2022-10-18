@@ -32,7 +32,8 @@ const LoginPage = () => {
         }));
         break;
     }
-  }; // backend isn't fine, how did you check http://localhost:8001/user?name=Stonygeist&password=123 
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;

@@ -5,13 +5,22 @@ import bcrypt from "bcrypt";
 import { FromSchema } from "json-schema-to-ts";
 import { Codes } from "../types";
 
-const namePw = {
+const namePwSchema = {
   type: "object",
   properties: {
     name: { type: "string" },
     password: { type: "string" },
   },
   required: ["name", "password"],
+} as const;
+
+const tokenNameSchema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    token: { type: "string" },
+  },
+  required: ["name", "token"],
 } as const;
 
 const getUsersHandler =
@@ -146,7 +155,7 @@ const postCreateUserHandler =
     {
       body,
     }: FastifyRequest<{
-      Body: FromSchema<typeof namePw>;
+      Body: FromSchema<typeof namePwSchema>;
     }>,
     reply: FastifyReply
   ) => {
@@ -213,13 +222,13 @@ const deleteUserHandler =
     {
       body,
     }: FastifyRequest<{
-      Body: FromSchema<typeof namePw>;
+      Body: FromSchema<typeof namePwSchema>;
     }>,
     reply: FastifyReply
   ): Promise<any> => {
     const data = (await sequelize.model("User")?.findOne({
       where: { name: body.name },
-    })) as User;
+    })) as User | null;
     if (data === null)
       return reply.status(Codes.NotFound).send(
         JSON.stringify({
@@ -237,9 +246,52 @@ const deleteUserHandler =
     await sequelize.models["User"]?.destroy({
       where: { name: body.name },
     });
+
     return reply.status(Codes.Successful).send(
       JSON.stringify({
         message: `User "${body.name}" was successfully deleted.`,
+      })
+    );
+  };
+
+const updateTokenHandler =
+  (sequelize: Sequelize) =>
+  async (
+    {
+      body,
+    }: FastifyRequest<{
+      Body: FromSchema<typeof tokenNameSchema>;
+    }>,
+    reply: FastifyReply
+  ): Promise<any> => {
+    const data = (await sequelize.model("User")?.findOne({
+      where: { name: body.name, token: body.token },
+    })) as User | null;
+
+    if (data === null)
+      return reply.status(Codes.Forbidden).send(
+        JSON.stringify({
+          message: "No permission.",
+        })
+      );
+
+    try {
+    } catch (e) {
+      return reply.status(Codes.Successful).send(JSON.stringify(e));
+    }
+    await sequelize.model("User")?.update(
+      {
+        token: await bcrypt.hash(
+          data.Password + (await bcrypt.hash(Date.now().toString(), 10)),
+          10
+        ),
+      },
+      { where: { name: body.name } }
+    );
+
+    return reply.status(Codes.Successful).send(
+      JSON.stringify({
+        message: `Updated ${body.name}'s token successfully.`,
       })
     );
   };
@@ -299,12 +351,12 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       getUserWithTokenHandler(sequelize)
     )
     .post<{
-      Body: FromSchema<typeof namePw>;
+      Body: FromSchema<typeof namePwSchema>;
     }>(
       "/createUser",
       {
         schema: {
-          body: namePw,
+          body: namePwSchema,
           response: {
             [Codes.Successful]: {
               type: "object",
@@ -325,12 +377,12 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       postCreateUserHandler(sequelize)
     )
     .delete<{
-      Body: FromSchema<typeof namePw>;
+      Body: FromSchema<typeof namePwSchema>;
     }>(
       "/deleteUser",
       {
         schema: {
-          body: namePw,
+          body: namePwSchema,
           response: {
             [Codes.Successful]: {
               type: "object",
@@ -348,6 +400,24 @@ const initUserRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
         },
       },
       deleteUserHandler(sequelize)
+    )
+    .post<{ Body: FromSchema<typeof tokenNameSchema> }>(
+      "/upateToken",
+      {
+        schema: {
+          body: namePwSchema,
+          response: {
+            [Codes.Successful]: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                token: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+      updateTokenHandler(sequelize)
     );
 };
 export default initUserRoutes;
