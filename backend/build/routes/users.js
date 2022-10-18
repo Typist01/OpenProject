@@ -5,13 +5,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const types_1 = require("../types");
-const namePw = {
+const namePwSchema = {
     type: "object",
     properties: {
         name: { type: "string" },
         password: { type: "string" },
     },
     required: ["name", "password"],
+};
+const tokenNameSchema = {
+    type: "object",
+    properties: {
+        name: { type: "string" },
+        token: { type: "string" },
+    },
+    required: ["name", "token"],
 };
 const getUsersHandler = (sequelize) => async (_request, reply) => {
     reply.status(types_1.Codes.Successful).send(JSON.stringify((await sequelize.models["User"]?.findAll())?.map(u => ({
@@ -137,6 +145,26 @@ const deleteUserHandler = (sequelize) => async ({ body, }, reply) => {
         message: `User "${body.name}" was successfully deleted.`,
     }));
 };
+const updateTokenHandler = (sequelize) => async ({ body, }, reply) => {
+    const data = (await sequelize.model("User")?.findOne({
+        where: { name: body.name, token: body.token },
+    }));
+    if (data === null)
+        return reply.status(types_1.Codes.Forbidden).send(JSON.stringify({
+            message: "No permission.",
+        }));
+    try {
+    }
+    catch (e) {
+        return reply.status(types_1.Codes.Successful).send(JSON.stringify(e));
+    }
+    await sequelize.model("User")?.update({
+        token: await bcrypt_1.default.hash(data.Password + (await bcrypt_1.default.hash(Date.now().toString(), 10)), 10),
+    }, { where: { name: body.name } });
+    return reply.status(types_1.Codes.Successful).send(JSON.stringify({
+        message: `Updated ${body.name}'s token successfully.`,
+    }));
+};
 const initUserRoutes = (app, sequelize) => {
     app
         .get("/users", getUsersHandler(sequelize))
@@ -185,7 +213,7 @@ const initUserRoutes = (app, sequelize) => {
     }, getUserWithTokenHandler(sequelize))
         .post("/createUser", {
         schema: {
-            body: namePw,
+            body: namePwSchema,
             response: {
                 [types_1.Codes.Successful]: {
                     type: "object",
@@ -205,7 +233,7 @@ const initUserRoutes = (app, sequelize) => {
     }, postCreateUserHandler(sequelize))
         .delete("/deleteUser", {
         schema: {
-            body: namePw,
+            body: namePwSchema,
             response: {
                 [types_1.Codes.Successful]: {
                     type: "object",
@@ -221,6 +249,20 @@ const initUserRoutes = (app, sequelize) => {
                 },
             },
         },
-    }, deleteUserHandler(sequelize));
+    }, deleteUserHandler(sequelize))
+        .post("/upateToken", {
+        schema: {
+            body: namePwSchema,
+            response: {
+                [types_1.Codes.Successful]: {
+                    type: "object",
+                    properties: {
+                        name: { type: "string" },
+                        token: { type: "string" },
+                    },
+                },
+            },
+        },
+    }, updateTokenHandler(sequelize));
 };
 exports.default = initUserRoutes;

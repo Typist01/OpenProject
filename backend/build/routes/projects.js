@@ -1,14 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_1 = require("../types");
-const namePw = {
-    type: "object",
-    properties: {
-        name: { type: "string" },
-        password: { type: "string" },
-    },
-    required: ["name", "password"],
-};
 const getProjectsHandler = (sequelize) => async (_request, reply) => {
     reply.status(types_1.Codes.Successful).send(JSON.stringify((await sequelize.models["Project"]?.findAll())?.map(p => ({
         name: p.name,
@@ -74,8 +66,8 @@ const deleteProjectHandler = (sequelize) => async ({ body, }, reply) => {
 };
 const initProjectRoutes = (app, sequelize) => {
     app
-        .get("/users", getProjectsHandler(sequelize))
-        .get("/user", {
+        .get("/projects", getProjectsHandler(sequelize))
+        .get("/project", {
         schema: {
             querystring: {
                 name: { type: "string" },
@@ -94,63 +86,50 @@ const initProjectRoutes = (app, sequelize) => {
             },
         },
     }, getProjectByNameHandler(sequelize))
-        .get("/user", {
+        .get("/projectById", {
         schema: {
             querystring: {
-                name: { type: "string" },
-                owner: { type: "string" },
+                id: { type: "number" },
             },
             response: {
                 [types_1.Codes.Successful]: {
                     type: "object",
-                    properties: {
-                        name: { type: "string" },
-                        communities: { type: "object" },
-                        projects: { type: "object" },
-                        image: { type: "string" },
-                        password: { type: "string" },
-                        createdAt: { type: "string" },
-                        updatedAt: { type: "string" },
-                    },
                 },
             },
         },
     }, getProjectByIdHandler(sequelize))
-        .post("/createUser", {
+        // .post<{
+        //   Body: FromSchema<typeof namePw>;
+        // }>(
+        //   "/createUser",
+        //   {
+        //     schema: {
+        //       body: namePw,
+        //       response: {
+        //         [Codes.Successful]: {
+        //           type: "object",
+        //           properties: {
+        //             name: { type: "string" },
+        //             password: { type: "string" },
+        //             token: { type: "string" },
+        //             communities: { type: "object" },
+        //             projects: { type: "object" },
+        //             image: { type: "string" },
+        //             createdAt: { type: "string" },
+        //             updatedAt: { type: "string" },
+        //           },
+        //         },
+        //       },
+        //     },
+        //   },
+        //   postCreateUserHandler(sequelize)
+        // )
+        .delete("/deleteProject", {
         schema: {
-            body: namePw,
+            body: idSchema,
             response: {
                 [types_1.Codes.Successful]: {
                     type: "object",
-                    properties: {
-                        name: { type: "string" },
-                        password: { type: "string" },
-                        token: { type: "string" },
-                        communities: { type: "object" },
-                        projects: { type: "object" },
-                        image: { type: "string" },
-                        createdAt: { type: "string" },
-                        updatedAt: { type: "string" },
-                    },
-                },
-            },
-        },
-    }, postCreateUserHandler(sequelize))
-        .delete("/deleteUser", {
-        schema: {
-            body: namePw,
-            response: {
-                [types_1.Codes.Successful]: {
-                    type: "object",
-                    properties: {
-                        name: { type: "string" },
-                        password: { type: "string" },
-                        communities: { type: "object" },
-                        projects: { type: "object" },
-                        image: { type: "string" },
-                        createdAt: { type: "string" },
-                        updatedAt: { type: "string" },
-                    },
                 },
             },
         },

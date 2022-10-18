@@ -4,14 +4,21 @@ import initUserRoutes from "./routes/users";
 import initProjectRoutes from "./routes/projects";
 import User from "./models/User";
 import cors from "@fastify/cors";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 (async () => {
-  const sequelize = new Sequelize("openproject", "root", "OpenProject4$", {
-    host: "localhost",
-    dialect: "mysql",
-    dialectModule: await import("mysql2"),
-    models: [User],
-  });
+  const sequelize = new Sequelize(
+    process.env["DATABASE"] as string,
+    process.env["DB_USERNAME"] as string,
+    process.env["PASSWORD"],
+    {
+      host: "127.0.0.1",
+      dialect: "mysql",
+      dialectModule: await import("mysql2"),
+      models: [User],
+    }
+  );
   sequelize.addModels([__dirname + "/models/User.ts"]);
   sequelize.addModels([__dirname + "/models/Project.ts"]);
   const app = fastify();

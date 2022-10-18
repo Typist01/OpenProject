@@ -32,9 +32,11 @@ const users_1 = __importDefault(require("./routes/users"));
 const projects_1 = __importDefault(require("./routes/projects"));
 const User_1 = __importDefault(require("./models/User"));
 const cors_1 = __importDefault(require("@fastify/cors"));
+const dotenv = __importStar(require("dotenv"));
+dotenv.config();
 (async () => {
-    const sequelize = new sequelize_typescript_1.Sequelize("openproject", "root", "OpenProject4$", {
-        host: "localhost",
+    const sequelize = new sequelize_typescript_1.Sequelize(process.env["DATABASE"], process.env["DB_USERNAME"], process.env["PASSWORD"], {
+        host: "127.0.0.1",
         dialect: "mysql",
         dialectModule: await Promise.resolve().then(() => __importStar(require("mysql2"))),
         models: [User_1.default],

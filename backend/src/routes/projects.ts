@@ -118,9 +118,9 @@ const deleteProjectHandler =
 
 const initProjectRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
   app
-    .get("/users", getProjectsHandler(sequelize))
+    .get("/projects", getProjectsHandler(sequelize))
     .get<{ Querystring: { name: string; owner: string } }>(
-      "/user",
+      "/project",
       {
         schema: {
           querystring: {
@@ -143,7 +143,7 @@ const initProjectRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
       getProjectByNameHandler(sequelize)
     )
     .get<{ Querystring: { id: string } }>(
-      "/user",
+      "/projectById",
       {
         schema: {
           querystring: {
@@ -187,7 +187,7 @@ const initProjectRoutes = (app: FastifyInstance, sequelize: Sequelize) => {
     .delete<{
       Body: FromSchema<typeof idSchema>;
     }>(
-      "/deleteUser",
+      "/deleteProject",
       {
         schema: {
           body: idSchema,
